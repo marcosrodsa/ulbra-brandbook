@@ -90,6 +90,8 @@
   .nav-group {
     position: relative;
     display: inline-block;
+    padding-bottom: 8px;
+    margin-bottom: -8px;
   }
   .nav-group-btn {
     color: var(--fg-muted);
@@ -119,7 +121,7 @@
   }
   .nav-dropdown {
     position: absolute;
-    top: calc(100% + 4px);
+    top: 100%;
     left: 0;
     background: linear-gradient(135deg, rgba(10, 44, 42, 0.98) 0%, rgba(13, 54, 52, 0.98) 100%);
     backdrop-filter: blur(20px);
@@ -137,6 +139,15 @@
     transition: opacity 240ms var(--ease-standard), visibility 240ms var(--ease-standard), transform 240ms var(--ease-standard);
     pointer-events: none;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 1px rgba(245, 206, 153, 0.2) inset;
+  }
+  .nav-dropdown::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 8px;
+    pointer-events: auto;
   }
   .nav-group:hover .nav-dropdown,
   .nav-group:focus-within .nav-dropdown {
