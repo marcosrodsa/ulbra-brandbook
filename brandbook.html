@@ -4166,11 +4166,8 @@
       card.addEventListener('dragstart', (e) => {
         draggedCard = card;
         e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/html', card.innerHTML);
+        e.dataTransfer.setData('text/plain', 'kpi-card');
         card.classList.add('dragging');
-        setTimeout(() => {
-          card.classList.add('dragging');
-        }, 0);
       });
 
       card.addEventListener('dragend', (e) => {
@@ -4185,7 +4182,15 @@
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
         if (draggedCard && draggedCard !== card) {
-          swapCards(draggedCard, card);
+          const allCards = Array.from(document.querySelectorAll('.kpi-grid-card'));
+          const draggedIndex = allCards.indexOf(draggedCard);
+          const targetIndex = allCards.indexOf(card);
+
+          if (draggedIndex < targetIndex) {
+            card.parentNode.insertBefore(draggedCard, card.nextSibling);
+          } else {
+            card.parentNode.insertBefore(draggedCard, card);
+          }
         }
       });
 
