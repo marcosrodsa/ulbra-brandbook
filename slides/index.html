@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ulbra · Slide Templates</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: #050a09; }
+  deck-stage { background: #050a09; }
+  section[data-slide] {
+    width: 1920px; height: 1080px;
+    position: relative; overflow: hidden;
+    color: var(--fg);
+    background: var(--ulbra-primary-deep);
+    box-sizing: border-box;
+  }
+
+  /* === HUD CHROME (top + bottom strips) === */
+  .hud-top, .hud-bot {
+    position: absolute; left: 80px; right: 80px;
+    display: flex; align-items: center; gap: 24px;
+    font: 500 13px/1 var(--font-mono);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--fg-dim);
+    height: 56px;
+  }
+  .hud-top { top: 56px; }
+  .hud-bot { bottom: 56px; }
+  .hud-line { flex: 1; height: 1px; background: var(--surface-line); }
+  .hud-num { color: var(--ulbra-gold-light); font-size: 14px; }
+  .hud-logo { height: 32px; }
+
+  .corner-mark {
+    position: absolute; width: 24px; height: 24px;
+    border: 1.5px solid var(--ulbra-gold-light);
+  }
+  .corner-mark.tl { top: 80px; left: 80px; border-right:0; border-bottom:0; }
+  .corner-mark.br { bottom: 80px; right: 80px; border-left:0; border-top:0; }
+
+  .eyebrow { font: 500 18px/1 var(--font-mono); letter-spacing: 0.3em; text-transform: uppercase; color: var(--ulbra-gold-light); }
+
+  .grain-bg::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    mix-blend-mode: overlay; opacity: .35;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ============ 01 TITLE ============ */
+  .s-title .body {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 200px; bottom: 200px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .s-title h1 {
+    font: 500 200px/0.92 var(--font-display); letter-spacing: -0.03em;
+    margin: 32px 0 0;
+    max-width: 14ch;
+  }
+  .s-title h1 em { font-style: italic; color: var(--ulbra-gold-light); font-weight: 400; }
+  .s-title .sub { color: var(--fg-muted); font-size: 28px; max-width: 32ch; margin-top: 40px; line-height: 1.5; }
+  .s-title .glow {
+    position: absolute; right: -260px; top: -200px;
+    width: 1200px; height: 1200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,206,153,.18), transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  /* ============ 02 SECTION DIVIDER ============ */
+  .s-divider {
+    background: linear-gradient(160deg, var(--ulbra-bronze) 0%, var(--ulbra-gold) 50%, var(--ulbra-gold-light) 100%);
+    color: var(--ulbra-primary-deep);
+  }
+  .s-divider .body {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 200px; bottom: 200px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .s-divider .num {
+    font: 500 560px/0.8 var(--font-display); letter-spacing: -0.05em;
+    color: rgba(13,54,52,.18);
+    position: absolute; right: 80px; bottom: 120px;
+    pointer-events: none;
+    line-height: 0.8;
+  }
+  .s-divider h2 {
+    font: 600 144px/0.95 var(--font-display); letter-spacing: -0.025em;
+    max-width: 16ch;
+    margin-top: 24px;
+  }
+  .s-divider h2 em { font-style: italic; color: var(--ulbra-bronze); font-weight: 500; }
+  .s-divider .eyebrow { color: var(--ulbra-bronze); }
+  .s-divider .hud-top, .s-divider .hud-bot { color: rgba(13,54,52,.55); }
+  .s-divider .hud-line { background: rgba(13,54,52,.18); }
+  .s-divider .corner-mark { border-color: var(--ulbra-primary-deep); }
+
+  /* ============ 03 STAT ============ */
+  .s-stat .body {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 200px; bottom: 200px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .s-stat .figure {
+    font: 500 440px/0.85 var(--font-display);
+    letter-spacing: -0.04em;
+    color: var(--ulbra-gold-light);
+    margin: 32px 0;
+  }
+  .s-stat .figure sup { font-size: .35em; vertical-align: top; }
+  .s-stat .caption {
+    font: 500 36px/1.3 var(--font-sans);
+    color: var(--fg);
+    max-width: 30ch;
+  }
+  .s-stat .source {
+    position: absolute; right: 80px; bottom: 140px;
+    font: 500 14px/1.4 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-dim); text-align: right;
+    max-width: 30ch;
+  }
+
+  /* ============ 04 QUOTE ============ */
+  .s-quote {
+    background: var(--ulbra-warm-white);
+    color: var(--ulbra-primary-deep);
+  }
+  .s-quote .hud-top, .s-quote .hud-bot { color: var(--ink-dim); }
+  .s-quote .hud-line { background: rgba(13,54,52,.14); }
+  .s-quote .corner-mark { border-color: var(--ulbra-bronze); }
+  .s-quote .body {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 200px; bottom: 200px;
+    display: grid; grid-template-columns: 100px 1fr; gap: 60px;
+    align-content: center;
+  }
+  .s-quote .mark {
+    font: 700 280px/0.7 var(--font-display);
+    color: var(--ulbra-gold);
+    align-self: start;
+  }
+  .s-quote blockquote {
+    margin: 0;
+    font: 500 88px/1.15 var(--font-display);
+    letter-spacing: -0.015em;
+    color: var(--ulbra-primary-deep);
+    max-width: 18ch;
+  }
+  .s-quote blockquote em { font-style: italic; color: var(--ulbra-bronze); }
+  .s-quote .attrib {
+    margin-top: 56px;
+    font: 500 18px/1.3 var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ulbra-bronze);
+  }
+
+  /* ============ 05 CONTENT (2-COL) ============ */
+  .s-content .body {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 200px; bottom: 160px;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px;
+    align-content: start;
+  }
+  .s-content h2 { font: 500 84px/0.95 var(--font-display); letter-spacing: -0.02em; }
+  .s-content h2 em { font-style: italic; color: var(--ulbra-gold-light); font-weight: 400; }
+  .s-content .lede {
+    font: 400 22px/1.5 var(--font-sans); color: var(--fg-muted); margin-top: 32px; max-width: 28ch;
+  }
+  .s-content .pillar-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .s-content .pillar {
+    border: 1px solid var(--surface-line);
+    border-radius: 16px;
+    padding: 28px;
+    background: rgba(245,206,153,.04);
+  }
+  .s-content .pillar .num {
+    font: 500 14px/1 var(--font-mono); letter-spacing: 0.22em; color: var(--ulbra-gold-light);
+  }
+  .s-content .pillar h3 { font: 600 32px/1.1 var(--font-display); margin-top: 16px; color: var(--fg); }
+  .s-content .pillar p { color: var(--fg-muted); font: 400 17px/1.5 var(--font-sans); margin-top: 12px; }
+
+  /* ============ 06 DATA ============ */
+  .s-data .body {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 200px; bottom: 160px;
+    display: flex; flex-direction: column;
+  }
+  .s-data h2 { font: 500 80px/0.95 var(--font-display); letter-spacing: -0.02em; margin-top: 16px; }
+  .s-data h2 em { font-style: italic; color: var(--ulbra-gold-light); font-weight: 400; }
+  .s-data .meta {
+    color: var(--fg-muted); font: 500 18px/1.3 var(--font-mono);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-top: 16px;
+  }
+  .s-data .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    margin-top: 56px;
+  }
+  .s-data .stat {
+    background: rgba(245,206,153,.04);
+    border: 1px solid var(--surface-line);
+    border-radius: 16px; padding: 28px;
+  }
+  .s-data .stat .lbl { font: 500 14px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-dim); }
+  .s-data .stat .val { font: 500 80px/0.95 var(--font-display); letter-spacing: -0.02em; color: var(--ulbra-gold-light); margin-top: 16px; }
+  .s-data .stat .delta { color: var(--fg-muted); font: 500 16px/1.3 var(--font-sans); margin-top: 8px; }
+
+  /* ============ 07 CLOSING ============ */
+  .s-close { background: var(--ulbra-primary-deep); }
+  .s-close .body {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 200px; bottom: 200px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    gap: 56px;
+  }
+  .s-close .mark-big { width: 200px; height: 200px; }
+  .s-close h2 { font: 500 144px/0.95 var(--font-display); letter-spacing: -0.025em; display: flex; align-items: baseline; gap: 32px; }
+  .s-close h2 em { font-style: italic; color: var(--ulbra-gold-light); font-weight: 400; }
+  .s-close h2 .wordmark { height: 1em; transform: translateY(.06em); }
+  .s-close .url { font: 500 24px/1 var(--font-mono); letter-spacing: 0.22em; color: var(--ulbra-gold-light); text-transform: uppercase; }
+
+</style>
+</head>
+<body>
+
+<deck-stage>
+
+  <!-- ============ 01 TITLE ============ -->
+  <section data-slide data-screen-label="01 Title" class="s-title grain-bg">
+    <div class="glow"></div>
+    <div class="hud-top">
+      <img class="hud-logo" src="../assets/ulbra-lockup-white.png" alt="Ulbra">
+      <span class="hud-line"></span>
+      <span class="hud-num">01 / 07</span>
+    </div>
+    <span class="corner-mark tl"></span>
+    <span class="corner-mark br"></span>
+
+    <div class="body">
+      <div class="eyebrow">Apresentação Institucional · 2026</div>
+      <h1>Tradição que <em>forma —</em> gente.</h1>
+      <p class="sub">Educação luterana, humana e nacional há mais de cinquenta anos.</p>
+    </div>
+
+    <div class="hud-bot">
+      <span>Apresentação · v1.0 · 2026</span>
+      <span class="hud-line"></span>
+      <span>ulbra.br</span>
+    </div>
+  </section>
+
+  <!-- ============ 02 DIVIDER ============ -->
+  <section data-slide data-screen-label="02 Divider" class="s-divider grain-bg">
+    <div class="num">02</div>
+    <div class="hud-top">
+      <span>Section · Divider</span>
+      <span class="hud-line"></span>
+      <span class="hud-num" style="color: var(--ulbra-primary-deep)">02 / 07</span>
+    </div>
+    <span class="corner-mark tl"></span>
+    <span class="corner-mark br"></span>
+    <div class="body">
+      <div class="eyebrow">Capítulo 02</div>
+      <h2>Quem somos, o que <em>fazemos.</em></h2>
+    </div>
+    <div class="hud-bot">
+      <span>ulbra · 2026</span><span class="hud-line"></span><span>ulbra.br</span>
+    </div>
+  </section>
+
+  <!-- ============ 03 STAT ============ -->
+  <section data-slide data-screen-label="03 Stat" class="s-stat grain-bg">
+    <div class="hud-top">
+      <img class="hud-logo" src="../assets/ulbra-lockup-white.png" alt="Ulbra">
+      <span class="hud-line"></span>
+      <span class="hud-num">03 / 07</span>
+    </div>
+    <span class="corner-mark tl"></span><span class="corner-mark br"></span>
+
+    <div class="body">
+      <div class="eyebrow">Presença nacional</div>
+      <div class="figure">7<sup>+</sup></div>
+      <div class="caption">estados brasileiros com unidades ulbra — da Amazônia ao Rio Grande do Sul.</div>
+    </div>
+
+    <div class="source">
+      Fonte: Censo institucional ulbra<br>Dados de matrícula 2026/1
+    </div>
+
+    <div class="hud-bot"><span>03 · Stat</span><span class="hud-line"></span><span>ulbra.br</span></div>
+  </section>
+
+  <!-- ============ 04 QUOTE ============ -->
+  <section data-slide data-screen-label="04 Quote" class="s-quote grain-bg">
+    <div class="hud-top">
+      <img class="hud-logo" src="../assets/ulbra-lockup-dark.png" alt="Ulbra">
+      <span class="hud-line"></span>
+      <span class="hud-num" style="color: var(--ulbra-bronze)">04 / 07</span>
+    </div>
+    <span class="corner-mark tl"></span><span class="corner-mark br"></span>
+
+    <div class="body">
+      <div class="mark">"</div>
+      <div>
+        <blockquote>Aqui eu não fiz só um curso — aqui eu <em>encontrei meu chão.</em></blockquote>
+        <div class="attrib">— Ana Beatriz · Psicologia · Canoas · Turma de 2024</div>
+      </div>
+    </div>
+
+    <div class="hud-bot"><span>04 · Quote</span><span class="hud-line"></span><span>ulbra.br</span></div>
+  </section>
+
+  <!-- ============ 05 CONTENT (2-COL) ============ -->
+  <section data-slide data-screen-label="05 Content" class="s-content grain-bg">
+    <div class="hud-top">
+      <img class="hud-logo" src="../assets/ulbra-lockup-white.png" alt="Ulbra">
+      <span class="hud-line"></span>
+      <span class="hud-num">05 / 07</span>
+    </div>
+    <span class="corner-mark tl"></span><span class="corner-mark br"></span>
+
+    <div class="body">
+      <div>
+        <div class="eyebrow">Quatro pilares</div>
+        <h2 style="margin-top:24px">O que <em>nos</em> define.</h2>
+        <p class="lede">Não é tradição por tradição — é tradição que prepara o presente para servir o futuro.</p>
+      </div>
+      <div class="pillar-grid">
+        <div class="pillar"><div class="num">01</div><h3>Acolhimento</h3><p>Comunidade que recebe o aluno como pessoa, não como número de matrícula.</p></div>
+        <div class="pillar"><div class="num">02</div><h3>Excelência</h3><p>Cinco Faculdades de Medicina, dezenas de cursos credenciados.</p></div>
+        <div class="pillar"><div class="num">03</div><h3>Humanística</h3><p>Formação que ultrapassa o currículo técnico e desenvolve pessoas inteiras.</p></div>
+        <div class="pillar"><div class="num">04</div><h3>Compromisso</h3><p>Presença nas comunidades onde estamos — ensino, pesquisa e extensão.</p></div>
+      </div>
+    </div>
+
+    <div class="hud-bot"><span>05 · Content</span><span class="hud-line"></span><span>ulbra.br</span></div>
+  </section>
+
+  <!-- ============ 06 DATA ============ -->
+  <section data-slide data-screen-label="06 Data" class="s-data grain-bg">
+    <div class="hud-top">
+      <img class="hud-logo" src="../assets/ulbra-lockup-white.png" alt="Ulbra">
+      <span class="hud-line"></span>
+      <span class="hud-num">06 / 07</span>
+    </div>
+    <span class="corner-mark tl"></span><span class="corner-mark br"></span>
+
+    <div class="body">
+      <div>
+        <div class="eyebrow">Captação 2026/1</div>
+        <h2>Em <em>números.</em></h2>
+        <p class="meta">Dados consolidados · Vestibular · Janeiro 2026</p>
+      </div>
+
+      <div class="grid">
+        <div class="stat"><div class="lbl">Inscritos</div><div class="val">12,4K</div><div class="delta">▲ 18,4% vs 2025/1</div></div>
+        <div class="stat"><div class="lbl">Matrículas</div><div class="val">8,2K</div><div class="delta">▲ 9,2% vs 2025/1</div></div>
+        <div class="stat"><div class="lbl">Conversão</div><div class="val">66%</div><div class="delta">▲ 3,1 p.p.</div></div>
+        <div class="stat"><div class="lbl">Unidades</div><div class="val">17</div><div class="delta">7 estados · EAD nacional</div></div>
+      </div>
+    </div>
+
+    <div class="hud-bot"><span>06 · Data</span><span class="hud-line"></span><span>ulbra.br</span></div>
+  </section>
+
+  <!-- ============ 07 CLOSING ============ -->
+  <section data-slide data-screen-label="07 Closing" class="s-close grain-bg">
+    <div class="hud-top">
+      <span>Encerramento</span>
+      <span class="hud-line"></span>
+      <span class="hud-num">07 / 07</span>
+    </div>
+    <span class="corner-mark tl"></span><span class="corner-mark br"></span>
+
+    <div class="body">
+      <img class="mark-big" src="../assets/ulbra-mark-white.png" alt="Ulbra">
+      <h2>Forme-se <img class="wordmark" src="../assets/ulbra-wordmark-white.png" alt="ulbra"><em>.</em></h2>
+      <div class="url">ulbra.br · vestibular 2026</div>
+    </div>
+
+    <div class="hud-bot"><span>Obrigado</span><span class="hud-line"></span><span>marca@ulbra.br</span></div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

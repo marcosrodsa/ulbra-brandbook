@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Ulbra · Tipografia</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--ulbra-warm-white); padding: 64px; color: var(--ulbra-primary-deep); }
+  .wrap { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+  h1.hed { font: 500 96px/0.95 var(--font-display); letter-spacing: -0.025em; }
+  h1.hed em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  .lbl { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-dim); }
+  .row { padding: 32px 0; border-top: 1px solid var(--paper-line); display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: baseline;}
+  .row .meta .lbl { display: block; margin-bottom: 6px; color: var(--ulbra-bronze); }
+  .row .meta .det { font: 500 13px/1.4 var(--font-mono); color: var(--ink-muted); letter-spacing: 0.04em; }
+  .specimen { color: var(--ulbra-primary-deep); }
+  .display-xl { font: 500 144px/0.95 var(--font-display); letter-spacing: -0.025em; }
+  .display-l  { font: 500 88px/1 var(--font-display); letter-spacing: -0.02em; }
+  .display-m  { font: 500 56px/1.05 var(--font-display); letter-spacing: -0.015em; }
+  .display em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  .body-l { font: 400 22px/1.5 var(--font-sans); }
+  .body-m { font: 400 16px/1.55 var(--font-sans); }
+  .micro  { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze); }
+  .mono   { font: 500 14px/1.4 var(--font-mono); color: var(--ulbra-primary-deep); letter-spacing: 0.04em; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .pair .card { padding: 24px; border: 1px solid var(--paper-line); border-radius: 12px; background: white; }
+  .pair .card h4 { font: 500 12px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze); margin-bottom: 16px; }
+  .pair .card .demo { font: 500 36px/1.05 var(--font-display); letter-spacing: -0.015em; }
+  .pair .card .demo em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  .pair .card .body { font: 400 14px/1.55 var(--font-sans); color: var(--ink-muted); margin-top: 12px; }
+</style></head><body>
+<div class="wrap">
+  <header><span class="lbl">Ulbra · Type System</span><h1 class="hed">Voz que <em>recebe</em> e tradição que <em>sustenta.</em></h1></header>
+
+  <section class="row">
+    <div class="meta"><span class="lbl">Display XL · 144</span><span class="det">Playfair Display 500 — itálico p/ destaques</span></div>
+    <div class="specimen display-xl display">Forme-se <em>Ulbra.</em></div>
+  </section>
+  <section class="row">
+    <div class="meta"><span class="lbl">Display L · 88</span><span class="det">Cabeçalhos de seção</span></div>
+    <div class="specimen display-l display">Tradição que <em>forma —</em> gente.</div>
+  </section>
+  <section class="row">
+    <div class="meta"><span class="lbl">Display M · 56</span><span class="det">Sub-cabeçalhos / cards</span></div>
+    <div class="specimen display-m display">Vocação que ultrapassa <em>o currículo.</em></div>
+  </section>
+  <section class="row">
+    <div class="meta"><span class="lbl">Body L · 22</span><span class="det">Inter 400 · Texto principal</span></div>
+    <div class="specimen body-l">Educação luterana, humana e nacional há mais de cinquenta anos — com presença em sete estados brasileiros e uma comunidade que se forma todos os dias.</div>
+  </section>
+  <section class="row">
+    <div class="meta"><span class="lbl">Body M · 16</span><span class="det">Inter 400 · UI / corpo</span></div>
+    <div class="specimen body-m">A Ulbra mantém cinco Faculdades de Medicina, dezenas de cursos credenciados e uma rede de polos EAD que atende todo o território nacional.</div>
+  </section>
+  <section class="row">
+    <div class="meta"><span class="lbl">Eyebrow / Micro</span><span class="det">JetBrains Mono 500 · 0.22em tracking</span></div>
+    <div class="specimen micro">Capítulo 02 · Identidade · 2026</div>
+  </section>
+  <section class="row">
+    <div class="meta"><span class="lbl">Mono / Data</span><span class="det">JetBrains Mono · números, eixos, código</span></div>
+    <div class="specimen mono">12.458 inscritos · ▲ 18,4% · CONV: 65,9%</div>
+  </section>
+
+  <section>
+    <span class="lbl" style="margin-bottom:24px;display:block">Pareamentos canônicos</span>
+    <div class="pair">
+      <div class="card"><h4>Display + Italic accent</h4><div class="demo">Aqui você <em>encontra</em> seu chão.</div><div class="body">Use itálico bronze para revelar a palavra-chave emocional — uma por título, no máximo.</div></div>
+      <div class="card"><h4>Eyebrow + Display</h4><div class="micro" style="color:var(--ulbra-bronze)">Quem somos · 02</div><div class="demo" style="margin-top:12px">Tradição luterana.</div><div class="body">Eyebrow mono em caixa-alta abre a seção; display logo abaixo, sem espaço extra.</div></div>
+    </div>
+  </section>
+</div>
+</body></html>

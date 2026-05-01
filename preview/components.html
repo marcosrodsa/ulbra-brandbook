@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Ulbra · Componentes</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--ulbra-warm-white); color: var(--ulbra-primary-deep); padding: 64px; }
+  .wrap { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+  h1 { font: 500 64px/0.95 var(--font-display); letter-spacing: -0.02em; }
+  h1 em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  .lbl { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze); margin-bottom: 16px; display: block; }
+  section { padding: 32px; background: white; border: 1px solid var(--paper-line); border-radius: 12px; }
+  section h2 { font: 500 36px/1 var(--font-display); letter-spacing: -0.015em; margin-bottom: 8px; }
+  section h2 em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  section .det { font: 400 14px/1.55 var(--font-sans); color: var(--ink-muted); margin-bottom: 24px; max-width: 70ch; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .demo-pad { padding: 24px; background: var(--ulbra-warm-white); border: 1px dashed var(--paper-line); border-radius: 8px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .demo-dark { background: var(--ulbra-primary-deep); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 999px; font: 500 14px/1 var(--font-sans); cursor: pointer; border: 1px solid transparent; }
+  .btn-primary { background: var(--ulbra-gold); color: var(--ulbra-primary-deep); }
+  .btn-primary:hover { background: var(--ulbra-gold-light); }
+  .btn-ghost { background: transparent; color: var(--ulbra-primary-deep); border-color: var(--ulbra-primary-deep); }
+  .btn-quiet { background: var(--ulbra-fog); color: var(--ulbra-primary-deep); }
+  .btn-link { color: var(--ulbra-primary); padding-left: 0; padding-right: 0; }
+  .btn-link::after { content: " →"; }
+
+  /* Inputs */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font: 500 11px/1 var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-dim); }
+  .field input, .field select { padding: 12px 16px; border: 1px solid var(--paper-line); background: white; border-radius: 4px; font: 400 14px/1 var(--font-sans); color: var(--ink); outline: none; }
+  .field input:focus { border-color: var(--ulbra-primary); }
+
+  /* Badges */
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font: 500 11px/1 var(--font-mono); letter-spacing: 0.04em; }
+  .pill.green  { background: #d8ebe0; color: #1f6b48; }
+  .pill.amber  { background: #f5e3c5; color: #7a5b1f; }
+  .pill.rose   { background: #f1d6cf; color: #872f1f; }
+  .pill.dark   { background: var(--ulbra-primary-deep); color: var(--ulbra-gold-light); }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* Card */
+  .ucard { padding: 24px; border: 1px solid var(--paper-line); border-radius: 12px; background: white; display: flex; flex-direction: column; gap: 12px; }
+  .ucard.dark { background: var(--ulbra-primary-deep); color: var(--fg); border: 0;}
+  .ucard .eyebrow { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze); }
+  .ucard.dark .eyebrow { color: var(--ulbra-gold-light); }
+  .ucard h4 { font: 500 26px/1.05 var(--font-display); letter-spacing: -0.015em; }
+  .ucard p { font: 400 14px/1.55 var(--font-sans); color: var(--ink-muted); }
+  .ucard.dark p { color: var(--fg-muted); }
+
+  /* KPI */
+  .kpi { padding: 20px; border: 1px solid var(--paper-line); border-radius: 12px; background: white; }
+  .kpi .lbl { font: 500 10px/1 var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 8px; display: block; }
+  .kpi .val { font: 500 36px/1 var(--font-display); color: var(--ulbra-primary-deep); letter-spacing: -0.02em; }
+  .kpi .delta { font: 500 12px/1 var(--font-mono); margin-top: 4px; color: #2f8862; }
+
+  /* Quote */
+  .uquote { padding: 32px; background: var(--ulbra-fog); border-left: 4px solid var(--ulbra-gold); border-radius: 0 12px 12px 0; }
+  .uquote blockquote { font: 500 32px/1.15 var(--font-display); letter-spacing: -0.015em; margin: 0 0 16px; }
+  .uquote blockquote em { font-style: italic; color: var(--ulbra-bronze); }
+  .uquote cite { font: 500 11px/1 var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ulbra-bronze); font-style: normal; }
+</style></head><body>
+<div class="wrap">
+
+  <header>
+    <span class="lbl">Ulbra · Components</span>
+    <h1>Os átomos da <em>marca</em>, em uso.</h1>
+  </header>
+
+  <section>
+    <h2>Botões</h2>
+    <p class="det">Pílulas de cantos completamente arredondados. Primary é dourado sobre verde-profundo OU sobre warm-white. Ghost para secundário. Link discreto para ações terciárias.</p>
+    <div class="demo-pad">
+      <button class="btn btn-primary">Inscreva-se →</button>
+      <button class="btn btn-ghost">Saiba mais</button>
+      <button class="btn btn-quiet">Voltar</button>
+      <a class="btn btn-link">Ver todos os cursos</a>
+    </div>
+    <div class="demo-pad demo-dark" style="margin-top:16px">
+      <button class="btn btn-primary">Inscreva-se →</button>
+      <button class="btn btn-ghost" style="color: var(--fg); border-color: var(--ulbra-gold-light)">Saiba mais</button>
+      <a class="btn btn-link" style="color: var(--ulbra-gold-light)">ulbra.br/vestibular</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Campos de formulário</h2>
+    <p class="det">Cantos retos (4 px), label em mono, foco verde-Ulbra. Sem placeholders extravagantes.</p>
+    <div class="grid-3">
+      <div class="field"><label>Nome completo</label><input value="Maria Helena Klein"></div>
+      <div class="field"><label>E-mail</label><input value="maria@aluno.ulbra.br"></div>
+      <div class="field"><label>Curso de interesse</label>
+        <select><option>Medicina</option><option>Direito</option><option>Psicologia</option></select>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pílulas e <em>status</em></h2>
+    <div class="demo-pad">
+      <span class="pill green"><span class="dot"></span>Saudável</span>
+      <span class="pill amber"><span class="dot"></span>Atenção</span>
+      <span class="pill rose"><span class="dot"></span>Crítico</span>
+      <span class="pill dark"><span class="dot"></span>Vestibular 2026</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cartões</h2>
+    <div class="grid-2">
+      <div class="ucard"><span class="eyebrow">Curso · Saúde</span><h4>Medicina</h4><p>Cinco Faculdades de Medicina ativas em sete estados. Foco humanístico desde o primeiro semestre.</p><a class="btn btn-link">Conheça o curso</a></div>
+      <div class="ucard dark"><span class="eyebrow">Vestibular 2026</span><h4>Inscrições abertas</h4><p>Provas em janeiro. Bolsas até 100% para os 50 primeiros colocados de cada curso.</p><a class="btn btn-link" style="color: var(--ulbra-gold-light)">Inscreva-se</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>KPI cards</h2>
+    <div class="grid-3">
+      <div class="kpi"><span class="lbl">Inscritos</span><div class="val">12.458</div><div class="delta">▲ 18,4%</div></div>
+      <div class="kpi"><span class="lbl">Matrículas</span><div class="val">8.214</div><div class="delta">▲ 9,2%</div></div>
+      <div class="kpi"><span class="lbl">Conversão</span><div class="val">66<span style="font-size:.55em">%</span></div><div class="delta">▲ 3,1 p.p.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Citação</h2>
+    <div class="uquote">
+      <blockquote>Aqui eu não fiz só um curso — aqui eu <em>encontrei meu chão.</em></blockquote>
+      <cite>— Ana Beatriz · Psicologia · Canoas · 2024</cite>
+    </div>
+  </section>
+
+</div>
+</body></html>

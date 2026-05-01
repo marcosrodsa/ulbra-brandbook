@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Ulbra · Cores</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--ulbra-warm-white); color: var(--ulbra-primary-deep); padding: 64px; }
+  .wrap { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+  h1 { font: 500 64px/0.95 var(--font-display); letter-spacing: -0.02em; }
+  h1 em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  .lbl { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze); margin-bottom: 16px; display: block; }
+  .det { font: 400 16px/1.55 var(--font-sans); color: var(--ink-muted); max-width: 70ch; }
+  .grid { display: grid; gap: 24px; }
+  .core { grid-template-columns: 1.4fr 1fr 1fr; }
+  .ext  { grid-template-columns: repeat(4, 1fr); }
+  .swatch { border-radius: 12px; padding: 24px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid transparent; }
+  .swatch .name { font: 500 13px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; }
+  .swatch .hex { font: 500 14px/1 var(--font-mono); letter-spacing: 0.06em; }
+  .swatch h3 { font: 500 36px/1 var(--font-display); letter-spacing: -0.015em; }
+  .row-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .pair-card { padding: 24px; border-radius: 12px; }
+  .pair-card .demo { font: 500 32px/1 var(--font-display); letter-spacing: -0.015em; }
+  .pair-card .demo em { font-style: italic; }
+  .pair-card .label { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7;}
+</style></head><body>
+<div class="wrap">
+
+  <header>
+    <span class="lbl">Ulbra · Color System</span>
+    <h1>Verde-floresta, ouro de domingo e <em>papel quente.</em></h1>
+    <p class="det" style="margin-top:16px">A paleta nasce do KV 2026: o verde luterano profundo como fundo institucional; o ouro como símbolo de vocação e conquista; o branco-quente como respiro humano.</p>
+  </header>
+
+  <section>
+    <span class="lbl">Cores núcleo</span>
+    <div class="grid core">
+      <div class="swatch" style="background: var(--ulbra-primary-deep); color: var(--fg);">
+        <div><span class="name">Verde Profundo</span></div>
+        <h3>Identidade.</h3>
+        <div><span class="hex">#0D3634 · oklch(28% 0.04 175)</span><div style="font: 400 13px/1.4 var(--font-sans); color: var(--fg-muted); margin-top:8px">Fundo institucional, cabeçalhos, brand mark.</div></div>
+      </div>
+      <div class="swatch" style="background: var(--ulbra-primary); color: white;">
+        <div><span class="name">Verde Ulbra</span></div>
+        <h3>Voz.</h3>
+        <div><span class="hex">#045A52</span></div>
+      </div>
+      <div class="swatch" style="background: var(--ulbra-gold); color: var(--ulbra-primary-deep);">
+        <div><span class="name">Ouro Ulbra</span></div>
+        <h3>Vocação.</h3>
+        <div><span class="hex">#CCA269</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="lbl">Acentos & extensões</span>
+    <div class="grid ext">
+      <div class="swatch" style="background: var(--ulbra-gold-light); color: var(--ulbra-primary-deep);"><span class="name">Ouro claro</span><span class="hex">#F5CE99</span></div>
+      <div class="swatch" style="background: var(--ulbra-bronze); color: white;"><span class="name">Bronze</span><span class="hex">#66563D</span></div>
+      <div class="swatch" style="background: var(--ulbra-primary-soft); color: var(--ulbra-primary-deep);"><span class="name">Verde Suave</span><span class="hex">#91BAA3</span></div>
+      <div class="swatch" style="background: var(--ulbra-warm-white); color: var(--ulbra-primary-deep); border-color: var(--paper-line);"><span class="name">Branco Quente</span><span class="hex">#FBF8F2</span></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="lbl">Pareamentos certificados</span>
+    <div class="row-pair">
+      <div class="pair-card" style="background: var(--ulbra-primary-deep); color: var(--fg)">
+        <div class="label">Institucional · Dark</div>
+        <div class="demo">Tradição que <em style="color:var(--ulbra-gold-light)">forma —</em> gente.</div>
+        <p style="font: 400 14px/1.55 var(--font-sans); color: var(--fg-muted); margin-top: 16px">Verde profundo + texto warm-white + acento ouro-claro. Use para abertura, divisores e closing.</p>
+      </div>
+      <div class="pair-card" style="background: var(--ulbra-warm-white); color: var(--ulbra-primary-deep); border: 1px solid var(--paper-line)">
+        <div class="label" style="color: var(--ulbra-bronze)">Editorial · Light</div>
+        <div class="demo">Aqui você <em style="color:var(--ulbra-bronze)">encontra</em> seu chão.</div>
+        <p style="font: 400 14px/1.55 var(--font-sans); color: var(--ink-muted); margin-top: 16px">Branco quente + verde profundo + itálico bronze. Use para corpo de conteúdo, depoimentos e dashboards.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="lbl">O que evitar</span>
+    <ul class="det" style="line-height:1.8; padding-left: 20px">
+      <li>Verde puro #00FF00 ou greens de tela genéricos — sempre o verde-floresta saturado.</li>
+      <li>Ouro #FFD700 brilhante — a Ulbra usa um ouro envelhecido, mais bronze.</li>
+      <li>Branco puro #FFFFFF em fundos extensos — sempre o warm white #FBF8F2.</li>
+      <li>Gradientes RGB modernos — a paleta é institucional, não tech.</li>
+    </ul>
+  </section>
+
+</div>
+</body></html>

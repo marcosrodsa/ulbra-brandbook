@@ -1,0 +1,1461 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ulbra · Brand Guidelines · v1.0 · 2026</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  /* =========================
+     PAGE FRAME
+     ========================= */
+  body {
+    background: var(--ulbra-primary-deep);
+    color: var(--fg);
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(ellipse 1200px 800px at 80% 0%, rgba(204,162,105,.08), transparent 60%),
+      radial-gradient(ellipse 900px 700px at 0% 100%, rgba(145,186,163,.06), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* =========================
+     NAV / HEADER
+     ========================= */
+  .topbar {
+    position: sticky; top: 0; z-index: var(--z-nav);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(13, 54, 52, .72);
+    border-bottom: 1px solid var(--surface-line);
+  }
+  .topbar-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 14px var(--gutter);
+    display: flex; align-items: center; gap: 32px;
+  }
+  .brandmark {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--fg);
+  }
+  .brandmark svg, .brandmark img { width: 28px; height: 28px; object-fit: contain; color: var(--fg); }
+  .brandmark .wm {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .topbar-meta {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 20px;
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  .topbar-meta .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ulbra-gold-light);
+    box-shadow: 0 0 10px var(--ulbra-gold-light);
+    margin-right: 6px;
+  }
+  .nav-pills {
+    display: flex; gap: 4px;
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .nav-pills a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: var(--radius-pill);
+    transition: var(--dur-fast) var(--ease-standard);
+  }
+  .nav-pills a:hover { color: var(--fg); background: rgba(245,206,153,.06); }
+  .nav-pills a.is-active { color: var(--ulbra-primary-deep); background: var(--ulbra-gold-light); }
+
+  /* =========================
+     SECTION SCAFFOLD
+     ========================= */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 96px var(--gutter);
+    border-bottom: 1px solid var(--surface-line);
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+  .section + .section { border-top: 0; }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px 40px;
+    align-items: end;
+    padding-bottom: 28px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--surface-line);
+  }
+  .section-head h2 {
+    font: 600 clamp(40px, 6vw, 88px)/0.95 var(--font-display);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .section-head h2 em {
+    font-style: italic;
+    color: var(--ulbra-gold-light);
+    font-weight: 500;
+  }
+  .section-meta {
+    display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    text-align: right;
+  }
+  .section-meta .num {
+    color: var(--ulbra-gold-light);
+    font-size: 13px;
+  }
+  .eyebrow {
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ulbra-gold-light);
+    margin-bottom: 16px;
+  }
+
+  /* HUD-style ruler beneath section heads */
+  .ruler {
+    display: flex; align-items: center; gap: 12px;
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin-bottom: 32px;
+  }
+  .ruler .line { flex: 1; height: 1px; background: var(--surface-line); }
+  .ruler .num { color: var(--ulbra-gold-light); }
+
+  /* =========================
+     HERO
+     ========================= */
+  .hero {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 88px var(--gutter) 80px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: end;
+  }
+  .hero h1 {
+    font: 500 clamp(60px, 10vw, 168px)/0.92 var(--font-display);
+    letter-spacing: -0.03em;
+    margin: 24px 0 0;
+  }
+  .hero h1 em { font-style: italic; color: var(--ulbra-gold-light); font-weight: 400; }
+  .hero h1 .small { font-size: 0.55em; display: block; }
+  .hero-tag {
+    color: var(--fg-muted);
+    max-width: 32ch;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+  .hero-side {
+    display: flex; flex-direction: column; gap: 14px;
+    padding-bottom: 6px;
+  }
+  .hero-side .row {
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--surface-line);
+    font: 500 11px/1.4 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  .hero-side .row:last-child { border-bottom: 1px solid var(--surface-line); }
+  .hero-side .row .v { color: var(--fg); }
+
+  /* hero corners */
+  .corner {
+    position: absolute; width: 18px; height: 18px;
+    border-color: var(--ulbra-gold-light);
+    border-style: solid;
+    border-width: 0;
+  }
+  .corner.tl { top: 88px; left: var(--gutter); border-top-width:1px; border-left-width:1px; }
+  .corner.tr { top: 88px; right: var(--gutter); border-top-width:1px; border-right-width:1px; }
+
+  /* =========================
+     COLOR — section
+     ========================= */
+  .color-grid {
+    display: grid; gap: 12px;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+  }
+  .swatch {
+    position: relative;
+    aspect-ratio: 1/1.15;
+    border-radius: var(--radius-md);
+    padding: 18px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .swatch.lg { grid-row: span 1; aspect-ratio: 1/1.5; }
+  .swatch::after {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    z-index: -1;
+  }
+  .swatch .lbl {
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: .75;
+  }
+  .swatch .name {
+    font: 600 22px/1.1 var(--font-display);
+    letter-spacing: -0.01em;
+    margin-top: 6px;
+  }
+  .swatch .vals {
+    font: 500 11px/1.5 var(--font-mono);
+    letter-spacing: 0.04em;
+    opacity: .85;
+  }
+  .swatch.lg .name { font-size: 32px; }
+
+  .sw-primary  { background: var(--ulbra-primary);     color: var(--ulbra-warm-white); }
+  .sw-deep     { background: var(--ulbra-primary-deep);color: var(--ulbra-warm-white); }
+  .sw-sage     { background: var(--ulbra-primary-soft);color: var(--ulbra-primary-deep); }
+  .sw-gold     { background: var(--ulbra-gold);        color: var(--ulbra-primary-deep); }
+  .sw-champagne{ background: var(--ulbra-gold-light);  color: var(--ulbra-primary-deep); }
+  .sw-bronze   { background: var(--ulbra-bronze);      color: var(--ulbra-warm-white); }
+  .sw-warm     { background: var(--ulbra-warm-white);  color: var(--ulbra-primary-deep); }
+  .sw-fog      { background: var(--ulbra-fog);         color: var(--ulbra-primary-deep); }
+
+  .palette-block {
+    display: grid; gap: 24px;
+    grid-template-columns: 1fr;
+    margin-bottom: 48px;
+  }
+  .palette-block h3 {
+    font: 600 14px/1 var(--font-mono);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ulbra-gold-light);
+    margin-bottom: 4px;
+  }
+  .palette-block p { color: var(--fg-muted); max-width: 60ch; font-size: 14px; }
+
+  /* gradient demo */
+  .grad-row {
+    display: grid; gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 8px;
+  }
+  .grad {
+    position: relative;
+    height: 220px;
+    border-radius: var(--radius-md);
+    padding: 18px;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .grad-1 { background: linear-gradient(135deg, var(--ulbra-primary-deep) 0%, var(--ulbra-primary) 60%, var(--ulbra-bronze) 100%); }
+  .grad-2 { background: linear-gradient(160deg, var(--ulbra-gold-light) 0%, var(--ulbra-gold) 50%, var(--ulbra-bronze) 100%); }
+  .grad.granulado::after {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    z-index: 0;
+  }
+  .grad .tag {
+    z-index: 1; font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ulbra-warm-white);
+  }
+  .grad .label {
+    z-index: 1; color: var(--ulbra-warm-white);
+    font: 600 22px/1.1 var(--font-display);
+  }
+
+  /* =========================
+     TYPOGRAPHY
+     ========================= */
+  .type-grid {
+    display: grid; gap: 56px;
+  }
+  .type-spec {
+    display: grid; grid-template-columns: 0.7fr 1.3fr;
+    gap: 40px;
+    padding: 32px 0;
+    border-top: 1px solid var(--surface-line);
+  }
+  .type-spec:last-child { border-bottom: 1px solid var(--surface-line); }
+  .type-spec .meta {
+    font: 500 11px/1.6 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  .type-spec .meta strong { display:block; color: var(--ulbra-gold-light); font-size: 13px; margin-bottom: 8px; letter-spacing: 0.16em; }
+  .type-spec .meta dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin-top: 18px;}
+  .type-spec .meta dt { color: var(--fg-dim); }
+  .type-spec .meta dd { margin: 0; color: var(--fg); }
+
+  .type-display {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 8vw, 132px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    font-weight: 500;
+  }
+  .type-display em { font-style: italic; color: var(--ulbra-gold-light); }
+  .type-sans {
+    font-family: var(--font-sans);
+    font-size: clamp(36px, 4vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+
+  .glyph-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    font: 400 18px/1 var(--font-display);
+    color: var(--fg-muted);
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-sm);
+  }
+  .glyph-row span { padding: 4px 6px; border-right: 1px solid var(--surface-line); }
+  .glyph-row span:last-child { border-right: 0; }
+
+  .scale-table {
+    width: 100%; border-collapse: collapse;
+    font: 500 13px/1.4 var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+  .scale-table th, .scale-table td {
+    text-align: left;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--surface-line);
+  }
+  .scale-table th {
+    color: var(--fg-dim);
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .scale-table td.preview { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; line-height: 1; padding: 18px 16px; color: var(--fg); }
+
+  /* =========================
+     LOGO
+     ========================= */
+  .logo-grid {
+    display: grid; grid-template-columns: 1.3fr 1fr;
+    gap: 24px;
+  }
+  .logo-stage {
+    position: relative;
+    background: var(--ulbra-primary-deep);
+    border-radius: var(--radius-md);
+    height: 420px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--surface-line);
+  }
+  .logo-stage.alt { background: var(--ulbra-warm-white); }
+  .logo-stage.gold { background: var(--ulbra-gold); }
+  .logo-stage img.lockup { width: 60%; max-width: 320px; }
+  .logo-stage.dark img.lockup { color: var(--ulbra-warm-white); }
+  .logo-stage .grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(245,206,153,.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(245,206,153,.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .logo-stage .corner-marks {
+    position: absolute; inset: 24px;
+    pointer-events: none;
+  }
+  .logo-stage .corner-marks::before, .logo-stage .corner-marks::after {
+    content: ""; position: absolute; width: 16px; height: 16px;
+    border: 1px solid var(--ulbra-gold-light);
+  }
+  .logo-stage .corner-marks::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+  .logo-stage .corner-marks::after  { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+  .logo-meta {
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .logo-meta dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 18px; margin: 0; font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.06em; }
+  .logo-meta dt { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.18em; font-size: 10px; align-self: center; }
+  .logo-meta dd { margin: 0; color: var(--fg); }
+
+  .clearspace {
+    position: relative;
+    height: 280px;
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    display: grid; place-items: center;
+    overflow: hidden;
+  }
+  .clearspace .x-grid {
+    position: relative;
+    color: var(--fg);
+  }
+  .clearspace .x-grid img { width: 220px; }
+  .clearspace .x-grid::before, .clearspace .x-grid::after,
+  .clearspace .x-h, .clearspace .x-v {
+    content: "X"; position: absolute;
+    font: 500 18px var(--font-mono);
+    color: var(--ulbra-gold-light);
+  }
+  .clearspace .x-grid::before { top: -36px; left: 50%; transform: translateX(-50%); }
+  .clearspace .x-grid::after  { bottom: -36px; left: 50%; transform: translateX(-50%); }
+  .clearspace .x-h { top: 50%; left: -28px; transform: translateY(-50%); }
+  .clearspace .x-v { top: 50%; right: -28px; transform: translateY(-50%); }
+
+  .donts-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-top: 24px;
+  }
+  .dont {
+    aspect-ratio: 1/1;
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    padding: 16px;
+    position: relative;
+  }
+  .dont .x {
+    position: absolute; top: 12px; right: 12px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(184, 90, 74, 0.18);
+    color: #d97a6a;
+    display: flex; align-items: center; justify-content: center;
+    font: 600 14px var(--font-mono);
+  }
+  .dont span {
+    font: 500 11px/1.3 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    text-align: center;
+  }
+  .dont .preview { color: var(--fg-muted); }
+  .dont .preview img { width: 110px; opacity: .7; }
+  .dont.stretched img  { transform: scaleX(1.5); }
+  .dont.rotated img    { transform: rotate(15deg); }
+  .dont.colored        { background: #b85a4a; }
+  .dont.colored img    { color: white; opacity: 1; }
+  .dont.shadowed img   { filter: drop-shadow(0 8px 14px rgba(0,0,0,.6)); }
+
+  /* =========================
+     MANIFESTO / Tone of voice
+     ========================= */
+  .manifesto {
+    background: var(--ulbra-warm-white);
+    color: var(--ulbra-primary-deep);
+    border-radius: var(--radius-lg);
+    padding: 64px 56px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 24px;
+  }
+  .manifesto::before {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.6  0 0 0 0 0.5  0 0 0 0 0.3  0 0 0 0.07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: .6;
+  }
+  .manifesto > * { position: relative; }
+  .manifesto-eyebrow {
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ulbra-bronze);
+    margin-bottom: 20px;
+  }
+  .manifesto blockquote {
+    font: 500 clamp(32px, 4.5vw, 64px)/1.15 var(--font-display);
+    letter-spacing: -0.015em;
+    margin: 0;
+    max-width: 22ch;
+  }
+  .manifesto blockquote em { font-style: italic; color: var(--ulbra-bronze); }
+  .manifesto p {
+    margin-top: 28px;
+    max-width: 56ch;
+    color: var(--ink-muted);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .pillars {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--surface-line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-top: 24px;
+  }
+  .pillar {
+    background: var(--surface);
+    padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .pillar .num {
+    font: 500 11px/1 var(--font-mono);
+    color: var(--ulbra-gold-light);
+    letter-spacing: 0.2em;
+  }
+  .pillar h4 {
+    font: 600 22px/1.15 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--fg);
+  }
+  .pillar p { color: var(--fg-muted); font-size: 13.5px; line-height: 1.55; }
+
+  .voice-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 32px;
+  }
+  .voice-col {
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    padding: 28px;
+  }
+  .voice-col h4 {
+    font: 600 11px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .voice-col.do h4    { color: #7fbe9c; }
+  .voice-col.dont h4  { color: #d97a6a; }
+  .voice-col ul { list-style: none; padding: 0; margin: 0; }
+  .voice-col li {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--surface-line);
+    font: 400 15px/1.5 var(--font-sans);
+    color: var(--fg-muted);
+  }
+  .voice-col li:last-child { border-bottom: 0; }
+  .voice-col li::before {
+    content: "—  ";
+    color: var(--ulbra-gold-light);
+    font-family: var(--font-mono);
+  }
+
+  .vocab-pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 14px;
+  }
+  .vocab-pills span {
+    padding: 6px 14px;
+    border: 1px solid var(--surface-line-strong);
+    border-radius: var(--radius-pill);
+    font: 500 12px/1 var(--font-mono);
+    color: var(--fg);
+    letter-spacing: 0.04em;
+  }
+
+  /* =========================
+     ICONOGRAPHY
+     ========================= */
+  .icon-grid {
+    display: grid; grid-template-columns: repeat(8, 1fr);
+    gap: 1px;
+    background: var(--surface-line);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .icon-cell {
+    background: var(--surface);
+    aspect-ratio: 1/1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px;
+    color: var(--fg);
+    font: 500 9.5px/1 var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .icon-cell svg { width: 26px; height: 26px; stroke-width: 1.5; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-cell .lbl { color: var(--fg-dim); }
+  .icon-cell:hover .lbl { color: var(--ulbra-gold-light); }
+
+  .icon-sizes {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .icon-size {
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .icon-size .px { font: 500 10px/1 var(--font-mono); letter-spacing: 0.2em; color: var(--ulbra-gold-light); }
+  .icon-size .ctx { font: 500 10px/1.4 var(--font-mono); letter-spacing: 0.14em; color: var(--fg-dim); text-transform: uppercase; }
+
+  /* =========================
+     COMPONENTS PREVIEW
+     ========================= */
+  .comp-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .comp-card {
+    background: var(--surface);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .comp-card h4 {
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ulbra-gold-light);
+  }
+  .row-flex { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+  /* Brand Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 22px;
+    border-radius: var(--radius-pill);
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: var(--dur-fast) var(--ease-standard);
+  }
+  .btn-primary { background: var(--ulbra-gold); color: var(--ulbra-primary-deep); }
+  .btn-primary:hover { background: var(--ulbra-gold-light); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--ulbra-gold);
+  }
+  .btn-ghost:hover { background: rgba(204,162,105,.08); }
+  .btn-quiet {
+    background: rgba(245,206,153,.08);
+    color: var(--fg);
+    border: 1px solid rgba(245,206,153,.2);
+  }
+  .btn-text { color: var(--ulbra-gold-light); padding: 8px 0; }
+  .btn-text:hover { color: var(--ulbra-warm-white); }
+
+  /* Inputs */
+  .field {
+    display: flex; flex-direction: column; gap: 6px;
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  .field input, .field select {
+    appearance: none;
+    width: 100%;
+    background: rgba(13,54,52,.5);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-pill);
+    padding: 12px 18px;
+    color: var(--fg);
+    font: 400 14px/1 var(--font-sans);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .field input:focus { outline: none; border-color: var(--ulbra-gold-light); box-shadow: 0 0 0 3px rgba(245,206,153,.14); }
+
+  /* Chips / Tags */
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(245,206,153,.1);
+    border: 1px solid rgba(245,206,153,.22);
+    color: var(--fg);
+    font: 500 11px/1 var(--font-sans);
+    letter-spacing: 0.04em;
+  }
+  .chip.solid { background: var(--ulbra-gold); color: var(--ulbra-primary-deep); border-color: transparent; }
+  .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* Card */
+  .ed-card {
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    background: linear-gradient(170deg, rgba(13,54,52,.5), rgba(4,90,82,.4));
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .ed-card h5 {
+    font: 600 22px/1.15 var(--font-display);
+    color: var(--ulbra-gold-light);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .ed-card p { color: var(--fg-muted); font-size: 13.5px; line-height: 1.55; }
+
+  /* =========================
+     FOOTER
+     ========================= */
+  .footer {
+    border-top: 1px solid var(--surface-line);
+    margin-top: 60px;
+    padding: 60px var(--gutter) 80px;
+    max-width: var(--container);
+    margin-left: auto; margin-right: auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 32px;
+    color: var(--fg-muted);
+  }
+  .footer h6 {
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin-bottom: 14px;
+  }
+  .footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer li { padding: 4px 0; font: 400 13px/1.5 var(--font-sans); }
+  .footer a { color: var(--fg-muted); text-decoration: none; }
+  .footer a:hover { color: var(--ulbra-gold-light); }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .hero-grid, .logo-grid, .voice-cols, .comp-grid, .grad-row { grid-template-columns: 1fr; }
+    .pillars, .footer, .donts-grid { grid-template-columns: repeat(2, 1fr); }
+    .icon-grid { grid-template-columns: repeat(4, 1fr); }
+    .color-grid { grid-template-columns: repeat(2, 1fr); }
+    .icon-sizes { grid-template-columns: repeat(2, 1fr); }
+    .topbar-meta, .nav-pills { display: none; }
+  }
+</style>
+</head>
+<body style="">
+
+<!-- =========================
+     TOPBAR
+     ========================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brandmark" href="#top">
+      <img src="assets/ulbra-mark-white.png" alt="Ulbra mark">
+      <span class="wm">ulbra</span>
+    </a>
+    <nav class="nav-pills">
+      <a href="#identity" class="is-active">Identity</a>
+      <a href="#color">Color</a>
+      <a href="#type">Typography</a>
+      <a href="#logo">Logo</a>
+      <a href="#voice">Voice</a>
+      <a href="#icon">Icons</a>
+      <a href="#components">Components</a>
+    </nav>
+    <div class="topbar-meta">
+      <span><span class="dot"></span>v1.0 · 2026</span>
+      <span>Brand Guidelines</span>
+    </div>
+  </div>
+</header>
+
+<!-- =========================
+     HERO
+     ========================= -->
+<section class="hero" id="top">
+  <span class="corner tl"></span>
+  <span class="corner tr"></span>
+
+  <div class="ruler">
+    <span class="num">00</span>
+    <span>Section · Master Document</span>
+    <span class="line"></span>
+    <span>Universidade Luterana do Brasil</span>
+    <span class="line"></span>
+    <span>2026</span>
+  </div>
+
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Brand Guidelines · v1.0 · Edição 2026</div>
+      <h1>
+        Tradição<br>
+        que <em>forma</em><br>
+        <span class="small">— gente.</span>
+      </h1>
+      <p class="hero-tag" style="margin-top:32px">
+        Sistema visual oficial da Universidade Luterana do Brasil.
+        Fundamentos, tokens, vozes e ferramentas para que toda
+        comunicação fale a mesma língua — com a calma de quem
+        forma pessoas há mais de cinquenta anos.
+      </p>
+    </div>
+
+    <div class="hero-side">
+      <div class="row"><span>Documento</span><span class="v">Brand System</span></div>
+      <div class="row"><span>Versão</span><span class="v">1.0 · 2026</span></div>
+      <div class="row"><span>Mantenedora</span><span class="v">Aelbra Educação</span></div>
+      <div class="row"><span>CNPJ</span><span class="v">88.332.580/0001-65</span></div>
+      <div class="row"><span>Sede</span><span class="v">Canoas · RS · Brasil</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     IDENTITY OVERVIEW
+     ========================= -->
+<section class="section" id="identity">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 01</div>
+      <h2>Identity <em>System</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">01 / 07</span>
+      <span>Brand Foundations</span>
+      <span>Mission · Vision · Values</span>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+    <div>
+      <div class="eyebrow">Quem somos</div>
+      <p style="font: 400 19px/1.55 var(--font-sans); color: var(--fg); max-width: 48ch;">
+        A Ulbra é uma comunidade educacional de matriz luterana que
+        oferece formação humana e profissional em todo o Brasil —
+        da Educação Infantil às Faculdades de Medicina, passando por
+        Graduação, Pós-graduação, Extensão e EAD.
+      </p>
+      <p style="margin-top: 18px; font: 400 15px/1.6 var(--font-sans); color: var(--fg-muted); max-width: 56ch;">
+        Presente em sete estados, com cinco Faculdades de Medicina e
+        seis Colégios da Educação Básica, formamos pessoas inteiras
+        — mente, ética e propósito — para servir a
+        sociedade com excelência técnica e clareza humana.
+      </p>
+    </div>
+
+    <div class="pillars" style="grid-template-columns: 1fr 1fr;">
+      <div class="pillar">
+        <span class="num">M · 01</span>
+        <h4>Missão</h4>
+        <p>Promover a educação integral por meio do desenvolvimento humano e profissional, fundamentada em valores cristãos.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">V · 02</span>
+        <h4>Visão</h4>
+        <p>Ser referência nacional em educação que une excelência acadêmica e formação humanística.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">V · 03</span>
+        <h4>Valores</h4>
+        <p>Fé, Excelência, Acolhimento, Ética, Inovação e Compromisso com a comunidade.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">Δ · 04</span>
+        <h4>Promessa</h4>
+        <p>Tradição que forma. Comunidade que acolhe. Conhecimento que liberta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     COLOR
+     ========================= -->
+<section class="section" id="color">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 02</div>
+      <h2>Color <em>Palette</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">02 / 07</span>
+      <span>Tokens · Hex · RGB</span>
+      <span>Restricted Palette</span>
+    </div>
+  </div>
+
+  <div class="palette-block">
+    <h3>Cores principais</h3>
+    <p>O verde-petróleo ancora a marca. Profundo, tradicional, confiável — herdado da rosa luterana. Combina com o sage como respiro e segundo plano.</p>
+    <div class="color-grid">
+      <div class="swatch sw-deep lg">
+        <span class="lbl">CORE · 01</span>
+        <div>
+          <div class="name">Verde Profundo</div>
+          <div class="vals">#0D3634<br>RGB 13 · 54 · 52<br>--ulbra-primary-deep</div>
+        </div>
+      </div>
+      <div class="swatch sw-primary">
+        <span class="lbl">CORE · 02</span>
+        <div>
+          <div class="name">Verde Ulbra</div>
+          <div class="vals">#045A52<br>--ulbra-primary</div>
+        </div>
+      </div>
+      <div class="swatch sw-sage">
+        <span class="lbl">CORE · 03</span>
+        <div>
+          <div class="name">Sage</div>
+          <div class="vals">#91BAA3<br>--ulbra-primary-soft</div>
+        </div>
+      </div>
+      <div class="swatch sw-warm">
+        <span class="lbl">PAPER</span>
+        <div>
+          <div class="name">Branco Quente</div>
+          <div class="vals">#FBF8F2<br>--ulbra-warm-white</div>
+        </div>
+      </div>
+      <div class="swatch sw-fog">
+        <span class="lbl">PAPER</span>
+        <div>
+          <div class="name">Névoa</div>
+          <div class="vals">#E6DFD0<br>--ulbra-fog</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-block">
+    <h3>Acentos · família dourada</h3>
+    <p>Tons quentes que vivem sobre o verde. O dourado dá luz, o champagne aproxima, o bronze ancora. Use como destaque — nunca como protagonista.</p>
+    <div class="color-grid">
+      <div class="swatch sw-champagne lg">
+        <span class="lbl">ACCENT · 01</span>
+        <div>
+          <div class="name">Champagne</div>
+          <div class="vals">#F5CE99<br>RGB 245 · 206 · 153<br>--ulbra-gold-light</div>
+        </div>
+      </div>
+      <div class="swatch sw-gold">
+        <span class="lbl">ACCENT · 02</span>
+        <div>
+          <div class="name">Dourado</div>
+          <div class="vals">#CCA269<br>--ulbra-gold</div>
+        </div>
+      </div>
+      <div class="swatch sw-bronze">
+        <span class="lbl">ACCENT · 03</span>
+        <div>
+          <div class="name">Bronze</div>
+          <div class="vals">#66563D<br>--ulbra-bronze</div>
+        </div>
+      </div>
+      <div class="swatch" style="background: var(--ulbra-stone-300); color: var(--ulbra-primary-deep)">
+        <span class="lbl">NEUTRAL</span>
+        <div>
+          <div class="name">Pedra</div>
+          <div class="vals">#A89E8B<br>--ulbra-stone-300</div>
+        </div>
+      </div>
+      <div class="swatch" style="background: var(--ulbra-ink); color: var(--ulbra-gold-light)">
+        <span class="lbl">INK</span>
+        <div>
+          <div class="name">Tinta</div>
+          <div class="vals">#061E1C<br>--ulbra-ink</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-block">
+    <h3>Gradientes · com e sem grão</h3>
+    <p>O grão é assinatura visual. Aplica textura natural sobre transições de cor, evocando papel e impressão analógica.</p>
+    <div class="grad-row">
+      <div class="grad grad-1 granulado">
+        <span class="tag">Granulado · primário</span>
+        <span class="label">deep → primary → bronze</span>
+      </div>
+      <div class="grad grad-2">
+        <span class="tag">Sem textura · secundário</span>
+        <span class="label">champagne → bronze</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     TYPOGRAPHY
+     ========================= -->
+<section class="section" id="type">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 03</div>
+      <h2>Type <em>System</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">03 / 07</span>
+      <span>Two Families · One Voice</span>
+      <span>Playfair · Inter</span>
+    </div>
+  </div>
+
+  <div class="type-grid">
+
+    <div class="type-spec">
+      <div class="meta">
+        <strong>Display Family</strong>
+        Olá, eu sou <em>Playfair Display</em>.<br>
+        Uma serifada de transição com contrastes altos —
+        traz tradição, sabedoria e um olhar editorial à marca.
+        <dl>
+          <dt>Família</dt><dd>Playfair Display</dd>
+          <dt>Designer</dt><dd>Claus Eggers Sørensen</dd>
+          <dt>Pesos</dt><dd>400 · 500 · 600 · 700 · 800 · 900</dd>
+          <dt>Itálico</dt><dd>400 · 600</dd>
+          <dt>Uso</dt><dd>Títulos, manchetes, citações</dd>
+          <dt>Mín.</dt><dd>18 px display</dd>
+        </dl>
+      </div>
+      <div>
+        <div class="type-display">Forma <em>gente,</em><br>desde 1972.</div>
+        <div class="glyph-row">
+          <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span>
+          <span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span>
+          <span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span>
+          <span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+          <span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>!</span><span>?</span><span>@</span><span>#</span><span>&amp;</span><span>—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-spec">
+      <div class="meta">
+        <strong>Text Family</strong>
+        E eu sou <em>Inter</em>.<br>
+        Uma sans-serif moderna, neutra e altamente legível.
+        Carrega o texto corrido e equilibra a Playfair sem competir.
+        <dl>
+          <dt>Família</dt><dd>Inter</dd>
+          <dt>Designer</dt><dd>Rasmus Andersson</dd>
+          <dt>Pesos</dt><dd>300 · 400 · 500 · 600 · 700 · 800 · 900</dd>
+          <dt>Uso</dt><dd>Corpo, UI, dados, navegação</dd>
+          <dt>Mono</dt><dd>JetBrains Mono — para tokens e dados técnicos</dd>
+          <dt>Mín.</dt><dd>14 px UI · 11 px micro</dd>
+        </dl>
+      </div>
+      <div>
+        <div class="type-sans">A presença Ulbra<br>em sete estados.</div>
+        <div class="glyph-row" style="font-family: var(--font-sans); font-weight: 500;">
+          <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span>
+          <span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span>
+          <span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span>
+          <span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+          <span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>{}</span><span>[]</span><span>&lt;/&gt;</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:64px">Escala tipográfica</h3>
+  <table class="scale-table">
+    <thead>
+      <tr><th>Token</th><th>Tamanho</th><th>Família · Peso</th><th>Uso</th><th class="preview">Exemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mega</td><td>200 / 72px</td><td>Playfair · 700</td><td>Capa</td><td class="preview" style="font-size:64px">Ulbra</td></tr>
+      <tr><td>Hero</td><td>112 / 56px</td><td>Playfair · 600</td><td>Hero</td><td class="preview" style="font-size:48px">Tradição</td></tr>
+      <tr><td>Display</td><td>72 / 40px</td><td>Playfair · 600</td><td>Manchete</td><td class="preview" style="font-size:36px">Forma gente</td></tr>
+      <tr><td>H1</td><td>56 / 36px</td><td>Playfair · 600</td><td>Título de seção</td><td class="preview" style="font-size:32px">Identidade</td></tr>
+      <tr><td>H2</td><td>40 / 28px</td><td>Playfair · 500</td><td>Subseção</td><td class="preview" style="font-size:24px">Cores principais</td></tr>
+      <tr><td>H3</td><td>22px</td><td>Inter · 600</td><td>Card title</td><td class="preview" style="font-family: var(--font-sans); font-weight: 600; font-size:18px">Educação Básica</td></tr>
+      <tr><td>Body</td><td>16px</td><td>Inter · 400</td><td>Texto corrido</td><td class="preview" style="font-family: var(--font-sans); font-weight: 400; font-size:16px">Promovemos a educação integral.</td></tr>
+      <tr><td>Mono</td><td>14px</td><td>JetBrains · 500</td><td>Tokens, dados</td><td class="preview" style="font-family: var(--font-mono); font-weight: 500; font-size:13px">--ulbra-primary</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =========================
+     LOGO
+     ========================= -->
+<section class="section" id="logo">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 04</div>
+      <h2>Logo <em>Construction</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">04 / 07</span>
+      <span>Mark · Wordmark · Lockup</span>
+      <span>Rosa Luterana</span>
+    </div>
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-stage" style="color: var(--ulbra-warm-white)">
+      <div class="grid-overlay"></div>
+      <div class="corner-marks"></div>
+      <img class="lockup" src="assets/ulbra-lockup-white.png" alt="Ulbra lockup">
+    </div>
+    <div class="logo-meta">
+      <h4 style="font: 600 22px/1.1 var(--font-display); margin: 0;">Símbolo da Rosa de Lutero</h4>
+      <p style="color: var(--fg-muted); font-size: 14px; line-height: 1.55; margin: 0;">
+        O selo de Martinho Lutero — cinco pétalas em torno de um coração com a cruz — é o âncora
+        da nossa identidade. Sintetiza fé, sabedoria e formação humana.
+      </p>
+      <dl>
+        <dt>Versão primária</dt><dd>Lockup horizontal</dd>
+        <dt>Mark isolado</dt><dd>Apenas em contextos secundários (favicon, app icon, watermark)</dd>
+        <dt>Tamanho mínimo</dt><dd>24px (mark) · 96px (lockup)</dd>
+        <dt>Pétalas</dt><dd>5 — pentagonal radial · 72° entre eixos</dd>
+        <dt>Centro</dt><dd>Cruz negativa</dd>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:48px">Versões aprovadas</h3>
+  <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px;">
+    <div class="logo-stage" style="height: 180px; color: var(--ulbra-warm-white)">
+      <img class="lockup" src="assets/ulbra-lockup-white.png" alt="Lockup branco sobre verde" style="width:60%">
+    </div>
+    <div class="logo-stage alt" style="height: 180px; color: var(--ulbra-primary-deep)">
+      <img class="lockup" src="assets/ulbra-lockup-dark.png" alt="Lockup verde sobre claro" style="width:60%">
+    </div>
+    <div class="logo-stage gold" style="height: 180px; color: var(--ulbra-primary-deep)">
+      <img class="lockup" src="assets/ulbra-lockup-dark.png" alt="Lockup verde sobre dourado" style="width:60%">
+    </div>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:48px">Área de proteção · clearspace</h3>
+  <div class="clearspace">
+    <div class="x-grid">
+      <img src="assets/ulbra-lockup-white.png" alt="Lockup">
+      <span class="x-h">X</span>
+      <span class="x-v">X</span>
+    </div>
+  </div>
+  <p style="color: var(--fg-muted); font-size: 14px; line-height: 1.55; margin-top: 14px; max-width: 60ch;">
+    A altura da letra "u" da palavra <em>ulbra</em> define a unidade <strong>X</strong>.
+    Toda área dentro de 1X ao redor do lockup deve permanecer livre de elementos visuais concorrentes.
+  </p>
+
+  <h3 class="eyebrow" style="margin-top:48px">Não faça</h3>
+  <div class="donts-grid">
+    <div class="dont stretched">
+      <span class="x">×</span>
+      <div class="preview"><img src="assets/ulbra-lockup-white.png" style="opacity:.55; transform: scaleY(1.5)"></div>
+      <span>Não distorça</span>
+    </div>
+    <div class="dont rotated">
+      <span class="x">×</span>
+      <div class="preview"><img src="assets/ulbra-lockup-white.png" style="opacity:.55; transform: rotate(-15deg)"></div>
+      <span>Não gire</span>
+    </div>
+    <div class="dont shadowed">
+      <span class="x">×</span>
+      <div class="preview"><img src="assets/ulbra-lockup-white.png" style="opacity:.55; filter: drop-shadow(0 6px 8px rgba(0,0,0,.5))"></div>
+      <span>Não use sombras</span>
+    </div>
+    <div class="dont colored">
+      <span class="x">×</span>
+      <div class="preview"><img src="assets/ulbra-lockup-white.png" style="filter: hue-rotate(180deg) brightness(.7)"></div>
+      <span>Não use cores fora da paleta</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     VOICE / MANIFESTO
+     ========================= -->
+<section class="section" id="voice">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 05</div>
+      <h2>Voice <em>&amp; Tone</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">05 / 07</span>
+      <span>Brand Voice</span>
+      <span>Vocabulary · Personality</span>
+    </div>
+  </div>
+
+  <div class="manifesto">
+    <div class="manifesto-eyebrow">Promessa de marca</div>
+    <blockquote>
+      Tradição que <em>forma —</em><br>conhecimento que liberta.
+    </blockquote>
+    <p>
+      Falamos como quem está na docência há cinco décadas: com calma, com clareza,
+      e com a confiança de quem viu gerações entrarem aluno e saírem profissional.
+      Nem distantes, nem promocionais. Próximos, fundamentados, humanos.
+    </p>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:64px">Quatro traços</h3>
+  <div class="pillars">
+    <div class="pillar">
+      <span class="num">01</span>
+      <h4>Acolhedora</h4>
+      <p>Falamos com o aluno, a família, a comunidade. Tom próximo, segunda pessoa, sem formalidades vazias.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">02</span>
+      <h4>Fundamentada</h4>
+      <p>Toda afirmação se ancora em fato, dado ou tradição. Não inflamos, não prometemos demais.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">03</span>
+      <h4>Humanística</h4>
+      <p>Pessoas no centro. Tecnologia e método servem ao desenvolvimento integral — não ao contrário.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">04</span>
+      <h4>Confiante</h4>
+      <p>Frases curtas. Verbos diretos. Mais de 50 anos formando profissionais é um chão firme para pisar.</p>
+    </div>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:48px">Faça · Não Faça</h3>
+  <div class="voice-cols">
+    <div class="voice-col do">
+      <h4>● Faça</h4>
+      <ul>
+        <li>"Forme-se Ulbra. Mais de 50 anos formando gente."</li>
+        <li>"Vestibular, Enem ou transferência — o caminho é seu."</li>
+        <li>Frases diretas, voz ativa, segunda pessoa.</li>
+        <li>Use o nome próprio das unidades (Canoas, Manaus, Palmas).</li>
+        <li>Sempre cite a presença nacional como diferencial.</li>
+      </ul>
+    </div>
+    <div class="voice-col dont">
+      <h4>○ Não faça</h4>
+      <ul>
+        <li>"A melhor universidade do Brasil." (superlativos vazios)</li>
+        <li>Jargão acadêmico inflado ("excelência multidisciplinar transversal").</li>
+        <li>Tom impessoal de comunicado oficial sem necessidade.</li>
+        <li>Promessas que extrapolam o que entregamos.</li>
+        <li>Anglicismos quando há palavra em português.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:48px">Vocabulário de marca</h3>
+  <div class="vocab-pills">
+    <span>Forma</span><span>Comunidade</span><span>Tradição</span><span>Humanística</span>
+    <span>Caminho</span><span>Acolhe</span><span>Pertencer</span><span>Geração</span>
+    <span>Vocação</span><span>Cultivar</span><span>Sertão · Sul · Norte</span>
+    <span>Aluno</span><span>Ulbrano</span>
+  </div>
+
+  <h4 class="eyebrow" style="margin-top:24px; color: #d97a6a">Banidas</h4>
+  <div class="vocab-pills">
+    <span style="border-color: rgba(217,122,106,.4)">Disruptivo</span>
+    <span style="border-color: rgba(217,122,106,.4)">Transformacional</span>
+    <span style="border-color: rgba(217,122,106,.4)">Best-in-class</span>
+    <span style="border-color: rgba(217,122,106,.4)">Imperdível</span>
+    <span style="border-color: rgba(217,122,106,.4)">Hub</span>
+    <span style="border-color: rgba(217,122,106,.4)">Game-changer</span>
+  </div>
+</section>
+
+<!-- =========================
+     ICONOGRAPHY
+     ========================= -->
+<section class="section" id="icon">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 06</div>
+      <h2>Icon <em>System</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">06 / 07</span>
+      <span>Lucide · stroke 1.5px</span>
+      <span>24px canonical</span>
+    </div>
+  </div>
+
+  <p style="color: var(--fg-muted); max-width: 60ch; margin-bottom: 28px; font-size: 15px; line-height: 1.55;">
+    Adotamos <strong style="color: var(--fg)">Lucide</strong> como biblioteca oficial — traço fino,
+    estilo geométrico-humano, ampla cobertura. Stroke <strong>1.5px</strong> em todos os tamanhos,
+    cantos arredondados (linecap/linejoin: round), <strong>24×24</strong> como base canônica.
+  </p>
+
+  <div class="icon-grid">
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5"></path><path d="M5 9v11h14V9"></path><path d="M9 20v-6h6v6"></path></svg><span class="lbl">Home</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg><span class="lbl">Curso</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M5 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"></path></svg><span class="lbl">Aluno</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M22 10v6"></path><path d="M2 10l10-5 10 5-10 5L2 10z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg><span class="lbl">Pós-grad</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"></path><path d="M3 9h18M9 21V9"></path></svg><span class="lbl">Grade</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><span class="lbl">Horário</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg><span class="lbl">Fale</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg><span class="lbl">Buscar</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg><span class="lbl">Camada</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg><span class="lbl">Calendário</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span class="lbl">Mensagem</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg><span class="lbl">Documento</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg><span class="lbl">Atualizar</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"></path></svg><span class="lbl">Aviso</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span class="lbl">Concluído</span></div>
+    <div class="icon-cell"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg><span class="lbl">Avançar</span></div>
+  </div>
+
+  <div class="icon-sizes">
+    <div class="icon-size">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--fg)"><path d="M9 18l6-6-6-6"></path></svg>
+      <span class="px">16 px</span>
+      <span class="ctx">Inline · texto pequeno</span>
+    </div>
+    <div class="icon-size">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--fg)"><path d="M9 18l6-6-6-6"></path></svg>
+      <span class="px">20 px</span>
+      <span class="ctx">Botões · navegação</span>
+    </div>
+    <div class="icon-size">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--fg)"><path d="M9 18l6-6-6-6"></path></svg>
+      <span class="px">24 px</span>
+      <span class="ctx">Default · UI</span>
+    </div>
+    <div class="icon-size">
+      <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--fg)"><path d="M9 18l6-6-6-6"></path></svg>
+      <span class="px">32 px</span>
+      <span class="ctx">Cards · ênfase</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     COMPONENTS
+     ========================= -->
+<section class="section" id="components">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 07</div>
+      <h2>Components <em>· library</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">07 / 07</span>
+      <span>Buttons · Inputs · Chips · Cards</span>
+      <span>Living tokens</span>
+    </div>
+  </div>
+
+  <div class="comp-grid">
+    <div class="comp-card">
+      <h4>Botões</h4>
+      <div class="row-flex">
+        <button class="btn btn-primary">Matricule-se
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </button>
+        <button class="btn btn-ghost">Saiba mais</button>
+        <button class="btn btn-quiet">Já sou aluno</button>
+        <a class="btn-text btn">Ver cursos →</a>
+      </div>
+    </div>
+    <div class="comp-card">
+      <h4>Inputs</h4>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <label class="field">CPF<input placeholder="000.000.000-00"></label>
+        <label class="field">Curso<select><option>Selecione um curso</option></select></label>
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h4>Chips · Tags</h4>
+      <div class="row-flex">
+        <span class="chip"><span class="dot"></span>Vestibular Aberto</span>
+        <span class="chip">Bolsa Enem</span>
+        <span class="chip">EAD</span>
+        <span class="chip solid">Inscreva-se hoje</span>
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <h4>Card de Curso</h4>
+      <div class="ed-card">
+        <div class="row-flex">
+          <span class="chip">Graduação</span>
+          <span class="chip">Canoas · RS</span>
+        </div>
+        <h5>Medicina</h5>
+        <p>Curso integral · 6 anos · estrutura clínica em parceria com o Hospital Universitário.</p>
+        <div class="row-flex" style="margin-top: 8px;">
+          <a class="btn-text btn">Conheça o curso →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+<footer class="footer">
+  <div>
+    <a class="brandmark" href="#top">
+      <img src="assets/ulbra-mark-white.png" alt="Ulbra mark">
+      <span class="wm">ulbra</span>
+    </a>
+    <p style="margin-top:18px; max-width: 36ch; font: 400 13px/1.55 var(--font-sans); color: var(--fg-muted);">
+      Ulbra · Brand Guidelines · v1.0 · Edição 2026.<br>
+      Documento interno. Para uso autorizado por equipe de Marca e Comunicação Institucional.
+    </p>
+  </div>
+  <div>
+    <h6>Recursos</h6>
+    <ul>
+      <li><a href="dashboard.html">Dashboard UI Kit</a></li>
+      <li><a href="slides/index.html">Slides Templates</a></li>
+      <li><a href="colors_and_type.css">Design Tokens (CSS)</a></li>
+      <li><a href="README.md">README</a></li>
+    </ul>
+  </div>
+  <div>
+    <h6>Contato</h6>
+    <ul>
+      <li><a href="https://www.ulbra.br">ulbra.br</a></li>
+      <li><a href="/cdn-cgi/l/email-protection#d5b8b4a7b6b495a0b9b7a7b4fbb7a7"><span class="__cf_email__" data-cfemail="fa979b88999bba8f9698889bd49888">[email&#160;protected]</span></a></li>
+      <li>Aelbra Educação Superior</li>
+      <li>CNPJ 88.332.580/0001-65</li>
+    </ul>
+  </div>
+</footer>
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body></html>

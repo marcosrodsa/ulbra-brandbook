@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Ulbra · Tokens & Type</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  body { background: var(--ulbra-warm-white); color: var(--ulbra-primary-deep); padding: 64px; }
+  .wrap { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px; }
+  .lbl { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze); margin-bottom: 16px; display: block; }
+  h1 { font: 500 88px/0.95 var(--font-display); letter-spacing: -0.025em; }
+  h1 em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  .det { font: 400 18px/1.55 var(--font-sans); color: var(--ink-muted); max-width: 70ch; }
+  section { padding: 40px; background: white; border: 1px solid var(--paper-line); border-radius: 12px; }
+  section h2 { font: 500 40px/1 var(--font-display); letter-spacing: -0.015em; margin-bottom: 8px; }
+  section h2 em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  section .sec-det { font: 400 15px/1.55 var(--font-sans); color: var(--ink-muted); margin-bottom: 32px; max-width: 70ch; }
+
+  /* TYPE */
+  .type-row { padding: 24px 0; border-top: 1px solid var(--paper-line); display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: baseline;}
+  .type-row:first-of-type { border-top: 0; }
+  .type-row .meta .lbl { display: block; margin-bottom: 6px; color: var(--ulbra-bronze); }
+  .type-row .meta .det { font: 500 13px/1.4 var(--font-mono); color: var(--ink-muted); letter-spacing: 0.04em; }
+
+  /* COLOR */
+  .core-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .ext-grid  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+  .swatch { border-radius: 12px; padding: 24px; min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid transparent; }
+  .swatch .name { font: 500 12px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; }
+  .swatch h3 { font: 500 32px/1 var(--font-display); letter-spacing: -0.015em; }
+  .swatch .hex { font: 500 14px/1 var(--font-mono); letter-spacing: 0.06em; }
+  .swatch .role { font: 400 13px/1.4 var(--font-sans); margin-top: 8px; opacity: 0.85; }
+
+  /* SPACING */
+  .scale { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+  .scale .step { display: grid; grid-template-columns: 110px 80px 1fr; align-items: center; gap: 16px; }
+  .scale .step .name { font: 500 12px/1 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+  .scale .step .px { font: 500 12px/1 var(--font-mono); color: var(--ink-dim); }
+  .scale .step .bar { height: 22px; background: var(--ulbra-primary-deep); border-radius: 4px; }
+
+  .radii { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 16px; }
+  .radii .card { padding: 24px 16px; border: 1px solid var(--paper-line); text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center; border-radius: 8px; }
+  .radii .card .demo { width: 56px; height: 56px; background: var(--ulbra-primary-deep); }
+  .radii .card .name { font: 500 11px/1 var(--font-mono); letter-spacing: 0.18em; color: var(--ulbra-bronze); text-transform: uppercase; }
+  .radii .card .px { font: 500 11px/1 var(--font-mono); color: var(--ink-dim); }
+</style></head><body>
+<div class="wrap">
+
+  <header>
+    <span class="lbl">Ulbra Design Tokens</span>
+    <h1>Cores, tipografia e <em>medida</em>.</h1>
+    <p class="det" style="margin-top:24px">Os fundamentos do sistema Ulbra. Verde-floresta institucional, ouro de domingo, papel quente — e Playfair + Inter + JetBrains Mono. O arquivo <code style="font-family: var(--font-mono); background: var(--ulbra-fog); padding: 2px 8px; border-radius: 4px">colors_and_type.css</code> exporta tudo isso como variáveis CSS.</p>
+  </header>
+
+  <!-- =========== TIPOGRAFIA =========== -->
+  <section>
+    <h2>Tipografia</h2>
+    <p class="sec-det">Três famílias com papéis claros: Playfair Display para o que carrega gravidade institucional, Inter para a calma do corpo, JetBrains Mono para o que precisa de precisão técnica.</p>
+
+    <div class="type-row">
+      <div class="meta"><span class="lbl">Display XL · 144</span><span class="det">Playfair Display 500 · titles</span></div>
+      <div style="font: 500 144px/0.95 var(--font-display); letter-spacing: -0.025em">Forme-se <em style="font-style: italic; color: var(--ulbra-bronze); font-weight: 400">Ulbra.</em></div>
+    </div>
+    <div class="type-row">
+      <div class="meta"><span class="lbl">Display L · 88</span><span class="det">Section heads</span></div>
+      <div style="font: 500 88px/1 var(--font-display); letter-spacing: -0.02em">Tradição que <em style="font-style: italic; color: var(--ulbra-bronze); font-weight: 400">forma</em> gente.</div>
+    </div>
+    <div class="type-row">
+      <div class="meta"><span class="lbl">Display M · 56</span><span class="det">Sub-cabeçalhos / cards</span></div>
+      <div style="font: 500 56px/1.05 var(--font-display); letter-spacing: -0.015em">Vocação que ultrapassa <em style="font-style: italic; color: var(--ulbra-bronze); font-weight: 400">o currículo.</em></div>
+    </div>
+    <div class="type-row">
+      <div class="meta"><span class="lbl">Body L · 22</span><span class="det">Inter 400 · texto principal</span></div>
+      <div style="font: 400 22px/1.5 var(--font-sans)">Educação luterana, humana e nacional há mais de cinquenta anos — com presença em sete estados brasileiros e uma comunidade que se forma todos os dias.</div>
+    </div>
+    <div class="type-row">
+      <div class="meta"><span class="lbl">Body M · 16</span><span class="det">Inter 400 · UI / corpo</span></div>
+      <div style="font: 400 16px/1.55 var(--font-sans)">A Ulbra mantém cinco Faculdades de Medicina, dezenas de cursos credenciados e uma rede de polos EAD que atende todo o território nacional.</div>
+    </div>
+    <div class="type-row">
+      <div class="meta"><span class="lbl">Eyebrow / Micro</span><span class="det">JetBrains Mono 500 · 0.22em</span></div>
+      <div style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze)">Capítulo 02 · Identidade · 2026</div>
+    </div>
+    <div class="type-row">
+      <div class="meta"><span class="lbl">Mono / Data</span><span class="det">JetBrains Mono · números</span></div>
+      <div style="font: 500 14px/1.4 var(--font-mono); letter-spacing: 0.04em">12.458 inscritos · ▲ 18,4% · CONV: 65,9%</div>
+    </div>
+  </section>
+
+  <!-- =========== CORES =========== -->
+  <section>
+    <h2>Cores</h2>
+    <p class="sec-det">Verde-floresta como fundo institucional; ouro como vocação e conquista; branco-quente como respiro humano. Acentos discretos para construir contraste.</p>
+
+    <span class="lbl" style="margin-top: 8px">Núcleo</span>
+    <div class="core-grid">
+      <div class="swatch" style="background: var(--ulbra-primary-deep); color: var(--fg);">
+        <div><span class="name" style="color: var(--ulbra-gold-light)">Verde Profundo</span></div>
+        <h3>Identidade.</h3>
+        <div><span class="hex">#0D3634</span><div class="role" style="color: var(--fg-muted)">Fundo institucional · marca · header</div></div>
+      </div>
+      <div class="swatch" style="background: var(--ulbra-primary); color: white;">
+        <div><span class="name">Verde Ulbra</span></div>
+        <h3>Voz.</h3>
+        <div><span class="hex">#045A52</span><div class="role">Texto destaque · botões secundários</div></div>
+      </div>
+      <div class="swatch" style="background: var(--ulbra-gold); color: var(--ulbra-primary-deep);">
+        <div><span class="name">Ouro Ulbra</span></div>
+        <h3>Vocação.</h3>
+        <div><span class="hex">#CCA269</span><div class="role">CTA primário · acento editorial</div></div>
+      </div>
+    </div>
+
+    <span class="lbl" style="margin-top: 32px">Acentos & extensões</span>
+    <div class="ext-grid">
+      <div class="swatch" style="background: var(--ulbra-gold-light); color: var(--ulbra-primary-deep); min-height: 140px"><span class="name">Ouro claro</span><span class="hex">#F5CE99</span></div>
+      <div class="swatch" style="background: var(--ulbra-bronze); color: white; min-height: 140px"><span class="name">Bronze</span><span class="hex">#66563D</span></div>
+      <div class="swatch" style="background: var(--ulbra-primary-soft); color: var(--ulbra-primary-deep); min-height: 140px"><span class="name">Verde Suave</span><span class="hex">#91BAA3</span></div>
+      <div class="swatch" style="background: var(--ulbra-warm-white); color: var(--ulbra-primary-deep); border-color: var(--paper-line); min-height: 140px"><span class="name">Branco Quente</span><span class="hex">#FBF8F2</span></div>
+    </div>
+  </section>
+
+  <!-- =========== SPACING + RADII =========== -->
+  <section>
+    <h2>Espaçamento &amp; <em>forma</em></h2>
+    <p class="sec-det">Escala base 4 / 8 px e cantos quase quadrados — papel de qualidade, não plástico. As variáveis <code style="font-family: var(--font-mono); background: var(--ulbra-fog); padding: 1px 6px; border-radius: 4px">--space-*</code> e <code style="font-family: var(--font-mono); background: var(--ulbra-fog); padding: 1px 6px; border-radius: 4px">--radius-*</code> são as únicas medidas a usar; nada de pixels mágicos.</p>
+
+    <span class="lbl">Spacing scale</span>
+    <div class="scale">
+      <div class="step"><span class="name">--space-1</span><span class="px">4 px</span><div class="bar" style="width:4px"></div></div>
+      <div class="step"><span class="name">--space-2</span><span class="px">8 px</span><div class="bar" style="width:8px"></div></div>
+      <div class="step"><span class="name">--space-3</span><span class="px">12 px</span><div class="bar" style="width:12px"></div></div>
+      <div class="step"><span class="name">--space-4</span><span class="px">16 px</span><div class="bar" style="width:16px"></div></div>
+      <div class="step"><span class="name">--space-5</span><span class="px">24 px</span><div class="bar" style="width:24px"></div></div>
+      <div class="step"><span class="name">--space-6</span><span class="px">32 px</span><div class="bar" style="width:32px"></div></div>
+      <div class="step"><span class="name">--space-7</span><span class="px">48 px</span><div class="bar" style="width:48px"></div></div>
+      <div class="step"><span class="name">--space-8</span><span class="px">64 px</span><div class="bar" style="width:64px"></div></div>
+      <div class="step"><span class="name">--space-9</span><span class="px">96 px</span><div class="bar" style="width:96px"></div></div>
+      <div class="step"><span class="name">--space-10</span><span class="px">128 px</span><div class="bar" style="width:128px"></div></div>
+    </div>
+
+    <span class="lbl" style="margin-top: 32px">Radii</span>
+    <div class="radii">
+      <div class="card"><div class="demo" style="border-radius: 0"></div><span class="name">--radius-none</span><span class="px">0 px</span></div>
+      <div class="card"><div class="demo" style="border-radius: 4px"></div><span class="name">--radius-sm</span><span class="px">4 px</span></div>
+      <div class="card"><div class="demo" style="border-radius: 12px"></div><span class="name">--radius-md</span><span class="px">12 px</span></div>
+      <div class="card"><div class="demo" style="border-radius: 24px"></div><span class="name">--radius-lg</span><span class="px">24 px</span></div>
+      <div class="card"><div class="demo" style="border-radius: 999px; width: 80px;"></div><span class="name">--radius-pill</span><span class="px">pill</span></div>
+    </div>
+  </section>
+
+</div>
+</body></html>

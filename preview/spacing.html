@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Ulbra · Espaçamento e Forma</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { background: var(--ulbra-warm-white); color: var(--ulbra-primary-deep); padding: 64px; }
+  .wrap { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+  h1 { font: 500 64px/0.95 var(--font-display); letter-spacing: -0.02em; }
+  h1 em { font-style: italic; color: var(--ulbra-bronze); font-weight: 400; }
+  .lbl { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ulbra-bronze); margin-bottom: 16px; display: block; }
+  .det { font: 400 16px/1.55 var(--font-sans); color: var(--ink-muted); }
+  .scale { display: flex; flex-direction: column; gap: 6px; padding: 24px; background: white; border: 1px solid var(--paper-line); border-radius: 12px; }
+  .scale .step { display: grid; grid-template-columns: 80px 80px 1fr; align-items: center; gap: 16px; }
+  .scale .step .name { font: 500 12px/1 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+  .scale .step .px { font: 500 12px/1 var(--font-mono); color: var(--ink-dim); }
+  .scale .step .bar { height: 22px; background: var(--ulbra-primary-deep); border-radius: 4px; }
+
+  .radii { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .radii .card { padding: 24px 16px; border: 1px solid var(--paper-line); background: white; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .radii .card .demo { width: 64px; height: 64px; background: var(--ulbra-primary-deep); }
+  .radii .card .name { font: 500 11px/1 var(--font-mono); letter-spacing: 0.18em; color: var(--ulbra-bronze); text-transform: uppercase; }
+  .radii .card .px { font: 500 11px/1 var(--font-mono); color: var(--ink-dim); }
+
+  .shadows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .shadows .card { padding: 32px; background: white; border-radius: 12px; }
+  .shadows .card.s1 { box-shadow: var(--shadow-sm); }
+  .shadows .card.s2 { box-shadow: var(--shadow-md); }
+  .shadows .card.s3 { box-shadow: var(--shadow-lg); }
+  .shadows .card .name { font: 500 12px/1 var(--font-mono); letter-spacing: 0.18em; color: var(--ulbra-bronze); text-transform: uppercase; }
+  .shadows .card h3 { font: 500 28px/1.05 var(--font-display); letter-spacing: -0.015em; margin-top: 8px; }
+
+  .grid-demo { background: white; border: 1px solid var(--paper-line); border-radius: 12px; padding: 32px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .grid-demo .col { background: var(--ulbra-fog); border-radius: 4px; height: 200px; position: relative; }
+  .grid-demo .col::after { content: attr(data-n); position: absolute; bottom: 6px; left: 6px; font: 500 10px/1 var(--font-mono); color: var(--ink-dim); }
+
+</style></head><body>
+<div class="wrap">
+
+  <header>
+    <span class="lbl">Ulbra · Spacing & Form</span>
+    <h1>Ritmo de página, calma de <em>livro.</em></h1>
+    <p class="det" style="margin-top:16px">Um sistema de espaçamento de base 4 px / 8 px e radii moderados para um sentir editorial — nem rígido demais, nem fluido demais. Cantos quase quadrados (mais retos que arredondados) reforçam a tradição.</p>
+  </header>
+
+  <section>
+    <span class="lbl">Spacing scale (base 4)</span>
+    <div class="scale">
+      <div class="step"><span class="name">--space-1</span><span class="px">4 px</span><div class="bar" style="width:4px"></div></div>
+      <div class="step"><span class="name">--space-2</span><span class="px">8 px</span><div class="bar" style="width:8px"></div></div>
+      <div class="step"><span class="name">--space-3</span><span class="px">12 px</span><div class="bar" style="width:12px"></div></div>
+      <div class="step"><span class="name">--space-4</span><span class="px">16 px</span><div class="bar" style="width:16px"></div></div>
+      <div class="step"><span class="name">--space-5</span><span class="px">24 px</span><div class="bar" style="width:24px"></div></div>
+      <div class="step"><span class="name">--space-6</span><span class="px">32 px</span><div class="bar" style="width:32px"></div></div>
+      <div class="step"><span class="name">--space-7</span><span class="px">48 px</span><div class="bar" style="width:48px"></div></div>
+      <div class="step"><span class="name">--space-8</span><span class="px">64 px</span><div class="bar" style="width:64px"></div></div>
+      <div class="step"><span class="name">--space-9</span><span class="px">96 px</span><div class="bar" style="width:96px"></div></div>
+      <div class="step"><span class="name">--space-10</span><span class="px">128 px</span><div class="bar" style="width:128px"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="lbl">Border radius</span>
+    <div class="radii">
+      <div class="card"><div class="demo" style="border-radius: 0"></div><span class="name">--radius-none</span><span class="px">0 px · markers, photos</span></div>
+      <div class="card"><div class="demo" style="border-radius: 4px"></div><span class="name">--radius-sm</span><span class="px">4 px · UI controls</span></div>
+      <div class="card"><div class="demo" style="border-radius: 12px"></div><span class="name">--radius-md</span><span class="px">12 px · cards</span></div>
+      <div class="card"><div class="demo" style="border-radius: 24px"></div><span class="name">--radius-lg</span><span class="px">24 px · features</span></div>
+      <div class="card"><div class="demo" style="border-radius: 999px; width:100px;"></div><span class="name">--radius-pill</span><span class="px">pílula · botões</span></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="lbl">Sombras (uso parco)</span>
+    <div class="shadows">
+      <div class="card s1"><span class="name">--shadow-sm</span><h3>Calma.</h3></div>
+      <div class="card s2"><span class="name">--shadow-md</span><h3>Foco.</h3></div>
+      <div class="card s3"><span class="name">--shadow-lg</span><h3>Destaque.</h3></div>
+    </div>
+    <p class="det" style="margin-top:16px">Sombras são quase imperceptíveis — papel de qualidade, não plástico. Use raramente: dashboards e popovers, sim; conteúdo editorial, não.</p>
+  </section>
+
+  <section>
+    <span class="lbl">Grade · 12 colunas · gutter 16</span>
+    <div class="grid-demo">
+      <div class="col" data-n="1"></div><div class="col" data-n="2"></div><div class="col" data-n="3"></div><div class="col" data-n="4"></div>
+      <div class="col" data-n="5"></div><div class="col" data-n="6"></div><div class="col" data-n="7"></div><div class="col" data-n="8"></div>
+      <div class="col" data-n="9"></div><div class="col" data-n="10"></div><div class="col" data-n="11"></div><div class="col" data-n="12"></div>
+    </div>
+    <p class="det" style="margin-top:16px">Grade base: 12 colunas, gutter 16, max-width 1280 (web) / 1440 (dashboard). Slides usam canvas 1920×1080 com margem 80 px e mark/HUD nas quatro bordas.</p>
+  </section>
+
+</div>
+</body></html>

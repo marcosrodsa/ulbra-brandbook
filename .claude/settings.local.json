@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git init *)",
+      "Read(//c/Users/marco/OneDrive/Documents/GitHub/Ulbra Design System/**)",
+      "Read(//c/c/Users/marco/OneDrive/Documents/GitHub/Ulbra Design System/**)",
+      "Read(//c/Users/marco/.claude/projects/**)"
+    ]
+  }
+}
