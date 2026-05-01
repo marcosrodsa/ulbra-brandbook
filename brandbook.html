@@ -89,6 +89,7 @@
   /* Navigation Groups with Dropdowns */
   .nav-group {
     position: relative;
+    display: inline-block;
   }
   .nav-group-btn {
     color: var(--fg-muted);
@@ -117,9 +118,8 @@
     fill: none;
   }
   .nav-dropdown {
-    display: none;
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 2px);
     left: 0;
     background: rgba(13, 54, 52, 0.96);
     backdrop-filter: blur(14px);
@@ -128,13 +128,21 @@
     border-radius: var(--radius-md);
     padding: 8px;
     min-width: 180px;
-    z-index: 100;
+    z-index: 1000;
     flex-direction: column;
     gap: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 200ms ease-standard, visibility 200ms ease-standard, transform 200ms ease-standard;
+    pointer-events: none;
   }
   .nav-group:hover .nav-dropdown,
   .nav-group:focus-within .nav-dropdown {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
   }
   .nav-dropdown a {
     color: var(--fg-muted);
@@ -1124,10 +1132,17 @@
     cursor: grab;
     transition: all 240ms cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
+    -webkit-user-drag: element;
   }
 
-  .kpi-grid-card:active {
+  .kpi-grid-card:hover {
+    border-color: rgba(245, 206, 153, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .kpi-grid-card.dragging {
     cursor: grabbing;
+    opacity: 0.5 !important;
     transform: scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(245, 206, 153, 0.3);
   }
@@ -4131,20 +4146,32 @@
       card.addEventListener('dragstart', (e) => {
         draggedCard = card;
         e.dataTransfer.effectAllowed = 'move';
-        card.style.opacity = '0.5';
+        e.dataTransfer.setData('text/html', card.innerHTML);
+        card.classList.add('dragging');
+        setTimeout(() => {
+          card.classList.add('dragging');
+        }, 0);
       });
 
       card.addEventListener('dragend', (e) => {
-        card.style.opacity = '1';
+        if (draggedCard) {
+          draggedCard.classList.remove('dragging');
+        }
         draggedCard = null;
         saveGridOrder();
       });
 
       card.addEventListener('dragover', (e) => {
         e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
         if (draggedCard && draggedCard !== card) {
           swapCards(draggedCard, card);
         }
+      });
+
+      card.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
       });
 
       gridContainer.appendChild(card);
