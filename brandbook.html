@@ -4186,10 +4186,12 @@
           const draggedIndex = allCards.indexOf(draggedCard);
           const targetIndex = allCards.indexOf(card);
 
-          if (draggedIndex < targetIndex) {
-            card.parentNode.insertBefore(draggedCard, card.nextSibling);
-          } else {
-            card.parentNode.insertBefore(draggedCard, card);
+          if (draggedIndex !== targetIndex) {
+            if (draggedIndex < targetIndex) {
+              card.parentNode.insertBefore(draggedCard, card.nextSibling);
+            } else {
+              card.parentNode.insertBefore(draggedCard, card);
+            }
           }
         }
       });
