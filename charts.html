@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ulbra · Charts Component Gallery · v1.0 · 2026</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<style>
+  /* =========================
+     PAGE FRAME
+     ========================= */
+  body {
+    background: var(--ulbra-primary-deep);
+    color: var(--fg);
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(ellipse 1200px 800px at 80% 0%, rgba(204,162,105,.08), transparent 60%),
+      radial-gradient(ellipse 900px 700px at 0% 100%, rgba(145,186,163,.06), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* =========================
+     NAV / HEADER
+     ========================= */
+  .topbar {
+    position: sticky; top: 0; z-index: var(--z-nav);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(13, 54, 52, .72);
+    border-bottom: 1px solid var(--surface-line);
+  }
+  .topbar-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 14px var(--gutter);
+    display: flex; align-items: center; gap: 32px;
+  }
+  .brandmark {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--fg);
+  }
+  .brandmark svg { width: 28px; height: 28px; color: var(--fg); }
+  .brandmark .wm {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .nav-pills {
+    display: flex; gap: 32px; margin-left: auto;
+    font: 500 13px var(--font-sans);
+  }
+  .nav-pills a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    transition: color 240ms;
+  }
+  .nav-pills a:hover { color: var(--fg); }
+  .nav-pills a.is-active { color: var(--ulbra-accent); }
+  .topbar-meta {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    font: 500 11px var(--font-sans);
+    color: var(--fg-muted);
+  }
+  .topbar-meta .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ulbra-accent);
+    margin-right: 4px;
+  }
+
+  /* =========================
+     HERO SECTION
+     ========================= */
+  .hero {
+    position: relative;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 120px var(--gutter) 80px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  }
+  .hero h1 {
+    font: 700 48px/1.2 var(--font-sans);
+    color: var(--fg);
+    margin: 0 0 16px 0;
+    max-width: 60%;
+  }
+  .hero p {
+    font: 400 16px/1.6 var(--font-sans);
+    color: var(--fg-muted);
+    margin: 0;
+    max-width: 50ch;
+  }
+
+  /* =========================
+     FILTER BAR
+     ========================= */
+  .filter-bar {
+    max-width: var(--container);
+    margin: 0 auto 60px;
+    padding: 0 var(--gutter);
+  }
+
+  /* =========================
+     SECTIONS CONTAINER
+     ========================= */
+  .sections-wrapper {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter) 120px;
+  }
+
+  section[id^="section-"] {
+    margin-bottom: 80px;
+  }
+
+  section[id^="section-"] h2 {
+    font: 700 32px/1.2 var(--font-sans);
+    color: var(--fg);
+    margin: 0 0 32px 0;
+  }
+
+  /* =========================
+     FOOTER
+     ========================= */
+  .footer {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 60px var(--gutter);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px;
+    border-top: 1px solid var(--surface-line);
+  }
+  .footer h6 {
+    font: 700 12px/1.2 var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--fg-muted);
+    margin: 0 0 16px 0;
+  }
+  .footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer li { padding: 4px 0; font: 400 13px/1.5 var(--font-sans); }
+  .footer a { color: var(--fg-muted); text-decoration: none; }
+  .footer a:hover { color: var(--fg); }
+</style>
+</head>
+<body>
+
+<!-- =========================
+     TOPBAR
+     ========================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brandmark" href="#top">
+      <img src="assets/ulbra-mark-white.png" alt="Ulbra mark" style="width:100%;height:100%;object-fit:contain"/>
+      <span class="wm">ulbra</span>
+    </a>
+    <nav class="nav-pills">
+      <a href="brandbook.html">Identity</a>
+      <a href="brandbook.html#color">Color</a>
+      <a href="brandbook.html#type">Typography</a>
+      <a href="brandbook.html#logo">Logo</a>
+      <a href="brandbook.html#voice">Voice</a>
+      <a href="brandbook.html#icon">Icons</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="charts.html" class="is-active">Charts</a>
+    </nav>
+    <div class="topbar-meta">
+      <span><span class="dot"></span>v1.0 · 2026</span>
+      <span>Component Gallery</span>
+    </div>
+  </div>
+</header>
+
+<!-- =========================
+     HERO
+     ========================= -->
+<section class="hero" id="top">
+  <h1>Chart Components</h1>
+  <p>A comprehensive gallery of 13+ chart components showcasing data visualization patterns and best practices within the Ulbra design system.</p>
+</section>
+
+<!-- =========================
+     FILTER BAR
+     ========================= -->
+<div class="filter-bar" id="filter-container">
+  <!-- Filter bar will be populated by JavaScript -->
+</div>
+
+<!-- =========================
+     CHART SECTIONS
+     ========================= -->
+<div class="sections-wrapper">
+  <section id="section-common">
+    <h2>Common Charts</h2>
+    <!-- Common chart components will be inserted here -->
+  </section>
+
+  <section id="section-kpi">
+    <h2>KPI & Metrics</h2>
+    <!-- KPI and metric components will be inserted here -->
+  </section>
+
+  <section id="section-advanced">
+    <h2>Advanced Visualizations</h2>
+    <!-- Advanced chart components will be inserted here -->
+  </section>
+
+  <section id="section-grid">
+    <h2>Grid Layout</h2>
+    <!-- Grid-based chart layouts will be inserted here -->
+  </section>
+</div>
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+<footer class="footer">
+  <div>
+    <a class="brandmark" href="#top">
+      <img src="assets/ulbra-mark-white.png" alt="Ulbra mark" style="width:100%;height:100%;object-fit:contain"/>
+      <span class="wm">ulbra</span>
+    </a>
+    <p style="margin-top:18px; max-width: 36ch; font: 400 13px/1.55 var(--font-sans); color: var(--fg-muted);">
+      Ulbra · Design System · v1.0 · Edição 2026.<br>
+      Documento interno. Para uso autorizado por equipe de Marca e Comunicação Institucional.
+    </p>
+  </div>
+  <div>
+    <h6>Recursos</h6>
+    <ul>
+      <li><a href="brandbook.html">Brand Guidelines</a></li>
+      <li><a href="dashboard.html">Dashboard UI Kit</a></li>
+      <li><a href="slides/index.html">Slides Templates</a></li>
+      <li><a href="colors_and_type.css">Design Tokens (CSS)</a></li>
+    </ul>
+  </div>
+  <div>
+    <h6>Contato</h6>
+    <ul>
+      <li><a href="https://www.ulbra.br">ulbra.br</a></li>
+      <li><a href="mailto:marca@ulbra.br">marca@ulbra.br</a></li>
+      <li>Aelbra Educação Superior</li>
+      <li>CNPJ 88.332.580/0001-65</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Chart components initialization
+  // JavaScript logic will be added in Task 2
+</script>
+
+</body>
+</html>
