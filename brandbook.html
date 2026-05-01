@@ -238,8 +238,10 @@
   .custom-select-btn {
     padding: 10px 14px;
     border-radius: 8px;
-    border: 1px solid rgba(245, 206, 153, 0.3);
-    background: rgba(13, 54, 52, 0.4);
+    border: 1px solid rgba(245, 206, 153, 0.25);
+    background: rgba(245, 206, 153, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--fg);
     font: 500 13px var(--font-sans);
     cursor: pointer;
@@ -250,13 +252,14 @@
     white-space: nowrap;
   }
   .custom-select-btn:hover {
-    border-color: rgba(245, 206, 153, 0.6);
-    background: rgba(13, 54, 52, 0.6);
+    border-color: rgba(245, 206, 153, 0.4);
+    background: rgba(245, 206, 153, 0.15);
   }
   .custom-select-btn:focus {
     outline: none;
     border-color: var(--ulbra-gold-light);
-    box-shadow: 0 0 0 2px rgba(245, 206, 153, 0.2);
+    background: rgba(245, 206, 153, 0.18);
+    box-shadow: 0 0 0 2px rgba(245, 206, 153, 0.25);
   }
   .custom-select-arrow {
     width: 12px;
@@ -1328,17 +1331,28 @@
   .btn-primary { background: var(--ulbra-gold); color: var(--ulbra-primary-deep); }
   .btn-primary:hover { background: var(--ulbra-gold-light); transform: translateY(-1px); }
   .btn-ghost {
-    background: transparent;
+    background: rgba(245, 206, 153, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--ulbra-gold-light);
-    border: 1px solid var(--ulbra-gold);
+    border: 1px solid rgba(245, 206, 153, 0.25);
   }
-  .btn-ghost:hover { background: rgba(204,162,105,.08); border-color: var(--ulbra-gold-light); }
+  .btn-ghost:hover {
+    background: rgba(245, 206, 153, 0.18);
+    border-color: var(--ulbra-gold-light);
+    transform: translateY(-1px);
+  }
   .btn-quiet {
-    background: rgba(245,206,153,.08);
+    background: rgba(245, 206, 153, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--ulbra-gold-light);
-    border: 1px solid rgba(245,206,153,.2);
+    border: 1px solid rgba(245, 206, 153, 0.25);
   }
-  .btn-quiet:hover { background: rgba(245,206,153,.16); }
+  .btn-quiet:hover {
+    background: rgba(245, 206, 153, 0.18);
+    transform: translateY(-1px);
+  }
   .btn-text { color: var(--ulbra-gold-light); padding: 8px 0; font: 500 12px/1 var(--font-sans); letter-spacing: 0.04em; }
   .btn-text:hover { color: var(--ulbra-gold); }
 
@@ -1353,16 +1367,24 @@
   .field input, .field select {
     appearance: none;
     width: 100%;
-    background: rgba(13,54,52,.5);
-    border: 1px solid var(--surface-line);
+    background: rgba(245, 206, 153, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(245, 206, 153, 0.2);
     border-radius: var(--radius-pill);
     padding: 12px 18px;
     color: var(--fg);
     font: 400 14px/1 var(--font-sans);
     letter-spacing: 0;
     text-transform: none;
+    transition: all var(--dur-fast) var(--ease-standard);
   }
-  .field input:focus { outline: none; border-color: var(--ulbra-gold-light); box-shadow: 0 0 0 3px rgba(245,206,153,.14); }
+  .field input:focus, .field select:focus {
+    outline: none;
+    border-color: var(--ulbra-gold-light);
+    background: rgba(245, 206, 153, 0.18);
+    box-shadow: 0 0 0 3px rgba(245,206,153,.2);
+  }
 
   /* Chips / Tags */
   .chip {
