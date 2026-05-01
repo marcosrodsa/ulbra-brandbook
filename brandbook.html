@@ -971,9 +971,8 @@
      ========================= -->
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="brandmark" href="#top">
-      <img src="assets/ulbra-mark-white.png" alt="Ulbra mark" style="width:100%;height:100%;object-fit:contain"/>
-      <span class="wm">ulbra</span>
+    <a class="brandmark" href="#top" style="width: 120px; gap: 0;">
+      <img src="assets/ulbra-lockup-white.png" alt="Ulbra" style="width:100%;height:auto;object-fit:contain"/>
     </a>
     <nav class="nav-pills">
       <a href="#identity" class="is-active">Identity</a>
@@ -2546,9 +2545,9 @@
 
   function createGaugeChart(containerId) {
     const container = document.getElementById(containerId);
-    const size = 160;
-    const radius = 65;
-    const strokeWidth = 6;
+    const size = 120;
+    const radius = 50;
+    const strokeWidth = 5;
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
@@ -2580,9 +2579,9 @@
 
     const textPercentage = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     textPercentage.setAttribute('x', size / 2);
-    textPercentage.setAttribute('y', size / 2 - 8);
+    textPercentage.setAttribute('y', size / 2 - 6);
     textPercentage.setAttribute('text-anchor', 'middle');
-    textPercentage.setAttribute('font-size', '28');
+    textPercentage.setAttribute('font-size', '22');
     textPercentage.setAttribute('font-weight', '700');
     textPercentage.setAttribute('fill', '#E8E8E8');
     textPercentage.textContent = '0%';
@@ -2590,9 +2589,9 @@
 
     const textLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     textLabel.setAttribute('x', size / 2);
-    textLabel.setAttribute('y', size / 2 + 12);
+    textLabel.setAttribute('y', size / 2 + 10);
     textLabel.setAttribute('text-anchor', 'middle');
-    textLabel.setAttribute('font-size', '10');
+    textLabel.setAttribute('font-size', '8');
     textLabel.setAttribute('fill', '#A0A0A0');
     textLabel.textContent = 'Approval Rate';
     svg.appendChild(textLabel);
