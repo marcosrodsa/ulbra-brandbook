@@ -203,6 +203,85 @@
     border-color: transparent;
   }
 
+  /* Custom Period Select */
+  .custom-select {
+    position: relative;
+  }
+  .custom-select-btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(245, 206, 153, 0.3);
+    background: rgba(13, 54, 52, 0.4);
+    color: var(--fg);
+    font: 500 13px var(--font-sans);
+    cursor: pointer;
+    transition: all 240ms;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .custom-select-btn:hover {
+    border-color: rgba(245, 206, 153, 0.6);
+    background: rgba(13, 54, 52, 0.6);
+  }
+  .custom-select-btn:focus {
+    outline: none;
+    border-color: var(--ulbra-gold-light);
+    box-shadow: 0 0 0 2px rgba(245, 206, 153, 0.2);
+  }
+  .custom-select-arrow {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    transition: transform 240ms;
+    flex-shrink: 0;
+  }
+  .custom-select.open .custom-select-arrow {
+    transform: rotate(180deg);
+  }
+  .custom-select-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: rgba(13, 54, 52, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--surface-line);
+    border-radius: 8px;
+    padding: 8px;
+    min-width: 100%;
+    z-index: 100;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .custom-select.open .custom-select-dropdown {
+    display: flex;
+  }
+  .custom-select-option {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--fg-muted);
+    font: 500 13px var(--font-sans);
+    cursor: pointer;
+    transition: all 140ms;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .custom-select-option:hover {
+    background: rgba(245, 206, 153, 0.12);
+    color: var(--fg);
+  }
+  .custom-select-option.active {
+    background: var(--ulbra-gold);
+    color: var(--ulbra-primary-deep);
+  }
+
   /* =========================
      SECTION SCAFFOLD
      ========================= */
@@ -1909,11 +1988,17 @@
 
   <!-- Filter Bar -->
   <div class="filter-bar" id="filter-container" style="margin-bottom: 60px;">
-    <select id="filterPeriod" aria-label="Filter by period">
-      <option value="2026">2026</option>
-      <option value="2025">2025</option>
-      <option value="2024">2024</option>
-    </select>
+    <div class="custom-select" id="periodSelect">
+      <button class="custom-select-btn" aria-label="Filter by period">
+        <span class="custom-select-value">2026</span>
+        <svg viewBox="0 0 24 24" class="custom-select-arrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="custom-select-dropdown">
+        <button class="custom-select-option" data-value="2026">2026</button>
+        <button class="custom-select-option" data-value="2025">2025</button>
+        <button class="custom-select-option" data-value="2024">2024</button>
+      </div>
+    </div>
 
     <div class="filter-group">
       <span class="filter-label">Campus</span>
@@ -2183,18 +2268,43 @@
     programs: ['all']
   };
 
-  const filterPeriod = document.getElementById('filterPeriod');
+  // Custom Period Select
+  const periodSelect = document.getElementById('periodSelect');
+  if (periodSelect) {
+    const btn = periodSelect.querySelector('.custom-select-btn');
+    const options = periodSelect.querySelectorAll('.custom-select-option');
+    const valueDisplay = periodSelect.querySelector('.custom-select-value');
+
+    btn.addEventListener('click', () => {
+      periodSelect.classList.toggle('open');
+    });
+
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        valueDisplay.textContent = value;
+        filterState.period = value;
+        periodSelect.classList.remove('open');
+        options.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        updateAllCharts();
+      });
+    });
+
+    // Set initial active option
+    options[0].classList.add('active');
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!periodSelect.contains(e.target)) {
+        periodSelect.classList.remove('open');
+      }
+    });
+  }
+
   const filterCampusContainer = document.getElementById('filterCampus');
   const filterProgramContainer = document.getElementById('filterProgram');
   const btnReset = document.getElementById('btnReset');
-
-  // Period select event
-  if (filterPeriod) {
-    filterPeriod.addEventListener('change', (e) => {
-      filterState.period = e.target.value;
-      updateAllCharts();
-    });
-  }
 
   // Campus pills event
   if (filterCampusContainer) {
@@ -2246,7 +2356,19 @@
       filterState.period = '2026';
       filterState.campuses = ['all'];
       filterState.programs = ['all'];
-      if (filterPeriod) filterPeriod.value = '2026';
+
+      // Reset period select
+      if (periodSelect) {
+        const valueDisplay = periodSelect.querySelector('.custom-select-value');
+        valueDisplay.textContent = '2026';
+        periodSelect.classList.remove('open');
+        const options = periodSelect.querySelectorAll('.custom-select-option');
+        options.forEach((opt, idx) => {
+          if (idx === 0) opt.classList.add('active');
+          else opt.classList.remove('active');
+        });
+      }
+
       updateFilterPillsUI('campus');
       updateFilterPillsUI('program');
       updateAllCharts();
