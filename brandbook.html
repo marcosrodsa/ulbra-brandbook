@@ -86,6 +86,123 @@
   .nav-pills a:hover { color: var(--fg); background: rgba(245,206,153,.06); }
   .nav-pills a.is-active { color: var(--ulbra-primary-deep); background: var(--ulbra-gold-light); }
 
+  /* Navigation Groups with Dropdowns */
+  .nav-group {
+    position: relative;
+  }
+  .nav-group-btn {
+    color: var(--fg-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--dur-fast) var(--ease-standard);
+  }
+  .nav-group-btn:hover {
+    color: var(--fg);
+    background: rgba(245, 206, 153, 0.06);
+  }
+  .nav-group-btn svg {
+    width: 10px;
+    height: 10px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+  }
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: rgba(13, 54, 52, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    padding: 8px;
+    min-width: 180px;
+    z-index: 100;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-group:hover .nav-dropdown,
+  .nav-group:focus-within .nav-dropdown {
+    display: flex;
+  }
+  .nav-dropdown a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: var(--dur-fast) var(--ease-standard);
+  }
+  .nav-dropdown a:hover {
+    color: var(--fg);
+    background: rgba(245, 206, 153, 0.06);
+  }
+  .nav-direct {
+    color: var(--fg-muted);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: var(--radius-pill);
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: var(--dur-fast) var(--ease-standard);
+  }
+  .nav-direct:hover {
+    color: var(--fg);
+    background: rgba(245, 206, 153, 0.06);
+  }
+
+  /* Filter Pill Styles */
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .filter-label {
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .filter-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .filter-pill {
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(245, 206, 153, 0.22);
+    background: rgba(245, 206, 153, 0.06);
+    color: var(--fg-muted);
+    font: 500 12px/1 var(--font-sans);
+    cursor: pointer;
+    transition: var(--dur-fast) var(--ease-standard);
+    white-space: nowrap;
+  }
+  .filter-pill:hover {
+    background: rgba(245, 206, 153, 0.12);
+    color: var(--fg);
+  }
+  .filter-pill.active {
+    background: var(--ulbra-gold);
+    color: var(--ulbra-primary-deep);
+    border-color: transparent;
+  }
+
   /* =========================
      SECTION SCAFFOLD
      ========================= */
@@ -986,15 +1103,25 @@
       <img src="assets/ulbra-lockup-white.png" alt="Ulbra" style="width:100%;height:auto;object-fit:contain"/>
     </a>
     <nav class="nav-pills">
-      <a href="#identity" class="is-active">Identity</a>
-      <a href="#color">Color</a>
-      <a href="#type">Typography</a>
-      <a href="#logo">Logo</a>
-      <a href="#voice">Voice</a>
-      <a href="#icon">Icons</a>
-      <a href="#components">Components</a>
-      <a href="#photography">Photography</a>
-      <a href="#charts">Charts</a>
+      <div class="nav-group">
+        <button class="nav-group-btn">Brandbook <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <div class="nav-dropdown">
+          <a href="#identity">Identity</a>
+          <a href="#color">Color</a>
+          <a href="#type">Typography</a>
+          <a href="#logo">Logo</a>
+          <a href="#voice">Voice & Tone</a>
+          <a href="#photography">Photography</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <button class="nav-group-btn">Design System <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+        <div class="nav-dropdown">
+          <a href="#icon">Icons</a>
+          <a href="#components">Components</a>
+        </div>
+      </div>
+      <a href="#charts" class="nav-direct">Charts</a>
     </nav>
     <div class="topbar-meta">
       <span><span class="dot"></span>v1.0 · 2026</span>
@@ -1787,18 +1914,27 @@
       <option value="2025">2025</option>
       <option value="2024">2024</option>
     </select>
-    <select id="filterCampus" multiple aria-label="Filter by campus">
-      <option value="all" selected>All Campuses</option>
-      <option value="Porto Alegre">Porto Alegre</option>
-      <option value="Canoas">Canoas</option>
-      <option value="Gravataí">Gravataí</option>
-    </select>
-    <select id="filterProgram" multiple aria-label="Filter by program">
-      <option value="all" selected>All Programs</option>
-      <option value="Engineering">Engineering</option>
-      <option value="Business">Business</option>
-      <option value="Health">Health</option>
-    </select>
+
+    <div class="filter-group">
+      <span class="filter-label">Campus</span>
+      <div class="filter-pills" id="filterCampus">
+        <button class="filter-pill active" data-value="all">Todos</button>
+        <button class="filter-pill" data-value="Porto Alegre">Porto Alegre</button>
+        <button class="filter-pill" data-value="Canoas">Canoas</button>
+        <button class="filter-pill" data-value="Gravataí">Gravataí</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Programa</span>
+      <div class="filter-pills" id="filterProgram">
+        <button class="filter-pill active" data-value="all">Todos</button>
+        <button class="filter-pill" data-value="Engineering">Engenharia</button>
+        <button class="filter-pill" data-value="Business">Negócios</button>
+        <button class="filter-pill" data-value="Health">Saúde</button>
+      </div>
+    </div>
+
     <button id="btnReset" aria-label="Reset all filters">Reset Filters</button>
   </div>
 
@@ -2048,10 +2184,11 @@
   };
 
   const filterPeriod = document.getElementById('filterPeriod');
-  const filterCampus = document.getElementById('filterCampus');
-  const filterProgram = document.getElementById('filterProgram');
+  const filterCampusContainer = document.getElementById('filterCampus');
+  const filterProgramContainer = document.getElementById('filterProgram');
   const btnReset = document.getElementById('btnReset');
 
+  // Period select event
   if (filterPeriod) {
     filterPeriod.addEventListener('change', (e) => {
       filterState.period = e.target.value;
@@ -2059,31 +2196,76 @@
     });
   }
 
-  if (filterCampus) {
-    filterCampus.addEventListener('change', (e) => {
-      filterState.campuses = Array.from(e.target.selectedOptions).map(opt => opt.value);
-      updateAllCharts();
+  // Campus pills event
+  if (filterCampusContainer) {
+    filterCampusContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-pill')) {
+        const value = e.target.getAttribute('data-value');
+        if (value === 'all') {
+          filterState.campuses = ['all'];
+        } else {
+          if (filterState.campuses.includes('all')) filterState.campuses = [];
+          if (filterState.campuses.includes(value)) {
+            filterState.campuses = filterState.campuses.filter(v => v !== value);
+          } else {
+            filterState.campuses.push(value);
+          }
+          if (filterState.campuses.length === 0) filterState.campuses = ['all'];
+        }
+        updateFilterPillsUI('campus');
+        updateAllCharts();
+      }
     });
   }
 
-  if (filterProgram) {
-    filterProgram.addEventListener('change', (e) => {
-      filterState.programs = Array.from(e.target.selectedOptions).map(opt => opt.value);
-      updateAllCharts();
+  // Program pills event
+  if (filterProgramContainer) {
+    filterProgramContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-pill')) {
+        const value = e.target.getAttribute('data-value');
+        if (value === 'all') {
+          filterState.programs = ['all'];
+        } else {
+          if (filterState.programs.includes('all')) filterState.programs = [];
+          if (filterState.programs.includes(value)) {
+            filterState.programs = filterState.programs.filter(v => v !== value);
+          } else {
+            filterState.programs.push(value);
+          }
+          if (filterState.programs.length === 0) filterState.programs = ['all'];
+        }
+        updateFilterPillsUI('program');
+        updateAllCharts();
+      }
     });
   }
 
+  // Reset button
   if (btnReset) {
     btnReset.addEventListener('click', () => {
       filterState.period = '2026';
       filterState.campuses = ['all'];
       filterState.programs = ['all'];
-
       if (filterPeriod) filterPeriod.value = '2026';
-      if (filterCampus) filterCampus.value = 'all';
-      if (filterProgram) filterProgram.value = 'all';
-
+      updateFilterPillsUI('campus');
+      updateFilterPillsUI('program');
       updateAllCharts();
+    });
+  }
+
+  // Update pill UI based on state
+  function updateFilterPillsUI(type) {
+    const container = type === 'campus' ? filterCampusContainer : filterProgramContainer;
+    const state = type === 'campus' ? filterState.campuses : filterState.programs;
+    if (!container) return;
+    const pills = container.querySelectorAll('.filter-pill');
+    pills.forEach(pill => {
+      const value = pill.getAttribute('data-value');
+      if (state.includes(value)) {
+        pill.classList.add('active');
+      } else {
+        pill.classList.remove('active');
+      }
     });
   }
 
