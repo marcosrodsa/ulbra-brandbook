@@ -112,6 +112,44 @@
     max-width: var(--container);
     margin: 0 auto 60px;
     padding: 0 var(--gutter);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-bar select,
+  .filter-bar button {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(245, 206, 153, 0.3);
+    background: rgba(13, 54, 52, 0.4);
+    color: var(--fg);
+    font: 500 13px var(--font-sans);
+    cursor: pointer;
+    transition: all 240ms;
+  }
+
+  .filter-bar select:hover,
+  .filter-bar button:hover {
+    border-color: rgba(245, 206, 153, 0.6);
+    background: rgba(13, 54, 52, 0.6);
+  }
+
+  .filter-bar select:focus,
+  .filter-bar button:focus {
+    outline: none;
+    border-color: var(--ulbra-accent);
+    box-shadow: 0 0 0 2px rgba(245, 206, 153, 0.2);
+  }
+
+  .filter-bar button {
+    background: linear-gradient(135deg, rgba(4, 90, 82, 0.3) 0%, rgba(4, 90, 82, 0.1) 100%);
+    border-color: rgba(4, 90, 82, 0.5);
+  }
+
+  .filter-bar button:hover {
+    background: linear-gradient(135deg, rgba(4, 90, 82, 0.5) 0%, rgba(4, 90, 82, 0.3) 100%);
   }
 
   /* =========================
@@ -373,7 +411,24 @@
      FILTER BAR
      ========================= -->
 <div class="filter-bar" id="filter-container">
-  <!-- Filter bar will be populated by JavaScript -->
+  <select id="filterPeriod" aria-label="Filter by period">
+    <option value="2026">2026</option>
+    <option value="2025">2025</option>
+    <option value="2024">2024</option>
+  </select>
+  <select id="filterCampus" multiple aria-label="Filter by campus">
+    <option value="all" selected>All Campuses</option>
+    <option value="Porto Alegre">Porto Alegre</option>
+    <option value="Canoas">Canoas</option>
+    <option value="Gravataí">Gravataí</option>
+  </select>
+  <select id="filterProgram" multiple aria-label="Filter by program">
+    <option value="all" selected>All Programs</option>
+    <option value="Engineering">Engineering</option>
+    <option value="Business">Business</option>
+    <option value="Health">Health</option>
+  </select>
+  <button id="btnReset" aria-label="Reset all filters">Reset Filters</button>
 </div>
 
 <!-- =========================
@@ -2239,6 +2294,9 @@
       card.setAttribute('draggable', 'true');
       card.setAttribute('data-id', kpi.id);
       card.setAttribute('data-index', index);
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `${kpi.title}: ${kpi.value} ${kpi.label}. Draggable card, use mouse to reorder.`);
+      card.setAttribute('tabindex', '0');
 
       card.innerHTML = `
         <h5>${kpi.title}</h5>
@@ -2386,6 +2444,7 @@
       copyBtn.className = 'export-btn copy';
       copyBtn.textContent = '📋 Copy Code';
       copyBtn.setAttribute('data-code', codeText);
+      copyBtn.setAttribute('aria-label', `Copy ${chartConfig.title} code`);
       copyBtn.addEventListener('click', () => {
         const code = copyBtn.getAttribute('data-code');
         copyToClipboard(code);
@@ -2395,6 +2454,7 @@
       downloadBtn.className = 'export-btn download';
       downloadBtn.textContent = '⬇️ Export PNG';
       downloadBtn.setAttribute('data-chart-id', chartConfig.containerId);
+      downloadBtn.setAttribute('aria-label', `Export ${chartConfig.title} as PNG`);
       downloadBtn.addEventListener('click', () => {
         const chartId = downloadBtn.getAttribute('data-chart-id');
         exportChartPNG(chartId, chartConfig.title);
@@ -2526,6 +2586,7 @@
       copyBtn.className = 'export-btn copy';
       copyBtn.textContent = '📋 Copy Code';
       copyBtn.setAttribute('data-code', codeText);
+      copyBtn.setAttribute('aria-label', `Copy ${chartConfig.title} code`);
       copyBtn.addEventListener('click', () => {
         const code = copyBtn.getAttribute('data-code');
         copyToClipboard(code);
@@ -2535,6 +2596,7 @@
       downloadBtn.className = 'export-btn download';
       downloadBtn.textContent = '⬇️ Export PNG';
       downloadBtn.setAttribute('data-chart-id', chartConfig.containerId);
+      downloadBtn.setAttribute('aria-label', `Export ${chartConfig.title} as PNG`);
       downloadBtn.addEventListener('click', () => {
         const chartId = downloadBtn.getAttribute('data-chart-id');
         exportChartPNG(chartId, chartConfig.title);
@@ -2666,6 +2728,7 @@
       copyBtn.className = 'export-btn copy';
       copyBtn.textContent = '📋 Copy Code';
       copyBtn.setAttribute('data-code', codeText);
+      copyBtn.setAttribute('aria-label', `Copy ${chartConfig.title} code`);
       copyBtn.addEventListener('click', () => {
         const code = copyBtn.getAttribute('data-code');
         copyToClipboard(code);
@@ -2675,6 +2738,7 @@
       downloadBtn.className = 'export-btn download';
       downloadBtn.textContent = '⬇️ Export PNG';
       downloadBtn.setAttribute('data-chart-id', chartConfig.containerId);
+      downloadBtn.setAttribute('aria-label', `Export ${chartConfig.title} as PNG`);
       downloadBtn.addEventListener('click', () => {
         const chartId = downloadBtn.getAttribute('data-chart-id');
         exportChartPNG(chartId, chartConfig.title);
