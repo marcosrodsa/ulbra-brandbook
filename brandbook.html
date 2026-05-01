@@ -802,10 +802,21 @@
   .chart-container {
     opacity: 0;
     transition: opacity 0.6s ease-in;
+    max-height: 400px;
+    overflow: hidden;
   }
 
   .chart-container.visible {
     opacity: 1;
+  }
+
+  #chart-gauge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 240px;
+    max-width: 240px;
+    margin: 0 auto;
   }
 
   .icon-sizes {
@@ -2545,9 +2556,9 @@
 
   function createGaugeChart(containerId) {
     const container = document.getElementById(containerId);
-    const size = 120;
-    const radius = 50;
-    const strokeWidth = 5;
+    const size = 100;
+    const radius = 42;
+    const strokeWidth = 4;
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
