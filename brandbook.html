@@ -283,6 +283,228 @@
   }
 
   /* =========================
+     NEW COMPONENTS STYLES
+     ========================= */
+
+  /* Modal / Dialog */
+  .modal-demo {
+    position: relative;
+    height: 400px;
+    background: rgba(13, 54, 52, 0.5);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .modal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-content {
+    background: var(--bg);
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  .modal-content h3 {
+    font: 600 22px/1.1 var(--font-display);
+    margin: 0 0 16px;
+    color: var(--fg);
+  }
+  .modal-content p {
+    color: var(--fg-muted);
+    margin: 0 0 24px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .modal-actions {
+    display: flex; gap: 12px;
+  }
+
+  /* Alert / Toast */
+  .alert {
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    border-left: 4px solid;
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .alert-icon {
+    width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;
+  }
+  .alert-info {
+    background: rgba(91, 165, 131, 0.08);
+    border-color: var(--info);
+    color: var(--fg);
+  }
+  .alert-success {
+    background: rgba(95, 165, 131, 0.08);
+    border-color: var(--success);
+    color: var(--fg);
+  }
+  .alert-warning {
+    background: rgba(204, 162, 105, 0.08);
+    border-color: var(--warning);
+    color: var(--fg);
+  }
+  .alert-danger {
+    background: rgba(184, 90, 74, 0.08);
+    border-color: var(--danger);
+    color: var(--fg);
+  }
+
+  /* Table */
+  .demo-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--surface-line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    font: 14px var(--font-sans);
+  }
+  .demo-table th {
+    background: rgba(13, 54, 52, 0.6);
+    padding: 12px 16px;
+    text-align: left;
+    font: 600 12px/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    border-bottom: 1px solid var(--surface-line);
+  }
+  .demo-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(245, 206, 153, 0.08);
+    color: var(--fg);
+  }
+  .demo-table tr:nth-child(even) {
+    background: rgba(13, 54, 52, 0.2);
+  }
+  .demo-table tr:hover {
+    background: rgba(245, 206, 153, 0.04);
+  }
+
+  /* Badge / Notification */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--ulbra-gold);
+    color: var(--ulbra-primary-deep);
+    font: 600 11px/1 var(--font-mono);
+    letter-spacing: 0.05em;
+  }
+  .badge.secondary {
+    background: var(--ulbra-primary-soft);
+    color: var(--ulbra-primary-deep);
+  }
+  .badge.danger {
+    background: var(--danger);
+    color: var(--fg);
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .breadcrumb a {
+    color: var(--ulbra-gold-light);
+    text-decoration: none;
+    transition: 140ms;
+  }
+  .breadcrumb a:hover {
+    color: var(--ulbra-gold);
+    text-decoration: underline;
+  }
+  .breadcrumb span {
+    color: var(--fg-muted);
+  }
+  .breadcrumb-sep {
+    color: var(--fg-dim);
+  }
+
+  /* Skeleton / Loading */
+  .skeleton {
+    background: linear-gradient(90deg, rgba(245,206,153,.06) 0%, rgba(245,206,153,.12) 50%, rgba(245,206,153,.06) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 4px;
+  }
+  @keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .skeleton-line {
+    height: 12px;
+    margin-bottom: 8px;
+  }
+  .skeleton-line.title {
+    height: 20px;
+    width: 60%;
+  }
+
+  /* Form Error / Success States */
+  .form-field-demo {
+    margin-bottom: 20px;
+  }
+  .form-field-demo label {
+    display: block;
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin-bottom: 6px;
+  }
+  .form-field-demo input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(245, 206, 153, 0.22);
+    background: rgba(13, 54, 52, 0.4);
+    color: var(--fg);
+    font: 400 14px/1 var(--font-sans);
+    transition: 140ms;
+  }
+  .form-field-demo input:focus {
+    outline: none;
+    border-color: var(--ulbra-gold-light);
+    box-shadow: 0 0 0 2px rgba(245, 206, 153, 0.2);
+  }
+  .form-field-demo input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .form-field-demo.error input {
+    border-color: var(--danger);
+  }
+  .form-field-demo.error .form-message {
+    color: var(--danger);
+  }
+  .form-field-demo.success input {
+    border-color: var(--success);
+  }
+  .form-field-demo.success .form-message {
+    color: var(--success);
+  }
+  .form-message {
+    font-size: 12px;
+    margin-top: 4px;
+    color: var(--fg-muted);
+  }
+
+  /* =========================
      SECTION SCAFFOLD
      ========================= */
   .section {
@@ -1160,6 +1382,11 @@
   .footer a:hover { color: var(--ulbra-gold-light); }
 
   /* responsive */
+  @media (max-width: 1200px) {
+    .charts-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
   @media (max-width: 900px) {
     .hero-grid, .logo-grid, .voice-cols, .comp-grid, .grad-row { grid-template-columns: 1fr; }
     .pillars, .footer, .donts-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1168,6 +1395,69 @@
     .icon-sizes { grid-template-columns: repeat(2, 1fr); }
     .topbar-meta, .nav-pills { display: none; }
     #photography > div:first-of-type { grid-template-columns: 1fr; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-demo { min-height: 300px; }
+  }
+
+  @media (max-width: 640px) {
+    /* Typography scaling for mobile */
+    :root {
+      --fs-h1: clamp(28px, 6vw, 36px);
+      --fs-h2: clamp(22px, 5vw, 28px);
+      --fs-h3: 18px;
+      --fs-body: 15px;
+    }
+
+    /* Layout */
+    .topbar-inner { gap: 12px; padding: 12px var(--gutter); }
+    .gutter { padding: var(--gutter); }
+
+    /* Grids to single column */
+    .charts-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .form-cols { grid-template-columns: 1fr; }
+    .badge-demo { grid-template-columns: 1fr; }
+
+    /* Table horizontal scroll */
+    .demo-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .demo-table th, .demo-table td {
+      padding: 10px 12px;
+    }
+
+    /* Alert full width */
+    .alert { margin-bottom: 12px; }
+
+    /* Modal responsive */
+    .modal-demo { min-height: 250px; }
+    .modal-content { padding: 20px; }
+
+    /* Filter pills wrap better */
+    .filter-pills { gap: 4px; }
+    .filter-pill { padding: 4px 10px; font-size: 11px; }
+
+    /* Section padding reduce */
+    section { padding: 48px var(--gutter) !important; }
+
+    /* Breadcrumb stack on mobile */
+    .breadcrumb { flex-wrap: wrap; }
+
+    /* Code blocks scrollable */
+    pre, code { font-size: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .topbar-inner { flex-direction: column; gap: 8px; }
+    .brandmark { width: 100px; }
+    section { padding: 32px var(--gutter) !important; }
+    .kpi-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -1196,8 +1486,13 @@
       <div class="nav-group">
         <button class="nav-group-btn">Design System <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
         <div class="nav-dropdown">
+          <a href="#tokens">Tokens</a>
+          <a href="#motion">Motion</a>
           <a href="#icon">Icons</a>
           <a href="#components">Components</a>
+          <a href="#form-states">Form States</a>
+          <a href="#more-components">More Components</a>
+          <a href="#data-display">Data Display</a>
         </div>
       </div>
       <a href="#charts" class="nav-direct">Charts</a>
@@ -1261,7 +1556,7 @@
       <h2>Identity <em>System</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">01 / 07</span>
+      <span class="num">01 / 14</span>
       <span>Brand Foundations</span>
       <span>Mission · Vision · Values</span>
     </div>
@@ -1319,7 +1614,7 @@
       <h2>Color <em>Palette</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">02 / 07</span>
+      <span class="num">02 / 14</span>
       <span>Tokens · Hex · RGB</span>
       <span>Restricted Palette</span>
     </div>
@@ -1435,7 +1730,7 @@
       <h2>Type <em>System</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">03 / 07</span>
+      <span class="num">03 / 14</span>
       <span>Two Families · One Voice</span>
       <span>Playfair · Inter</span>
     </div>
@@ -1531,7 +1826,7 @@
       <h2>Logo <em>Construction</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">04 / 07</span>
+      <span class="num">04 / 14</span>
       <span>Mark · Wordmark · Lockup</span>
       <span>Rosa Luterana</span>
     </div>
@@ -1620,7 +1915,7 @@
       <h2>Voice <em>&amp; Tone</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">05 / 07</span>
+      <span class="num">05 / 14</span>
       <span>Brand Voice</span>
       <span>Vocabulary · Personality</span>
     </div>
@@ -1715,7 +2010,7 @@
       <h2>Icon <em>System</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">06 / 07</span>
+      <span class="num">06 / 14</span>
       <span>Lucide · stroke 1.5px</span>
       <span>24px canonical</span>
     </div>
@@ -1780,7 +2075,7 @@
       <h2>Components <em>· library</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">07 / 08</span>
+      <span class="num">07 / 14</span>
       <span>Buttons · Inputs · Chips · Cards</span>
       <span>Living tokens</span>
     </div>
@@ -1843,7 +2138,7 @@
       <h2>Photography <em>&amp; Imagery</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">08 / 08</span>
+      <span class="num">08 / 14</span>
       <span>Visual Tone · Guidelines</span>
       <span>People · Places · Purpose</span>
     </div>
@@ -1942,7 +2237,7 @@
       <h2>Charts <em>· Component Gallery</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">09 / 09</span>
+      <span class="num">09 / 14</span>
       <span>Data Visualizations · ECharts Gallery</span>
       <span>13+ chart components</span>
     </div>
@@ -2045,6 +2340,349 @@
       <p style="font: 400 14px var(--font-sans); color: var(--fg-muted); margin: 0 0 24px 0;">Drag and drop to rearrange KPI cards. Your layout is saved automatically.</p>
       <div id="kpi-grid-container" class="kpi-grid"></div>
     </section>
+  </div>
+</section>
+
+<!-- =========================
+     DESIGN TOKENS
+     ========================= -->
+<section class="section" id="tokens">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 10</div>
+      <h2>Design <em>Tokens</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">10 / 14</span>
+      <span>Spacing · Radii · Shadows · Motion</span>
+      <span>Visual Foundations</span>
+    </div>
+  </div>
+
+  <h3 class="eyebrow">Spacing Scale</h3>
+  <p style="color: var(--fg-muted); margin-bottom: 24px;">Base unit: 4px. Scale from 4px to 128px for consistent spacing throughout the system.</p>
+  <div style="display: grid; gap: 16px; margin-bottom: 48px;">
+    <div><div style="background: var(--ulbra-gold); height: 20px; width: 20px; border-radius: 2px; margin-bottom: 6px;"></div><span style="font: 500 11px/1 var(--font-mono); color: var(--fg-muted);">--sp-1 (4px)</span></div>
+    <div><div style="background: var(--ulbra-gold); height: 32px; width: 32px; border-radius: 2px; margin-bottom: 6px;"></div><span style="font: 500 11px/1 var(--font-mono); color: var(--fg-muted);">--sp-3 (12px)</span></div>
+    <div><div style="background: var(--ulbra-gold); height: 48px; width: 48px; border-radius: 2px; margin-bottom: 6px;"></div><span style="font: 500 11px/1 var(--font-mono); color: var(--fg-muted);">--sp-6 (24px)</span></div>
+    <div><div style="background: var(--ulbra-gold); height: 80px; width: 80px; border-radius: 2px; margin-bottom: 6px;"></div><span style="font: 500 11px/1 var(--font-mono); color: var(--fg-muted);">--sp-10 (72px)</span></div>
+    <div><div style="background: var(--ulbra-gold); height: 128px; width: 128px; border-radius: 2px; margin-bottom: 6px;"></div><span style="font: 500 11px/1 var(--font-mono); color: var(--fg-muted);">--sp-12 (128px)</span></div>
+  </div>
+
+  <h3 class="eyebrow">Radii & Shadows</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px;">
+    <div>
+      <h4 style="font: 600 14px/1 var(--font-sans); margin-bottom: 16px; color: var(--fg);">Radii</h4>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="background: rgba(245, 206, 153, 0.1); border: 1px solid var(--surface-line); border-radius: 0; padding: 12px; font-size: 12px; color: var(--fg-muted);">--radius-none (0px)</div>
+        <div style="background: rgba(245, 206, 153, 0.1); border: 1px solid var(--surface-line); border-radius: 4px; padding: 12px; font-size: 12px; color: var(--fg-muted);">--radius-sm (4px)</div>
+        <div style="background: rgba(245, 206, 153, 0.1); border: 1px solid var(--surface-line); border-radius: 8px; padding: 12px; font-size: 12px; color: var(--fg-muted);">--radius-md (8px)</div>
+        <div style="background: rgba(245, 206, 153, 0.1); border: 1px solid var(--surface-line); border-radius: 16px; padding: 12px; font-size: 12px; color: var(--fg-muted);">--radius-lg (16px)</div>
+        <div style="background: rgba(245, 206, 153, 0.1); border: 1px solid var(--surface-line); border-radius: 999px; padding: 12px; font-size: 12px; color: var(--fg-muted);">--radius-pill (999px)</div>
+      </div>
+    </div>
+    <div>
+      <h4 style="font: 600 14px/1 var(--font-sans); margin-bottom: 16px; color: var(--fg);">Shadows</h4>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="background: var(--surface); border-radius: 8px; padding: 12px; box-shadow: var(--shadow-1); font-size: 12px; color: var(--fg-muted);">--shadow-1 (subtle)</div>
+        <div style="background: var(--surface); border-radius: 8px; padding: 12px; box-shadow: var(--shadow-2); font-size: 12px; color: var(--fg-muted);">--shadow-2 (medium)</div>
+        <div style="background: var(--surface); border-radius: 8px; padding: 12px; box-shadow: var(--shadow-3); font-size: 12px; color: var(--fg-muted);">--shadow-3 (large)</div>
+        <div style="background: var(--surface); border-radius: 8px; padding: 12px; box-shadow: var(--shadow-glow); font-size: 12px; color: var(--fg-muted);">--shadow-glow (accent)</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="eyebrow">Motion Tokens</h3>
+  <p style="color: var(--fg-muted); margin-bottom: 16px;">Easing functions and duration tokens for consistent motion across the system.</p>
+  <table class="scale-table" style="margin-bottom: 48px;">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Value</th>
+        <th>Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>--ease-standard</td><td>cubic-bezier(.4,0,.2,1)</td><td>General UI transitions</td></tr>
+      <tr><td>--ease-out</td><td>cubic-bezier(.16,1,.3,1)</td><td>Entering elements</td></tr>
+      <tr><td>--ease-in</td><td>cubic-bezier(.4,0,1,1)</td><td>Exiting elements</td></tr>
+      <tr><td>--dur-fast</td><td>140ms</td><td>Micro-interactions</td></tr>
+      <tr><td>--dur-base</td><td>240ms</td><td>Standard transitions</td></tr>
+      <tr><td>--dur-slow</td><td>420ms</td><td>Dialog/Modal</td></tr>
+      <tr><td>--dur-slower</td><td>720ms</td><td>Large animations</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =========================
+     MOTION & ANIMATION
+     ========================= -->
+<section class="section" id="motion">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 11</div>
+      <h2>Motion & <em>Animation</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">11 / 14</span>
+      <span>Easing · Transitions · Best Practices</span>
+      <span>Smooth & Purposeful</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 48px;">
+    <div>
+      <h3 class="eyebrow">Animation Principles</h3>
+      <div class="pillars" style="grid-template-columns: 1fr;">
+        <div class="pillar">
+          <span class="num">M · 01</span>
+          <h4>Purpose</h4>
+          <p>Animation should clarify intent, not distract. Every motion has meaning.</p>
+        </div>
+        <div class="pillar">
+          <span class="num">M · 02</span>
+          <h4>Performance</h4>
+          <p>Target 60fps. Use transform & opacity for animations. Avoid expensive properties.</p>
+        </div>
+        <div class="pillar">
+          <span class="num">M · 03</span>
+          <h4>Accessibility</h4>
+          <p>Respect prefers-reduced-motion. Provide instant state change alternatives.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="eyebrow">Button Transitions</h3>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <button class="btn btn-primary" style="transition: background 140ms var(--ease-standard);">Fast (140ms)</button>
+        <button class="btn btn-primary" style="transition: background 240ms var(--ease-standard);">Base (240ms)</button>
+        <button class="btn btn-primary" style="transition: background 420ms var(--ease-standard);">Slow (420ms)</button>
+      </div>
+      <p style="font-size: 12px; color: var(--fg-muted); margin-top: 16px;">Hover to see transition in action.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     FORM STATES
+     ========================= -->
+<section class="section" id="form-states">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 12</div>
+      <h2>Form <em>States</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">12 / 14</span>
+      <span>Error · Success · Disabled · Loading</span>
+      <span>Complete Form UX</span>
+    </div>
+  </div>
+
+  <h3 class="eyebrow">Input States</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 48px;">
+    <div>
+      <div class="form-field-demo">
+        <label>Email (Default)</label>
+        <input type="email" placeholder="user@example.com" />
+      </div>
+      <div class="form-field-demo">
+        <label>Password (Focus)</label>
+        <input type="password" placeholder="••••••••" autofocus />
+      </div>
+      <div class="form-field-demo error">
+        <label>Username (Error)</label>
+        <input type="text" placeholder="invalid@domain" />
+        <div class="form-message">❌ Username already taken</div>
+      </div>
+    </div>
+    <div>
+      <div class="form-field-demo success">
+        <label>Email (Success)</label>
+        <input type="email" value="verified@domain.com" />
+        <div class="form-message">✓ Email verified</div>
+      </div>
+      <div class="form-field-demo">
+        <label>Country (Disabled)</label>
+        <input type="text" placeholder="Brazil" disabled />
+      </div>
+      <div class="form-field-demo">
+        <label>Loading State</label>
+        <div class="skeleton skeleton-line" style="width: 100%; height: 40px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="eyebrow">Validation Patterns</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+    <div class="alert alert-success">
+      <div class="alert-icon">✓</div>
+      <div>Field valid, ready to submit</div>
+    </div>
+    <div class="alert alert-warning">
+      <div class="alert-icon">!</div>
+      <div>Missing required field</div>
+    </div>
+    <div class="alert alert-danger">
+      <div class="alert-icon">✕</div>
+      <div>Invalid format or value</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     MORE COMPONENTS
+     ========================= -->
+<section class="section" id="more-components">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 13</div>
+      <h2>Components <em>· Extended</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">13 / 14</span>
+      <span>Modal · Alert · Dropdown · Breadcrumb · Badge</span>
+      <span>Common UI Patterns</span>
+    </div>
+  </div>
+
+  <h3 class="eyebrow">Modals & Dialogs</h3>
+  <div class="modal-demo">
+    <div class="modal-overlay">
+      <div class="modal-content">
+        <h3>Confirm Action</h3>
+        <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+        <div class="modal-actions">
+          <button class="btn btn-primary">Confirm</button>
+          <button class="btn btn-ghost">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top: 48px;">Alerts & Notifications</h3>
+  <div style="margin-bottom: 48px;">
+    <div class="alert alert-info">
+      <div class="alert-icon">ℹ</div>
+      <div><strong>Info:</strong> This is an informational alert message</div>
+    </div>
+    <div class="alert alert-success">
+      <div class="alert-icon">✓</div>
+      <div><strong>Success:</strong> Action completed successfully</div>
+    </div>
+    <div class="alert alert-warning">
+      <div class="alert-icon">!</div>
+      <div><strong>Warning:</strong> Please review before proceeding</div>
+    </div>
+    <div class="alert alert-danger">
+      <div class="alert-icon">✕</div>
+      <div><strong>Error:</strong> Something went wrong, please try again</div>
+    </div>
+  </div>
+
+  <h3 class="eyebrow">Breadcrumbs & Navigation</h3>
+  <div style="margin-bottom: 48px;">
+    <nav class="breadcrumb">
+      <a href="#identity">Design System</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="#components">Components</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Modals</span>
+    </nav>
+  </div>
+
+  <h3 class="eyebrow">Badges & Indicators</h3>
+  <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+    <span style="position: relative;">
+      <span style="display: inline-block;">Notifications</span>
+      <span class="badge">3</span>
+    </span>
+    <span style="position: relative;">
+      <span style="display: inline-block;">Messages</span>
+      <span class="badge secondary">5</span>
+    </span>
+    <span style="position: relative;">
+      <span style="display: inline-block;">Alerts</span>
+      <span class="badge danger">1</span>
+    </span>
+  </div>
+</section>
+
+<!-- =========================
+     DATA DISPLAY
+     ========================= -->
+<section class="section" id="data-display">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 14</div>
+      <h2>Data <em>Display</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">14 / 14</span>
+      <span>Tables · Lists · Data Grids</span>
+      <span>Information Hierarchy</span>
+    </div>
+  </div>
+
+  <h3 class="eyebrow">Data Tables</h3>
+  <div style="margin-bottom: 48px;">
+    <table class="demo-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Campus</th>
+          <th>Programa</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Maria Silva</td>
+          <td>Canoas · RS</td>
+          <td>Engenharia</td>
+          <td><span class="badge">Ativo</span></td>
+        </tr>
+        <tr>
+          <td>João Santos</td>
+          <td>Palmas · TO</td>
+          <td>Medicina</td>
+          <td><span class="badge">Ativo</span></td>
+        </tr>
+        <tr>
+          <td>Ana Costa</td>
+          <td>Manaus · AM</td>
+          <td>Pós-Graduação</td>
+          <td><span class="badge secondary">Formado</span></td>
+        </tr>
+        <tr>
+          <td>Carlos Oliveira</td>
+          <td>Canoas · RS</td>
+          <td>EAD</td>
+          <td><span class="badge">Ativo</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="eyebrow">Stats Grid</h3>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+    <div style="background: var(--surface); border: 1px solid var(--surface-line); border-radius: var(--radius-md); padding: 20px; text-align: center;">
+      <div style="font: 700 32px/1 var(--font-display); color: var(--ulbra-gold-light); margin-bottom: 6px;">12.1K</div>
+      <div style="font: 500 12px/1 var(--font-mono); color: var(--fg-muted); letter-spacing: 0.1em; text-transform: uppercase;">Alunos</div>
+    </div>
+    <div style="background: var(--surface); border: 1px solid var(--surface-line); border-radius: var(--radius-md); padding: 20px; text-align: center;">
+      <div style="font: 700 32px/1 var(--font-display); color: var(--ulbra-gold); margin-bottom: 6px;">7</div>
+      <div style="font: 500 12px/1 var(--font-mono); color: var(--fg-muted); letter-spacing: 0.1em; text-transform: uppercase;">Campi</div>
+    </div>
+    <div style="background: var(--surface); border: 1px solid var(--surface-line); border-radius: var(--radius-md); padding: 20px; text-align: center;">
+      <div style="font: 700 32px/1 var(--font-display); color: var(--ulbra-primary-soft); margin-bottom: 6px;">88%</div>
+      <div style="font: 500 12px/1 var(--font-mono); color: var(--fg-muted); letter-spacing: 0.1em; text-transform: uppercase;">Aprovação</div>
+    </div>
+    <div style="background: var(--surface); border: 1px solid var(--surface-line); border-radius: var(--radius-md); padding: 20px; text-align: center;">
+      <div style="font: 700 32px/1 var(--font-display); color: var(--success); margin-bottom: 6px;">4</div>
+      <div style="font: 500 12px/1 var(--font-mono); color: var(--fg-muted); letter-spacing: 0.1em; text-transform: uppercase;">Programas</div>
+    </div>
   </div>
 </section>
 
