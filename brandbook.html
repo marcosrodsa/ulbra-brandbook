@@ -515,6 +515,12 @@
     max-width: 22ch;
   }
   .manifesto blockquote em { font-style: italic; color: var(--ulbra-bronze); }
+
+  /* Accent color variation by section */
+  #voice .eyebrow { color: var(--ulbra-bronze); }
+  #voice .pillar .num { color: var(--ulbra-bronze); }
+  #icon .eyebrow { color: var(--ulbra-gold); }
+  #components .eyebrow { color: var(--ulbra-gold-light); }
   .manifesto p {
     margin-top: 28px;
     max-width: 56ch;
@@ -655,33 +661,35 @@
   }
   .row-flex { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
-  /* Brand Buttons */
+  /* Brand Buttons — Playfair + Inter contrast */
   .btn {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 12px 22px;
     border-radius: var(--radius-pill);
-    font: 500 14px/1 var(--font-sans);
-    letter-spacing: 0.02em;
+    font: 600 13px/1 var(--font-display);
+    letter-spacing: -0.005em;
     text-decoration: none;
     cursor: pointer;
     border: 1px solid transparent;
     transition: var(--dur-fast) var(--ease-standard);
+    text-transform: uppercase;
   }
   .btn-primary { background: var(--ulbra-gold); color: var(--ulbra-primary-deep); }
-  .btn-primary:hover { background: var(--ulbra-gold-light); }
+  .btn-primary:hover { background: var(--ulbra-gold-light); transform: translateY(-1px); }
   .btn-ghost {
     background: transparent;
-    color: var(--fg);
+    color: var(--ulbra-gold-light);
     border: 1px solid var(--ulbra-gold);
   }
-  .btn-ghost:hover { background: rgba(204,162,105,.08); }
+  .btn-ghost:hover { background: rgba(204,162,105,.08); border-color: var(--ulbra-gold-light); }
   .btn-quiet {
     background: rgba(245,206,153,.08);
-    color: var(--fg);
+    color: var(--ulbra-gold-light);
     border: 1px solid rgba(245,206,153,.2);
   }
-  .btn-text { color: var(--ulbra-gold-light); padding: 8px 0; }
-  .btn-text:hover { color: var(--ulbra-warm-white); }
+  .btn-quiet:hover { background: rgba(245,206,153,.16); }
+  .btn-text { color: var(--ulbra-gold-light); padding: 8px 0; font: 500 12px/1 var(--font-sans); letter-spacing: 0.04em; }
+  .btn-text:hover { color: var(--ulbra-gold); }
 
   /* Inputs */
   .field {
@@ -768,6 +776,7 @@
     .color-grid { grid-template-columns: repeat(2, 1fr); }
     .icon-sizes { grid-template-columns: repeat(2, 1fr); }
     .topbar-meta, .nav-pills { display: none; }
+    #photography > div:first-of-type { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -790,6 +799,7 @@
       <a href="#voice">Voice</a>
       <a href="#icon">Icons</a>
       <a href="#components">Components</a>
+      <a href="#photography">Photography</a>
       <a href="charts.html">Charts</a>
     </nav>
     <div class="topbar-meta">
@@ -1370,7 +1380,7 @@
       <h2>Components <em>· library</em></h2>
     </div>
     <div class="section-meta">
-      <span class="num">07 / 07</span>
+      <span class="num">07 / 08</span>
       <span>Buttons · Inputs · Chips · Cards</span>
       <span>Living tokens</span>
     </div>
@@ -1419,6 +1429,105 @@
           <a class="btn-text btn">Conheça o curso →</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     PHOTOGRAPHY & IMAGERY
+     ========================= -->
+<section class="section" id="photography">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Section 08</div>
+      <h2>Photography <em>&amp; Imagery</em></h2>
+    </div>
+    <div class="section-meta">
+      <span class="num">08 / 08</span>
+      <span>Visual Tone · Guidelines</span>
+      <span>People · Places · Purpose</span>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+    <div>
+      <div class="eyebrow">Quando usar</div>
+      <p style="font: 400 19px/1.55 var(--font-sans); color: var(--fg); max-width: 48ch;">
+        Fotografia humaniza. Use quando contar histórias de pessoas,
+        comunidades, momentos reais de aprendizado e transformação.
+        Evite em contextos onde dados, gráficos ou iconografia comunicam
+        com maior clareza.
+      </p>
+      <p style="margin-top: 28px; font: 400 15px/1.6 var(--font-sans); color: var(--fg-muted); max-width: 56ch;">
+        Candidatos, alunos, professores, cerimônias, espaços de estudo,
+        laboratórios, bibliotecas. Momentos que revelam a qualidade
+        da formação Ulbra.
+      </p>
+    </div>
+
+    <div class="pillars" style="grid-template-columns: 1fr;">
+      <div class="pillar">
+        <span class="num">F · 01</span>
+        <h4>Autêntica</h4>
+        <p>Pessoas reais em situações genuínas. Nada posado ou artificialmente alegre &mdash; mostra trabalho, foco, comunidade.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">F · 02</span>
+        <h4>Iluminada naturalmente</h4>
+        <p>Luz natural quando possível. Transmite clareza, confiança, energia. Evita atmosfera sterile de foto corporativa.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">F · 03</span>
+        <h4>Diversa</h4>
+        <p>Reflete a presença Ulbra em sete estados e a diversidade de seus alunos, programas, idades, origens.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">F · 04</span>
+        <h4>Respeitosa do verde</h4>
+        <p>Composição deixa espaço para o verde-petróleo funcionar como respiro visual. Não compita pela atenção.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:64px">Tipos de imagem e contexto</h3>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+    <div class="ed-card">
+      <h5 style="color: var(--ulbra-gold);">Portais & Landpages</h5>
+      <p>Imagens hero de fundo: close em rosto + desfoque suave. Aluno concentrado, professor em aula, momento de conclusão. Queimado com overlay verde ou dourado (opacity 0.3–0.5).</p>
+    </div>
+    <div class="ed-card">
+      <h5 style="color: var(--ulbra-bronze);">Redes Sociais</h5>
+      <p>Quadrados ou stories: cropping assertivo. Momentos de celebração, desafios académicos, campus. Muito menor texto. Dominância de cor & humanidade — não cenário.</p>
+    </div>
+    <div class="ed-card">
+      <h5 style="color: var(--ulbra-gold-light);">Comunicações Internas</h5>
+      <p>Reuniões, eventos, marcos. Qualidade de documentação — não precisa de retoque pesado. Autenticidade > perfeição.</p>
+    </div>
+    <div class="ed-card">
+      <h5 style="color: var(--ulbra-primary-soft);">Relatórios & Documentos</h5>
+      <p>Imagens quadradas em grid com iconografia. Legendas curtas. Histórias de ex-alunos, pesquisa, impacto social.</p>
+    </div>
+  </div>
+
+  <h3 class="eyebrow" style="margin-top:64px">Ajuste de cor &amp; pós-produção</h3>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+    <div style="background: var(--surface); border: 1px solid var(--surface-line); border-radius: var(--radius-md); padding: 24px;">
+      <h4 style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; color: var(--ulbra-gold-light);">✓ Faça</h4>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Tons quentes ligeiramente saturados (verde + ouro harmony)</li>
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Contraste suave — evita HDR agressivo</li>
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Sombras preenchidas, sem preto puro</li>
+        <li style="padding: 8px 0; font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Grão sutil em fundo — remete ao "granulado" visual Ulbra</li>
+      </ul>
+    </div>
+    <div style="background: var(--surface); border: 1px solid var(--surface-line); border-radius: var(--radius-md); padding: 24px;">
+      <h4 style="font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; color: #d97a6a;">✗ Não faça</h4>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Desaturação extrema ou filtro preto-e-branco</li>
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Efeitos de vigneta exagerados ou virados</li>
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Cores gritantes que competem com marca</li>
+        <li style="padding: 8px 0; font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Embaçamento ou desfoque excessivo do tema principal</li>
+      </ul>
     </div>
   </div>
 </section>
