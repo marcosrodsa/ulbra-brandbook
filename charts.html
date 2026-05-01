@@ -1609,6 +1609,316 @@
     return wrapper;
   }
 
+  /**
+   * 10. CREATE HEATMAP CHART - Inscrições por mês × campus
+   * 12 months × 3 campuses with random values 500-1500
+   * Color scale: green (low) → gold (medium) → bronze (high)
+   * Visual map for color legend
+   * Staggered fade-in animation 1000ms cubicOut
+   */
+  function createHeatmapChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    // Generate months
+    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    const campuses = ['Canoas', 'Manaus', 'Palmas'];
+
+    // Generate random heatmap data: [monthIndex, campusIndex, value]
+    const heatmapData = [];
+    for (let i = 0; i < 12; i++) {
+      for (let j = 0; j < 3; j++) {
+        const value = Math.floor(Math.random() * 1000) + 500; // 500-1500
+        heatmapData.push([i, j, value]);
+      }
+    }
+
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: function(params) {
+          if (params.componentSubType === 'heatmap') {
+            return `${months[params.value[0]]} - ${campuses[params.value[1]]}<br/>Inscrições: ${params.value[2]}`;
+          }
+          return params.name;
+        }
+      },
+      grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '5%',
+        top: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } }
+      },
+      yAxis: {
+        type: 'category',
+        data: campuses,
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } }
+      },
+      visualMap: {
+        min: 500,
+        max: 1500,
+        text: ['Alto', 'Baixo'],
+        textStyle: { color: '#E8E8E8' },
+        inRange: {
+          color: ['#045A52', '#91BAA3', '#F5CE99', '#CCA269'] // green → light green → gold → bronze
+        },
+        dimension: 2,
+        realtime: true
+      },
+      series: [
+        {
+          name: 'Inscrições',
+          type: 'heatmap',
+          data: heatmapData,
+          itemStyle: {
+            borderColor: '#0D3634',
+            borderWidth: 1
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 11. CREATE SCATTER CHART - Custo vs. Taxa de conclusão
+   * 5 data points with bubble sizes representing cohort size
+   * X: cost, Y: completion rate, bubble size: cohort
+   * Colors by program type
+   * 1200ms animation with cubic easing
+   */
+  function createScatterChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    // Scatter data: [cost, completion_rate, cohort_size, program_name]
+    const scatterData = [
+      { value: [15000, 85, 120], name: 'Program A', itemStyle: { color: '#045A52' } },
+      { value: [16200, 88, 95], name: 'Program B', itemStyle: { color: '#F5CE99' } },
+      { value: [14800, 82, 220], name: 'Program C', itemStyle: { color: '#CCA269' } },
+      { value: [17500, 91, 85], name: 'Program D', itemStyle: { color: '#91BAA3' } },
+      { value: [16800, 89, 140], name: 'Program E', itemStyle: { color: '#66563D' } }
+    ];
+
+    const option = {
+      animation: true,
+      animationDuration: 1200,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: function(params) {
+          if (params.componentSubType === 'scatter') {
+            return `${params.name}<br/>Custo: R$ ${params.value[0].toLocaleString('pt-BR')}<br/>Taxa: ${params.value[1]}%<br/>Cohort: ${params.value[2]}`;
+          }
+          return params.name;
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '12%',
+        top: '3%',
+        containLabel: false
+      },
+      xAxis: {
+        type: 'value',
+        axisLabel: { color: '#A0A0A0', formatter: 'R$ {value}' },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: { color: '#A0A0A0', formatter: '{value}%' },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      series: [
+        {
+          name: 'Programs',
+          type: 'scatter',
+          symbolSize: function(data) {
+            return data[2] / 20; // Scale cohort size to pixel size
+          },
+          data: scatterData.map(d => ({
+            value: d.value,
+            name: d.name,
+            itemStyle: d.itemStyle
+          })),
+          itemStyle: {
+            borderColor: 'rgba(255, 255, 255, 0.3)',
+            borderWidth: 2
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 12. CREATE SANKEY CHART - Fluxo: Inquiries → Enrolled
+   * 4 stages: Inquiries (3200) → Applications (2100) → Approved (1450) → Enrolled (1200)
+   * Progressive narrowing flow
+   * Colors: light gold (inquiries) → deep green (enrolled)
+   * Path drawing animation 1500ms
+   * Tooltip shows volume + % of previous stage
+   */
+  function createSankeyChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const option = {
+      animation: true,
+      animationDuration: 1500,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: function(params) {
+          if (params.dataType === 'node') {
+            return `${params.name}<br/>Volume: ${params.value}`;
+          } else if (params.dataType === 'edge') {
+            const percentage = Math.round((params.value / 3200) * 100);
+            return `${params.source.name} → ${params.target.name}<br/>Volume: ${params.value}<br/>% de inscrições: ${percentage}%`;
+          }
+          return params.name;
+        }
+      },
+      series: [
+        {
+          type: 'sankey',
+          data: [
+            { name: 'Inscrições' },
+            { name: 'Aplicações' },
+            { name: 'Aprovadas' },
+            { name: 'Matriculadas' }
+          ],
+          links: [
+            { source: 'Inscrições', target: 'Aplicações', value: 2100 },
+            { source: 'Aplicações', target: 'Aprovadas', value: 1450 },
+            { source: 'Aprovadas', target: 'Matriculadas', value: 1200 }
+          ],
+          itemStyle: {
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 1
+          },
+          lineStyle: {
+            color: 'source',
+            curveness: 0.5,
+            opacity: 0.3
+          },
+          label: {
+            color: '#E8E8E8',
+            fontSize: 12
+          },
+          nodeStyle: {
+            fill: 'linear',
+            fillFrom: { color: '#F5CE99' },
+            fillTo: { color: '#045A52' }
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 13. CREATE RADIAL CHART - Distribuição por área de estudo
+   * 8 areas with polar/radial bar visualization
+   * Data: Engenharia (2400), Saúde (1800), Negócios (1600), Educação (1200), etc.
+   * Bars grow outward from center
+   * Gold-to-green gradient
+   * 1200ms animation, cubicOut
+   */
+  function createRadialChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const areas = [
+      { name: 'Engenharia', value: 2400 },
+      { name: 'Saúde', value: 1800 },
+      { name: 'Negócios', value: 1600 },
+      { name: 'Educação', value: 1200 },
+      { name: 'Tecnologia', value: 1100 },
+      { name: 'Humanas', value: 900 },
+      { name: 'Direito', value: 800 },
+      { name: 'Artes', value: 650 }
+    ];
+
+    const option = {
+      animation: true,
+      animationDuration: 1200,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: '{b}: {c}'
+      },
+      angleAxis: {
+        type: 'category',
+        data: areas.map(a => a.name),
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      radiusAxis: {
+        type: 'value',
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      polar: { center: ['50%', '50%'] },
+      series: [
+        {
+          name: 'Estudantes',
+          type: 'bar',
+          data: areas.map(a => a.value),
+          coordinateSystem: 'polar',
+          itemStyle: {
+            color: {
+              type: 'linear',
+              colorStops: [
+                { offset: 0, color: '#F5CE99' },
+                { offset: 1, color: '#045A52' }
+              ]
+            }
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
   // =========================
   // DOM INITIALIZATION
   // =========================
@@ -1831,6 +2141,114 @@
     });
 
     console.log('KPI & Indicators section initialized with 4 animated KPI cards');
+
+    // =========================
+    // ADVANCED VISUALIZATIONS SECTION
+    // =========================
+    const sectionAdvanced = document.getElementById('section-advanced');
+
+    const advancedCharts = [
+      {
+        title: 'Inscrições por Mês × Campus',
+        description: 'Heatmap showing enrollment volume across 12 months and 3 campuses with color intensity scale.',
+        containerId: 'chart-heatmap',
+        factory: createHeatmapChart
+      },
+      {
+        title: 'Custo vs. Taxa de Conclusão',
+        description: 'Scatter plot analyzing program cost versus completion rates with bubble size representing cohort size.',
+        containerId: 'chart-scatter',
+        factory: createScatterChart
+      },
+      {
+        title: 'Fluxo: Inquiries → Enrolled',
+        description: 'Sankey diagram showing conversion funnel from inquiries through applications, approvals to enrollment.',
+        containerId: 'chart-sankey',
+        factory: createSankeyChart
+      },
+      {
+        title: 'Distribuição por Área de Estudo',
+        description: 'Radial bar chart displaying student distribution across 8 academic fields of study.',
+        containerId: 'chart-radial',
+        factory: createRadialChart
+      }
+    ];
+
+    // Create and render each advanced chart
+    advancedCharts.forEach(chartConfig => {
+      // Create chart card container
+      const chartCard = document.createElement('div');
+      chartCard.style.cssText = `
+        background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
+        border: 1px solid rgba(245, 206, 153, 0.2);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 40px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      `;
+
+      // Chart title
+      const title = document.createElement('h3');
+      title.textContent = chartConfig.title;
+      title.style.cssText = `
+        font: 700 18px var(--font-sans);
+        color: #E8E8E8;
+        margin: 0 0 8px 0;
+      `;
+
+      // Chart description
+      const description = document.createElement('p');
+      description.textContent = chartConfig.description;
+      description.style.cssText = `
+        font: 400 14px var(--font-sans);
+        color: #A0A0A0;
+        margin: 0 0 20px 0;
+      `;
+
+      // Chart container
+      const chartContainer = document.createElement('div');
+      chartContainer.id = chartConfig.containerId;
+      chartContainer.style.cssText = `
+        width: 100%;
+        height: 400px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 12px;
+      `;
+
+      // Code block
+      const codeBlock = document.createElement('pre');
+      codeBlock.style.cssText = `
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(245, 206, 153, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        overflow-x: auto;
+        font: 400 12px 'Monaco', 'Menlo', monospace;
+        color: #91BAA3;
+        white-space: pre-wrap;
+        word-break: break-word;
+      `;
+      codeBlock.textContent = `chartInstances['${chartConfig.containerId}'] = ${chartConfig.factory.name}('${chartConfig.containerId}');`;
+
+      // Append elements to card
+      chartCard.appendChild(title);
+      chartCard.appendChild(description);
+      chartCard.appendChild(chartContainer);
+      chartCard.appendChild(codeBlock);
+
+      // Append card to section
+      sectionAdvanced.appendChild(chartCard);
+
+      // Initialize chart
+      setTimeout(() => {
+        chartConfig.factory(chartConfig.containerId);
+      }, 100);
+    });
+
+    console.log('Advanced Visualizations section initialized with 4 advanced charts');
   });
 </script>
 
