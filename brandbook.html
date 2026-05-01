@@ -423,12 +423,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px; height: 24px;
+    width: 20px; height: 20px;
+    min-width: 20px;
+    flex-shrink: 0;
     border-radius: 50%;
     background: var(--ulbra-gold);
     color: var(--ulbra-primary-deep);
-    font: 600 11px/1 var(--font-mono);
+    font: 600 9px/1 var(--font-mono);
     letter-spacing: 0.05em;
+    vertical-align: middle;
   }
   .badge.secondary {
     background: var(--ulbra-primary-soft);
