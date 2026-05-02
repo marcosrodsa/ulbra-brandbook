@@ -3322,6 +3322,26 @@
 
   // Update pill UI based on state (legacy function - kept for compatibility)
   function updateAllCharts() {
+    // Filter chart cards by type, complexity, and category
+    const chartCards = document.querySelectorAll('.chart-card');
+    chartCards.forEach(card => {
+      const cardType = card.getAttribute('data-type');
+      const cardComplexity = card.getAttribute('data-complexity');
+      const cardCategory = card.getAttribute('data-category');
+
+      const typeMatch = filterState.chartType === 'all' || cardType === filterState.chartType;
+      const complexityMatch = filterState.complexity === 'all' || cardComplexity === filterState.complexity;
+      const categoryMatch = filterState.category === 'all' || cardCategory === filterState.category;
+
+      if (typeMatch && complexityMatch && categoryMatch) {
+        card.style.display = 'block';
+        card.style.opacity = '1';
+      } else {
+        card.style.display = 'none';
+        card.style.opacity = '0';
+      }
+    });
+
     const chartContainers = document.querySelectorAll('.chart-container');
     chartContainers.forEach(container => {
       container.style.transition = 'opacity 0.2s ease-in-out';
@@ -4475,36 +4495,55 @@
         title: 'Inscrições por Semestre',
         description: 'Evolução de inscrições em 4 programas: Graduação, Pós-Graduação, EAD e Medicina.',
         containerId: 'chart-line',
-        factory: createLineChart
+        factory: createLineChart,
+        type: 'line',
+        complexity: 'intermediate',
+        category: 'students'
       },
       {
         title: 'Alunos por Campus',
         description: 'Distribuição de alunos entre os campus principais: Canoas, Manaus, Palmas e Virtual.',
         containerId: 'chart-bar',
-        factory: createBarChart
+        factory: createBarChart,
+        type: 'bar',
+        complexity: 'basic',
+        category: 'students'
       },
       {
         title: 'Crescimento Anual',
         description: 'Evolução do total de alunos de 2020 a 2026, mostrando crescimento sustentado.',
         containerId: 'chart-area',
-        factory: createAreaChart
+        factory: createAreaChart,
+        type: 'area',
+        complexity: 'intermediate',
+        category: 'students'
       },
       {
         title: 'Distribuição por Programa',
         description: 'Proporção de alunos em cada programa acadêmico (Pie Chart).',
         containerId: 'chart-pie',
-        factory: createPieChart
+        factory: createPieChart,
+        type: 'pie',
+        complexity: 'basic',
+        category: 'academic'
       },
       {
         title: 'Taxa de Conclusão',
         description: 'Taxa de conclusão por programa acadêmico (Donut Chart).',
         containerId: 'chart-donut',
-        factory: createDonutChart
+        factory: createDonutChart,
+        type: 'gauge',
+        complexity: 'intermediate',
+        category: 'academic'
       }
     ];
 
     commonCharts.forEach(chartConfig => {
       const chartCard = document.createElement('div');
+      chartCard.className = 'chart-card';
+      chartCard.setAttribute('data-type', chartConfig.type || 'all');
+      chartCard.setAttribute('data-complexity', chartConfig.complexity || 'all');
+      chartCard.setAttribute('data-category', chartConfig.category || 'all');
       chartCard.style.cssText = `
         background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
         border: 1px solid rgba(245, 206, 153, 0.2);
@@ -4513,6 +4552,7 @@
         margin-bottom: 40px;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
       `;
 
       const title = document.createElement('h3');
@@ -4559,30 +4599,46 @@
         title: 'Approval Rate',
         description: 'Approval rate showing 88%, up from 85% last year.',
         containerId: 'chart-gauge',
-        factory: createGaugeChart
+        factory: createGaugeChart,
+        type: 'gauge',
+        complexity: 'basic',
+        category: 'metrics'
       },
       {
         title: 'Completion Progress',
         description: 'Current semester completion progress at 91% with 8 weeks remaining.',
         containerId: 'chart-progress',
-        factory: createProgressChart
+        factory: createProgressChart,
+        type: 'gauge',
+        complexity: 'basic',
+        category: 'academic'
       },
       {
         title: 'Total Students',
         description: 'Total active students enrollment with 2.3% growth.',
         containerId: 'chart-stat',
-        factory: createStatCard
+        factory: createStatCard,
+        type: 'gauge',
+        complexity: 'basic',
+        category: 'students'
       },
       {
         title: 'Student Growth',
         description: 'Year-over-year student growth trend at 12.3%.',
         containerId: 'chart-trend',
-        factory: createTrendCard
+        factory: createTrendCard,
+        type: 'line',
+        complexity: 'intermediate',
+        category: 'students'
       }
     ];
 
     kpiCharts.forEach(chartConfig => {
       const chartCard = document.createElement('div');
+      chartCard.className = 'chart-card';
+      chartCard.setAttribute('data-type', chartConfig.type || 'all');
+      chartCard.setAttribute('data-complexity', chartConfig.complexity || 'all');
+      chartCard.setAttribute('data-category', chartConfig.category || 'all');
       chartCard.style.cssText = `
         background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
         border: 1px solid rgba(245, 206, 153, 0.2);
@@ -4637,30 +4693,46 @@
         title: 'Inscrições por Mês × Campus',
         description: 'Heatmap showing enrollment volume across 12 months and 3 campuses with color intensity scale.',
         containerId: 'chart-heatmap',
-        factory: createHeatmapChart
+        factory: createHeatmapChart,
+        type: 'heatmap',
+        complexity: 'advanced',
+        category: 'students'
       },
       {
         title: 'Custo vs. Taxa de Conclusão',
         description: 'Scatter plot analyzing program cost versus completion rates with bubble size representing cohort size.',
         containerId: 'chart-scatter',
-        factory: createScatterChart
+        factory: createScatterChart,
+        type: 'scatter',
+        complexity: 'advanced',
+        category: 'financial'
       },
       {
         title: 'Fluxo: Inquiries → Enrolled',
         description: 'Sankey diagram showing conversion funnel from inquiries through applications, approvals to enrollment.',
         containerId: 'chart-sankey',
-        factory: createSankeyChart
+        factory: createSankeyChart,
+        type: 'sankey',
+        complexity: 'advanced',
+        category: 'students'
       },
       {
         title: 'Distribuição por Área de Estudo',
         description: 'Radial bar chart displaying student distribution across 8 academic fields of study.',
         containerId: 'chart-radial',
-        factory: createRadialChart
+        factory: createRadialChart,
+        type: 'radar',
+        complexity: 'advanced',
+        category: 'academic'
       }
     ];
 
     advancedCharts.forEach(chartConfig => {
       const chartCard = document.createElement('div');
+      chartCard.className = 'chart-card';
+      chartCard.setAttribute('data-type', chartConfig.type || 'all');
+      chartCard.setAttribute('data-complexity', chartConfig.complexity || 'all');
+      chartCard.setAttribute('data-category', chartConfig.category || 'all');
       chartCard.style.cssText = `
         background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
         border: 1px solid rgba(245, 206, 153, 0.2);
@@ -4669,6 +4741,7 @@
         margin-bottom: 40px;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
       `;
 
       const title = document.createElement('h3');
