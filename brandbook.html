@@ -4391,6 +4391,9 @@
 
   function createPieChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#0D3634' : '#E8E8E8';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -4398,14 +4401,14 @@
       animationEasing: 'cubicInOut',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        textStyle: { color: textColor, fontSize: 12 },
         formatter: '{b}: {c}%'
       },
       legend: {
         data: ['Graduação', 'Pós-Graduação', 'EAD', 'Medicina'],
-        textStyle: { color: '#E8E8E8' },
+        textStyle: { color: textColor },
         bottom: 0,
         left: 'center'
       },
@@ -4426,7 +4429,7 @@
             borderWidth: 2
           },
           label: {
-            color: '#E8E8E8',
+            color: textColor,
             fontSize: 12
           }
         }
@@ -4442,6 +4445,9 @@
 
   function createDonutChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#0D3634' : '#E8E8E8';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -4449,14 +4455,14 @@
       animationEasing: 'elasticOut',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        textStyle: { color: textColor, fontSize: 12 },
         formatter: '{b}: {c}%'
       },
       legend: {
         data: ['Graduação', 'Pós-Graduação', 'EAD', 'Medicina'],
-        textStyle: { color: '#E8E8E8' },
+        textStyle: { color: textColor },
         bottom: 0,
         left: 'center'
       },
@@ -4477,7 +4483,7 @@
             borderWidth: 2
           },
           label: {
-            color: '#E8E8E8',
+            color: textColor,
             fontSize: 12
           }
         }
