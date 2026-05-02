@@ -5618,12 +5618,15 @@
     document.body.classList.add('light-mode');
   }
 
-  // Restore scroll position after page load
+  // Restore scroll position after page load (only for theme toggle)
   window.addEventListener('load', () => {
     const savedScrollY = sessionStorage.getItem('scrollY');
     if (savedScrollY !== null) {
       window.scrollTo(0, parseInt(savedScrollY, 10));
       sessionStorage.removeItem('scrollY');
+    } else {
+      // Normal refresh goes to top
+      window.scrollTo(0, 0);
     }
   });
 
