@@ -878,11 +878,12 @@
   .clearspace {
     position: relative;
     height: 280px;
-    background: var(--surface);
-    border: 1px solid var(--surface-line);
+    background: #0D3634 !important;
+    border: 1px solid #0D3634 !important;
     border-radius: var(--radius-md);
     display: grid; place-items: center;
     overflow: hidden;
+    color: var(--ulbra-warm-white);
   }
   .clearspace .x-grid {
     position: relative;
@@ -906,12 +907,13 @@
   }
   .dont {
     aspect-ratio: 1/1;
-    background: var(--surface);
-    border: 1px solid var(--surface-line);
+    background: #0D3634 !important;
+    border: 1px solid #0D3634 !important;
     border-radius: var(--radius-md);
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
     padding: 16px;
     position: relative;
+    color: var(--ulbra-warm-white);
   }
   .dont .x {
     position: absolute; top: 12px; right: 12px;
@@ -1403,11 +1405,12 @@
 
   /* Card */
   .ed-card {
-    border: 1px solid var(--surface-line);
+    border: 1px solid #0D3634 !important;
     border-radius: var(--radius-md);
-    background: linear-gradient(170deg, rgba(13,54,52,.5), rgba(4,90,82,.4));
+    background: #0D3634 !important;
     padding: 24px;
     display: flex; flex-direction: column; gap: 12px;
+    color: var(--ulbra-warm-white);
   }
   .ed-card h5 {
     font: 600 22px/1.15 var(--font-display);
@@ -1929,30 +1932,8 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
-  body.light-mode .clearspace {
-    background: #0D3634;
-    border: 1px solid #0D3634;
-    color: var(--ulbra-warm-white);
-  }
-
-  body.light-mode .donts-grid .dont {
-    background: #0D3634;
-    border: 1px solid #0D3634;
-    color: var(--ulbra-warm-white);
-  }
-
-  body.light-mode .donts-grid .dont.colored {
-    background: #0D3634;
-    border: 1px solid #0D3634;
-  }
 
   /* Card and component showcase backgrounds in light mode */
-  body.light-mode .ed-card {
-    background: #0D3634;
-    border: 1px solid #0D3634;
-    color: var(--ulbra-warm-white);
-  }
-
   body.light-mode .ed-card h5 {
     color: var(--ulbra-gold-light);
   }
