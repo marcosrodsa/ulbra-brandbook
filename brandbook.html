@@ -1765,6 +1765,17 @@
     filter: brightness(0.95) !important;
   }
 
+  /* Additional fallback for light mode text rendering */
+  body.light-mode .echarts-tooltip-text {
+    color: #0D3634 !important;
+    fill: #0D3634 !important;
+  }
+
+  body.light-mode g text {
+    fill: #0D3634 !important;
+    color: #0D3634 !important;
+  }
+
   body.light-mode .swatch {
     border: 1px solid #ddd;
   }
@@ -4022,20 +4033,28 @@
     if (!container) return;
 
     const forceTextColor = () => {
-      const textElements = container.querySelectorAll('text, tspan');
+      // Target all text elements including nested ones
+      const textElements = container.querySelectorAll('text, tspan, g, svg');
       textElements.forEach(el => {
-        // Force dark color on ALL text in light mode
-        el.setAttribute('fill', '#0D3634');
-        el.style.fill = '#0D3634 !important';
-        el.style.color = '#0D3634 !important';
+        if (el.tagName === 'text' || el.tagName === 'tspan') {
+          el.setAttribute('fill', '#0D3634');
+          el.style.fill = '#0D3634 !important';
+          el.style.color = '#0D3634 !important';
+        }
+        // Also update style attribute to include color
+        const style = el.getAttribute('style') || '';
+        if (!style.includes('fill: #0D3634')) {
+          el.setAttribute('style', style + '; fill: #0D3634 !important; color: #0D3634 !important;');
+        }
       });
     };
 
-    // Try multiple times with increasing delays
+    // Try multiple times to catch async-rendered elements
     forceTextColor();
     setTimeout(forceTextColor, 50);
     setTimeout(forceTextColor, 150);
     setTimeout(forceTextColor, 300);
+    setTimeout(forceTextColor, 500);
   }
 
   /**
