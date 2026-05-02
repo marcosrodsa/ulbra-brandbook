@@ -1499,6 +1499,18 @@
       padding: 10px 12px;
     }
 
+    /* Typography table responsive */
+    .scale-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    .scale-table thead, .scale-table tbody, .scale-table tr {
+      display: table;
+      width: 100%;
+    }
+
     /* Alert full width */
     .alert { margin-bottom: 12px; }
 
@@ -1538,6 +1550,18 @@
     .section > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 24px !important; }
     .color-grid { grid-template-columns: 1fr !important; }
     .palette-block { margin-bottom: 24px; }
+
+    /* Tables on ultra-small screens */
+    .scale-table {
+      font-size: 11px;
+    }
+    .scale-table th, .scale-table td {
+      padding: 10px 8px;
+    }
+    .scale-table td.preview {
+      padding: 12px 8px;
+      font-size: 14px;
+    }
   }
 
   /* ============================================================
