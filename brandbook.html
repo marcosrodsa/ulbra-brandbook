@@ -5118,6 +5118,7 @@
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
     const isLight = document.body.classList.contains('light-mode');
     const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const labelColor = isLight ? '#FFFFFF' : '#E8E8E8';
     const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
@@ -5154,16 +5155,16 @@
             { source: 'Aprovadas', target: 'Matriculadas', value: 1200 }
           ],
           itemStyle: {
-            borderColor: 'rgba(255, 255, 255, 0.1)',
+            borderColor: isLight ? 'rgba(13, 54, 52, 0.2)' : 'rgba(255, 255, 255, 0.1)',
             borderWidth: 1
           },
           lineStyle: {
             color: 'source',
             curveness: 0.5,
-            opacity: 0.3
+            opacity: isLight ? 0.6 : 0.3
           },
           label: {
-            color: '#E8E8E8',
+            color: labelColor,
             fontSize: 12
           }
         }
