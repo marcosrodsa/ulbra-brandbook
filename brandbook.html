@@ -1734,45 +1734,45 @@
 
   body.light-mode .echarts-tooltip {
     background: rgba(245, 206, 153, 0.98) !important;
-    color: #0D3634 !important;
+    color: #045A52 !important;
   }
 
   /* AGGRESSIVE: Force dark text everywhere in light mode */
   body.light-mode * {
-    --echarts-text-color: #0D3634 !important;
+    --echarts-text-color: #045A52 !important;
   }
 
   body.light-mode text {
-    fill: #0D3634 !important;
-    color: #0D3634 !important;
+    fill: #045A52 !important;
+    color: #045A52 !important;
     stroke: none !important;
   }
 
   body.light-mode tspan {
-    fill: #0D3634 !important;
-    color: #0D3634 !important;
+    fill: #045A52 !important;
+    color: #045A52 !important;
   }
 
   body.light-mode g {
-    color: #0D3634 !important;
+    color: #045A52 !important;
   }
 
   body.light-mode svg text {
-    fill: #0D3634 !important;
+    fill: #045A52 !important;
   }
 
   body.light-mode svg tspan {
-    fill: #0D3634 !important;
+    fill: #045A52 !important;
   }
 
   body.light-mode [id*="chart-"] text {
-    fill: #0D3634 !important;
-    color: #0D3634 !important;
+    fill: #045A52 !important;
+    color: #045A52 !important;
   }
 
   body.light-mode [id*="chart-"] tspan {
-    fill: #0D3634 !important;
-    color: #0D3634 !important;
+    fill: #045A52 !important;
+    color: #045A52 !important;
   }
 
   body.light-mode [id*="chart-"] {
@@ -1780,13 +1780,13 @@
   }
 
   body.light-mode .echarts-tooltip-text {
-    color: #0D3634 !important;
-    fill: #0D3634 !important;
+    color: #045A52 !important;
+    fill: #045A52 !important;
   }
 
   body.light-mode g text {
-    fill: #0D3634 !important;
-    color: #0D3634 !important;
+    fill: #045A52 !important;
+    color: #045A52 !important;
   }
 
   body.light-mode .swatch {
@@ -4046,14 +4046,14 @@
     if (!container) return;
 
     const forceTextColor = (el = container) => {
-      // Aggressive color forcing for all text
+      // Aggressive color forcing for all text - use brand green #045A52
       const textElements = el.querySelectorAll('text, tspan, [fill], [color]');
       textElements.forEach(node => {
         if (node.tagName === 'text' || node.tagName === 'tspan' || node.tagName === 'g') {
-          node.setAttribute('fill', '#0D3634');
-          node.style.fill = '#0D3634 !important';
-          node.style.color = '#0D3634 !important';
-          node.setAttribute('style', (node.getAttribute('style') || '') + '; fill: #0D3634 !important; color: #0D3634 !important;');
+          node.setAttribute('fill', '#045A52');
+          node.style.fill = '#045A52 !important';
+          node.style.color = '#045A52 !important';
+          node.setAttribute('style', (node.getAttribute('style') || '') + '; fill: #045A52 !important; color: #045A52 !important;');
         }
       });
     };
@@ -4433,7 +4433,7 @@
   function createPieChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
     const isLight = document.body.classList.contains('light-mode');
-    const textColor = isLight ? '#0D3634' : '#E8E8E8';
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
     const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
@@ -4487,7 +4487,7 @@
   function createDonutChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
     const isLight = document.body.classList.contains('light-mode');
-    const textColor = isLight ? '#0D3634' : '#E8E8E8';
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
     const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
