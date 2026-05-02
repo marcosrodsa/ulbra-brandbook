@@ -2745,6 +2745,53 @@
     <span style="font: 500 11px/1 var(--font-sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim);">Filtros</span>
   </div>
   <div class="filter-bar" id="filter-container" style="margin-bottom: 60px;">
+    <div class="custom-select" id="typeSelect">
+      <button class="custom-select-btn" aria-label="Filter by chart type">
+        <span class="custom-select-value">Tipo</span>
+        <svg viewBox="0 0 24 24" class="custom-select-arrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="custom-select-dropdown">
+        <button class="custom-select-option" data-value="all">Todos</button>
+        <button class="custom-select-option" data-value="line">Line</button>
+        <button class="custom-select-option" data-value="bar">Bar</button>
+        <button class="custom-select-option" data-value="area">Area</button>
+        <button class="custom-select-option" data-value="pie">Pie</button>
+        <button class="custom-select-option" data-value="gauge">Gauge</button>
+        <button class="custom-select-option" data-value="radar">Radar</button>
+        <button class="custom-select-option" data-value="scatter">Scatter</button>
+        <button class="custom-select-option" data-value="heatmap">Heatmap</button>
+        <button class="custom-select-option" data-value="sankey">Sankey</button>
+      </div>
+    </div>
+
+    <div class="custom-select" id="complexitySelect">
+      <button class="custom-select-btn" aria-label="Filter by complexity">
+        <span class="custom-select-value">Complexidade</span>
+        <svg viewBox="0 0 24 24" class="custom-select-arrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="custom-select-dropdown">
+        <button class="custom-select-option" data-value="all">Todos</button>
+        <button class="custom-select-option" data-value="basic">Básico</button>
+        <button class="custom-select-option" data-value="intermediate">Intermediário</button>
+        <button class="custom-select-option" data-value="advanced">Avançado</button>
+      </div>
+    </div>
+
+    <div class="custom-select" id="categorySelect">
+      <button class="custom-select-btn" aria-label="Filter by category">
+        <span class="custom-select-value">Categoria</span>
+        <svg viewBox="0 0 24 24" class="custom-select-arrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="custom-select-dropdown">
+        <button class="custom-select-option" data-value="all">Todos</button>
+        <button class="custom-select-option" data-value="students">Alunos</button>
+        <button class="custom-select-option" data-value="financial">Financeiro</button>
+        <button class="custom-select-option" data-value="academic">Acadêmico</button>
+        <button class="custom-select-option" data-value="resources">Recursos</button>
+        <button class="custom-select-option" data-value="metrics">KPI</button>
+      </div>
+    </div>
+
     <div class="custom-select" id="periodSelect">
       <button class="custom-select-btn" aria-label="Filter by period">
         <span class="custom-select-value">2026</span>
@@ -3028,7 +3075,10 @@
   const filterState = {
     period: '2026',
     campuses: ['all'],
-    programs: ['all']
+    programs: ['all'],
+    chartType: 'all',
+    complexity: 'all',
+    category: 'all'
   };
 
   // Custom Period Select
@@ -3061,6 +3111,90 @@
     document.addEventListener('click', (e) => {
       if (!periodSelect.contains(e.target)) {
         periodSelect.classList.remove('open');
+      }
+    });
+  }
+
+  // Chart Type dropdown
+  const typeSelect = document.getElementById('typeSelect');
+  if (typeSelect) {
+    const typeBtn = typeSelect.querySelector('.custom-select-btn');
+    const typeOptions = typeSelect.querySelectorAll('.custom-select-option');
+
+    typeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        filterState.chartType = value;
+        typeBtn.querySelector('.custom-select-value').textContent = option.textContent;
+        typeSelect.classList.remove('open');
+        updateAllCharts();
+      });
+    });
+
+    typeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      typeSelect.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!typeSelect.contains(e.target)) {
+        typeSelect.classList.remove('open');
+      }
+    });
+  }
+
+  // Complexity dropdown
+  const complexitySelect = document.getElementById('complexitySelect');
+  if (complexitySelect) {
+    const complexityBtn = complexitySelect.querySelector('.custom-select-btn');
+    const complexityOptions = complexitySelect.querySelectorAll('.custom-select-option');
+
+    complexityOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        filterState.complexity = value;
+        complexityBtn.querySelector('.custom-select-value').textContent = option.textContent;
+        complexitySelect.classList.remove('open');
+        updateAllCharts();
+      });
+    });
+
+    complexityBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      complexitySelect.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!complexitySelect.contains(e.target)) {
+        complexitySelect.classList.remove('open');
+      }
+    });
+  }
+
+  // Category dropdown
+  const categorySelect = document.getElementById('categorySelect');
+  if (categorySelect) {
+    const categoryBtn = categorySelect.querySelector('.custom-select-btn');
+    const categoryOptions = categorySelect.querySelectorAll('.custom-select-option');
+
+    categoryOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        filterState.category = value;
+        categoryBtn.querySelector('.custom-select-value').textContent = option.textContent;
+        categorySelect.classList.remove('open');
+        updateAllCharts();
+      });
+    });
+
+    categoryBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      categorySelect.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!categorySelect.contains(e.target)) {
+        categorySelect.classList.remove('open');
       }
     });
   }
@@ -3131,6 +3265,30 @@
       filterState.period = '2026';
       filterState.campuses = ['all'];
       filterState.programs = ['all'];
+      filterState.chartType = 'all';
+      filterState.complexity = 'all';
+      filterState.category = 'all';
+
+      // Reset type select
+      if (typeSelect) {
+        const typeBtn = typeSelect.querySelector('.custom-select-btn');
+        typeBtn.querySelector('.custom-select-value').textContent = 'Tipo';
+        typeSelect.classList.remove('open');
+      }
+
+      // Reset complexity select
+      if (complexitySelect) {
+        const complexityBtn = complexitySelect.querySelector('.custom-select-btn');
+        complexityBtn.querySelector('.custom-select-value').textContent = 'Complexidade';
+        complexitySelect.classList.remove('open');
+      }
+
+      // Reset category select
+      if (categorySelect) {
+        const categoryBtn = categorySelect.querySelector('.custom-select-btn');
+        categoryBtn.querySelector('.custom-select-value').textContent = 'Categoria';
+        categorySelect.classList.remove('open');
+      }
 
       // Reset period select
       if (periodSelect) {
