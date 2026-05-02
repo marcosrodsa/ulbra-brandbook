@@ -5687,9 +5687,11 @@
         `;
 
         const statNumber = document.createElement('div');
+        const isLightMode = document.body.classList.contains('light-mode');
+        const statNumberColor = isLightMode ? '#045A52' : '#E8E8E8';
         statNumber.style.cssText = `
           font: 700 48px var(--font-sans);
-          color: #045A52;
+          color: ${statNumberColor};
           margin: 0 0 12px 0;
           line-height: 1;
         `;
