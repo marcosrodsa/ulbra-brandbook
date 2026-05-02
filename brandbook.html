@@ -1630,6 +1630,13 @@
   /* Light mode colors */
   body.light-mode {
     background: #FFFFFF !important;
+  }
+
+  body.light-mode::before {
+    display: none !important;
+  }
+
+  body.light-mode {
     --bg: #FFFFFF;
     --bg-elev: #F8F6F0;
     --bg-elev-2: #F0EDE0;
