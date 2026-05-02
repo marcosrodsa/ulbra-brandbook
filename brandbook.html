@@ -1519,6 +1519,118 @@
     section { padding: 32px var(--gutter) !important; }
     .kpi-grid { grid-template-columns: 1fr; }
   }
+
+  /* ============================================================
+     THEME TOGGLE
+     ============================================================ */
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .theme-btn {
+    background: none;
+    border: 1px solid rgba(245, 206, 153, 0.3);
+    border-radius: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .theme-btn:hover {
+    border-color: rgba(245, 206, 153, 0.6);
+    background: rgba(245, 206, 153, 0.08);
+  }
+
+  .theme-btn svg {
+    stroke: #CCA269;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: opacity 0.3s ease;
+  }
+
+  .sun-icon {
+    opacity: 1;
+    position: absolute;
+  }
+
+  .moon-icon {
+    opacity: 0;
+    position: absolute;
+  }
+
+  body.light-mode .sun-icon {
+    opacity: 0;
+  }
+
+  body.light-mode .moon-icon {
+    opacity: 1;
+  }
+
+  /* Light mode colors */
+  body.light-mode {
+    --bg: #FFFFFF;
+    --bg-elev: #F8F6F0;
+    --bg-elev-2: #F0EDE0;
+    --surface: #FBFAF5;
+    --surface-line: rgba(13, 54, 52, 0.12);
+    --surface-line-strong: rgba(13, 54, 52, 0.24);
+    --paper-bg: #FFFFFF;
+    --paper-line: #E8DFC8;
+    --fg: #0D3634;
+    --fg-muted: #5D5245;
+    --fg-dim: #8A8170;
+    --fg-accent: var(--ulbra-gold);
+    --fg-link: #045A52;
+    --ink: #0D3634;
+    --ink-muted: #5D5245;
+    --ink-dim: #8A8170;
+  }
+
+  body.light-mode .topbar {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E8DFC8;
+  }
+
+  body.light-mode .nav-group-btn,
+  body.light-mode .nav-direct {
+    color: #0D3634;
+  }
+
+  body.light-mode .nav-dropdown {
+    background: #F8F6F0;
+    border: 1px solid #E8DFC8;
+  }
+
+  body.light-mode .nav-dropdown a {
+    color: #0D3634;
+  }
+
+  body.light-mode .nav-dropdown a:hover {
+    background: rgba(13, 54, 52, 0.1);
+    color: #045A52;
+  }
+
+  body.light-mode section {
+    background: #FFFFFF;
+    color: #0D3634;
+  }
+
+  body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
+    color: #0D3634;
+  }
+
+  body.light-mode .chart-card {
+    background: linear-gradient(135deg, rgba(4, 90, 82, 0.05) 0%, rgba(4, 90, 82, 0.02) 100%) !important;
+    border: 1px solid rgba(4, 90, 82, 0.15) !important;
+  }
 </style>
 </head>
 <body>
@@ -1557,6 +1669,24 @@
       </div>
       <a href="#charts" class="nav-direct">Charts</a>
     </nav>
+    <div class="topbar-actions">
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark/light mode" title="Dark/Light Mode">
+        <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
     <div class="topbar-meta">
       <span><span class="dot"></span>v1.0 · 2026</span>
       <span>Brand Guidelines</span>
@@ -3641,6 +3771,98 @@
     return chart;
   }
 
+  function createLineChartGraduacao(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 }
+      },
+      grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      series: [{ name: 'Graduação', data: [4200, 4350, 4500], type: 'line', smooth: true, lineStyle: { width: 3, color: '#045A52' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(4, 90, 82, 0.5)' }, { offset: 1, color: 'rgba(4, 90, 82, 0.05)' }] } }, symbolSize: 5 }]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  function createLineChartPosgraduation(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 }
+      },
+      grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      series: [{ name: 'Pós-Graduação', data: [1850, 1920, 2050], type: 'line', smooth: true, lineStyle: { width: 3, color: '#F5CE99' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(245, 206, 153, 0.5)' }, { offset: 1, color: 'rgba(245, 206, 153, 0.05)' }] } }, symbolSize: 5 }]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  function createLineChartEAD(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 }
+      },
+      grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      series: [{ name: 'EAD', data: [3400, 3650, 3900], type: 'line', smooth: true, lineStyle: { width: 3, color: '#CCA269' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(204, 162, 105, 0.5)' }, { offset: 1, color: 'rgba(204, 162, 105, 0.05)' }] } }, symbolSize: 5 }]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  function createLineChartMedicina(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 }
+      },
+      grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      series: [{ name: 'Medicina', data: [450, 480, 520], type: 'line', smooth: true, lineStyle: { width: 3, color: '#91BAA3' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(145, 186, 163, 0.5)' }, { offset: 1, color: 'rgba(145, 186, 163, 0.05)' }] } }, symbolSize: 5 }]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
   function createAreaChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), 'ulbra');
 
@@ -3676,7 +3898,7 @@
       yAxis: {
         type: 'value',
         axisLine: { show: false },
-        axisLabel: { color: '#A0A0A0' },
+        axisLabel: { color: '#A0A0A0', formatter: '{value}' },
         splitLine: { lineStyle: { color: '#333' } }
       },
       series: [
@@ -4666,6 +4888,24 @@
 
   /**
    * =========================
+   * THEME TOGGLE INITIALIZATION
+   * =========================
+   */
+  const themeToggle = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+    localStorage.setItem('theme', currentTheme);
+  });
+
+  /**
+   * =========================
    * CHART INITIALIZATION
    * =========================
    */
@@ -4674,13 +4914,43 @@
 
     const commonCharts = [
       {
-        title: 'Inscrições por Semestre',
+        title: 'Inscrições · Graduação',
         chartType: 'Line Chart',
-        description: 'Evolução de inscrições em 4 programas: Graduação, Pós-Graduação, EAD e Medicina.',
-        containerId: 'chart-line',
-        factory: createLineChart,
+        description: 'Evolução de inscrições em Graduação.',
+        containerId: 'chart-line-grad',
+        factory: createLineChartGraduacao,
         type: 'line',
-        complexity: 'intermediate',
+        complexity: 'basic',
+        category: 'students'
+      },
+      {
+        title: 'Inscrições · Pós-Graduação',
+        chartType: 'Line Chart',
+        description: 'Evolução de inscrições em Pós-Graduação.',
+        containerId: 'chart-line-posg',
+        factory: createLineChartPosgraduation,
+        type: 'line',
+        complexity: 'basic',
+        category: 'students'
+      },
+      {
+        title: 'Inscrições · EAD',
+        chartType: 'Line Chart',
+        description: 'Evolução de inscrições em EAD.',
+        containerId: 'chart-line-ead',
+        factory: createLineChartEAD,
+        type: 'line',
+        complexity: 'basic',
+        category: 'students'
+      },
+      {
+        title: 'Inscrições · Medicina',
+        chartType: 'Line Chart',
+        description: 'Evolução de inscrições em Medicina.',
+        containerId: 'chart-line-med',
+        factory: createLineChartMedicina,
+        type: 'line',
+        complexity: 'basic',
         category: 'students'
       },
       {
