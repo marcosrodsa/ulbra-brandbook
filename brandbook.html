@@ -4914,41 +4914,21 @@
 
     const commonCharts = [
       {
+        title: 'Inscrições por Semestre',
+        chartType: 'Line Chart',
+        description: 'Evolução de inscrições em 4 programas: Graduação, Pós-Graduação, EAD e Medicina.',
+        containerId: 'chart-line',
+        factory: createLineChart,
+        type: 'line',
+        complexity: 'intermediate',
+        category: 'students'
+      },
+      {
         title: 'Inscrições · Graduação',
         chartType: 'Line Chart',
-        description: 'Evolução de inscrições em Graduação.',
+        description: 'Evolução individual de inscrições em Graduação.',
         containerId: 'chart-line-grad',
         factory: createLineChartGraduacao,
-        type: 'line',
-        complexity: 'basic',
-        category: 'students'
-      },
-      {
-        title: 'Inscrições · Pós-Graduação',
-        chartType: 'Line Chart',
-        description: 'Evolução de inscrições em Pós-Graduação.',
-        containerId: 'chart-line-posg',
-        factory: createLineChartPosgraduation,
-        type: 'line',
-        complexity: 'basic',
-        category: 'students'
-      },
-      {
-        title: 'Inscrições · EAD',
-        chartType: 'Line Chart',
-        description: 'Evolução de inscrições em EAD.',
-        containerId: 'chart-line-ead',
-        factory: createLineChartEAD,
-        type: 'line',
-        complexity: 'basic',
-        category: 'students'
-      },
-      {
-        title: 'Inscrições · Medicina',
-        chartType: 'Line Chart',
-        description: 'Evolução de inscrições em Medicina.',
-        containerId: 'chart-line-med',
-        factory: createLineChartMedicina,
         type: 'line',
         complexity: 'basic',
         category: 'students'
