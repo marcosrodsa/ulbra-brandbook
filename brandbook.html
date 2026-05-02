@@ -925,7 +925,7 @@
     width: 24px; height: 24px;
     border-radius: 50%;
     background: rgba(184, 90, 74, 0.18);
-    color: #d97a6a;
+    color: #b85a4a;
     display: flex; align-items: center; justify-content: center;
     font: 600 14px var(--font-sans);
   }
@@ -1035,8 +1035,8 @@
     text-transform: uppercase;
     margin-bottom: 14px;
   }
-  .voice-col.do h4    { color: #7fbe9c; }
-  .voice-col.dont h4  { color: #d97a6a; }
+  .voice-col.do h4    { color: #91BAA3; }
+  .voice-col.dont h4  { color: #b85a4a; }
   .voice-col ul { list-style: none; padding: 0; margin: 0; }
   .voice-col li {
     padding: 10px 0;
@@ -1199,7 +1199,7 @@
 
   .kpi-grid-card .label {
     font: 400 12px var(--font-sans);
-    color: #A0A0A0;
+    color: var(--fg-muted);
     margin: 0;
   }
 
@@ -1714,8 +1714,16 @@
     color: #c9c0a9;
   }
 
-  body.light-mode .voice-col h4:not(.do):not(.dont) {
-    color: var(--ulbra-warm-white);
+  body.light-mode .voice-col h4 {
+    color: #0D3634 !important;
+  }
+
+  body.light-mode .voice-col.do h4 {
+    color: #91BAA3 !important;
+  }
+
+  body.light-mode .voice-col.dont h4 {
+    color: #b85a4a !important;
   }
 
   body.light-mode .pillar p {
@@ -1780,10 +1788,6 @@
     font-size: 13px;
   }
 
-  /* KPI Grid cards in dark mode */
-  body:not(.light-mode) .kpi-grid-card .value {
-    color: #E8E8E8 !important;
-  }
 
   /* Stats grid cards (backup for other KPI displays) */
   body.light-mode .stats-grid > div {
@@ -1875,7 +1879,7 @@
 
   body.light-mode .scale-table th,
   body.light-mode .scale-table td {
-    border-color: #e0e0e0;
+    border-color: var(--paper-line);
   }
 
   body.light-mode .color-grid {
@@ -1905,7 +1909,7 @@
   }
 
   body.light-mode .hero p {
-    color: #4a4a4a;
+    color: var(--ink-muted);
   }
 
   body.light-mode .corner {
@@ -1926,7 +1930,7 @@
   }
 
   body.light-mode .section-meta span {
-    color: #666;
+    color: var(--ink-muted);
   }
 
   body.light-mode .logo-stage {
@@ -2044,29 +2048,29 @@
   }
 
   body.light-mode .demo-btn {
-    border-color: #ddd;
+    border-color: var(--surface-line-strong);
     background: #ffffff;
     color: #045A52;
   }
 
   body.light-mode .demo-btn:hover {
     background: #f5f5f5;
-    border-color: #bbb;
+    border-color: var(--surface-line-strong);
   }
 
   body.light-mode .modal-demo {
-    background: #f5f5f5;
+    background: var(--bg-elev);
   }
 
   body.light-mode .modal-content {
     background: #ffffff;
-    border: 1px solid #ddd;
+    border: 1px solid var(--surface-line-strong);
   }
 
   body.light-mode footer {
-    background: #fafafa;
-    border-top: 1px solid #e0e0e0;
-    color: #333;
+    background: var(--bg-elev);
+    border-top: 1px solid var(--paper-line);
+    color: var(--ink);
   }
 
   body.light-mode footer h6 {
@@ -2612,7 +2616,7 @@
     <span>Aluno</span><span>Educador</span>
   </div>
 
-  <h4 class="eyebrow" style="margin-top:24px; color: #d97a6a">Banidas</h4>
+  <h4 class="eyebrow" style="margin-top:24px; color: #b85a4a">Banidas</h4>
   <div class="vocab-pills">
     <span style="border-color: rgba(217,122,106,.4)">Disruptivo</span>
     <span style="border-color: rgba(217,122,106,.4)">Transformacional</span>
@@ -2851,7 +2855,7 @@
       </ul>
     </div>
     <div style="background: var(--surface); border: 1px solid var(--surface-line); border-radius: var(--radius-md); padding: 24px;">
-      <h4 style="font: 500 11px/1 var(--font-sans); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; color: #d97a6a;">✗ Não faça</h4>
+      <h4 style="font: 500 11px/1 var(--font-sans); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 14px; color: #b85a4a;">✗ Não faça</h4>
       <ul style="list-style: none; padding: 0; margin: 0;">
         <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Desaturação extrema ou filtro preto-e-branco</li>
         <li style="padding: 8px 0; border-bottom: 1px dashed var(--surface-line); font: 400 14px/1.5 var(--font-sans); color: var(--fg-muted);">Efeitos de vigneta exagerados ou virados</li>
@@ -3445,17 +3449,17 @@
     color: ['#045A52', '#F5CE99', '#CCA269', '#66563D', '#0D3634', '#91BAA3'],
     backgroundColor: 'transparent',
     textStyle: {
-      color: '#E8E8E8',
+      color: '#fbf8f2',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
     },
     title: {
       textStyle: {
-        color: '#E8E8E8',
+        color: '#fbf8f2',
         fontSize: 18,
         fontWeight: 700
       },
       subtextStyle: {
-        color: '#A0A0A0',
+        color: '#c9c0a9',
         fontSize: 14
       }
     },
@@ -3489,7 +3493,7 @@
     },
     legend: {
       textStyle: {
-        color: '#E8E8E8'
+        color: '#fbf8f2'
       }
     },
     tooltip: {
@@ -3506,7 +3510,7 @@
       backgroundColor: 'rgba(50, 50, 50, 0.9)',
       borderColor: '#333',
       textStyle: {
-        color: '#E8E8E8'
+        color: '#fbf8f2'
       }
     },
     categoryAxis: {
@@ -3524,7 +3528,7 @@
       },
       axisLabel: {
         show: true,
-        color: '#A0A0A0'
+        color: '#c9c0a9'
       },
       splitLine: {
         show: false,
@@ -3548,7 +3552,7 @@
       },
       axisLabel: {
         show: true,
-        color: '#A0A0A0'
+        color: '#c9c0a9'
       },
       splitLine: {
         show: true,
@@ -4776,7 +4780,7 @@
     label.textContent = 'Completion Progress';
     label.style.cssText = `
       font: 500 14px var(--font-sans);
-      color: #E8E8E8;
+      color: #fbf8f2;
     `;
 
     const percentage = document.createElement('span');
@@ -4811,7 +4815,7 @@
     info.textContent = 'Weeks remaining: 8';
     info.style.cssText = `
       font: 400 12px var(--font-sans);
-      color: #A0A0A0;
+      color: #c9c0a9;
       margin: 0;
     `;
 
@@ -4852,7 +4856,7 @@
     const largeNumber = document.createElement('div');
     largeNumber.style.cssText = `
       font: 700 48px var(--font-sans);
-      color: #E8E8E8;
+      color: #fbf8f2;
       line-height: 1;
     `;
     largeNumber.textContent = '0';
@@ -4861,7 +4865,7 @@
     subtitle.textContent = 'Total Active Students';
     subtitle.style.cssText = `
       font: 400 14px var(--font-sans);
-      color: #A0A0A0;
+      color: #c9c0a9;
       margin: 0;
     `;
 
@@ -4871,9 +4875,9 @@
       align-items: center;
       gap: 6px;
       font: 500 14px var(--font-sans);
-      color: #7fbe9c;
+      color: #91BAA3;
     `;
-    delta.innerHTML = '<span>↑ 2.3%</span><span style="color: #A0A0A0;">vs. last year</span>';
+    delta.innerHTML = '<span>↑ 2.3%</span><span style="color: #c9c0a9;">vs. last year</span>';
 
     wrapper.appendChild(largeNumber);
     wrapper.appendChild(subtitle);
@@ -4919,7 +4923,7 @@
     arrow.textContent = '↑';
     arrow.style.cssText = `
       font-size: 28px;
-      color: #7fbe9c;
+      color: #91BAA3;
       line-height: 1;
     `;
 
@@ -4939,7 +4943,7 @@
     label.textContent = 'Growing vs. last year';
     label.style.cssText = `
       font: 400 14px var(--font-sans);
-      color: #A0A0A0;
+      color: #c9c0a9;
       margin: 0;
     `;
 
@@ -5727,7 +5731,7 @@
       title.textContent = chartConfig.title;
       title.style.cssText = `
         font: 700 18px var(--font-sans);
-        color: #E8E8E8;
+        color: #fbf8f2;
         margin: 0;
       `;
 
@@ -5752,7 +5756,7 @@
       description.textContent = chartConfig.description;
       description.style.cssText = `
         font: 400 14px var(--font-sans);
-        color: #A0A0A0;
+        color: #c9c0a9;
         margin: 0 0 20px 0;
       `;
 
@@ -5782,7 +5786,7 @@
         statLabel.textContent = 'Volume Total de Inscrições';
         statLabel.style.cssText = `
           font: 400 14px var(--font-sans);
-          color: #A0A0A0;
+          color: #c9c0a9;
           margin: 0 0 8px 0;
         `;
 
@@ -5887,7 +5891,7 @@
       title.textContent = chartConfig.title;
       title.style.cssText = `
         font: 700 18px var(--font-sans);
-        color: #E8E8E8;
+        color: #fbf8f2;
         margin: 0;
       `;
 
@@ -5912,7 +5916,7 @@
       description.textContent = chartConfig.description;
       description.style.cssText = `
         font: 400 14px var(--font-sans);
-        color: #A0A0A0;
+        color: #c9c0a9;
         margin: 0 0 20px 0;
       `;
 
@@ -6021,7 +6025,7 @@
       title.textContent = chartConfig.title;
       title.style.cssText = `
         font: 700 18px var(--font-sans);
-        color: #E8E8E8;
+        color: #fbf8f2;
         margin: 0;
       `;
 
@@ -6046,7 +6050,7 @@
       description.textContent = chartConfig.description;
       description.style.cssText = `
         font: 400 14px var(--font-sans);
-        color: #A0A0A0;
+        color: #c9c0a9;
         margin: 0 0 20px 0;
       `;
 
