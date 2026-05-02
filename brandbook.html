@@ -1713,6 +1713,11 @@
     font-size: 13px;
   }
 
+  /* KPI Grid cards in dark mode */
+  body:not(.light-mode) .kpi-grid-card .value {
+    color: #E8E8E8 !important;
+  }
+
   /* Stats grid cards (backup for other KPI displays) */
   body.light-mode .stats-grid > div {
     background: linear-gradient(135deg, #6BA48F 0%, #5A9880 100%) !important;
@@ -4824,9 +4829,11 @@
     `;
 
     const trendPercentage = document.createElement('span');
+    const isLight = document.body.classList.contains('light-mode');
+    const trendColor = isLight ? '#045A52' : '#E8E8E8';
     trendPercentage.style.cssText = `
       font: 700 48px var(--font-sans);
-      color: #045A52;
+      color: ${trendColor};
     `;
     trendPercentage.textContent = '0.0%';
 
