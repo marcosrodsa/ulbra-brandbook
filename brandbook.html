@@ -1780,10 +1780,28 @@
   }
 
   body.light-mode .palette-block {
-    background: #fafafa;
+    background: linear-gradient(135deg, rgba(13, 54, 52, 0.04) 0%, #fafafa 100%);
     padding: 24px;
     border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #ddd;
+  }
+
+  body.light-mode .pillar h4 {
+    color: #0D3634;
+  }
+
+  body.light-mode .input-demo,
+  body.light-mode input {
+    border-color: #0D3634;
+    color: #0D3634;
+  }
+
+  body.light-mode .badge-demo {
+    background: rgba(13, 54, 52, 0.05);
+  }
+
+  body.light-mode .button-demo:hover {
+    border-color: #0D3634;
   }
 
   body.light-mode .swatch.lg,
@@ -5232,15 +5250,10 @@
     const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
     localStorage.setItem('theme', currentTheme);
 
-    // Update all chart themes
-    const chartTheme = currentTheme === 'light' ? 'ulbra-light' : 'ulbra';
-    Object.keys(chartInstances).forEach(containerId => {
-      if (chartInstances[containerId]) {
-        chartInstances[containerId].setOption({}, { replaceMerge: ['series'] });
-        chartInstances[containerId].dispose();
-        delete chartInstances[containerId];
-      }
-    });
+    // Reload page to refresh all charts with correct theme
+    setTimeout(() => {
+      location.reload();
+    }, 100);
   });
 
   /**
