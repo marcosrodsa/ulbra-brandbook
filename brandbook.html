@@ -4675,6 +4675,7 @@
     const commonCharts = [
       {
         title: 'Inscrições por Semestre',
+        chartType: 'Line Chart',
         description: 'Evolução de inscrições em 4 programas: Graduação, Pós-Graduação, EAD e Medicina.',
         containerId: 'chart-line',
         factory: createLineChart,
@@ -4684,6 +4685,7 @@
       },
       {
         title: 'Alunos por Campus',
+        chartType: 'Bar Chart',
         description: 'Distribuição de alunos entre os campus principais: Canoas, Manaus, Palmas e Virtual.',
         containerId: 'chart-bar',
         factory: createBarChart,
@@ -4693,6 +4695,7 @@
       },
       {
         title: 'Crescimento Anual',
+        chartType: 'Area Chart',
         description: 'Evolução do total de alunos de 2020 a 2026, mostrando crescimento sustentado.',
         containerId: 'chart-area',
         factory: createAreaChart,
@@ -4702,7 +4705,8 @@
       },
       {
         title: 'Distribuição por Programa',
-        description: 'Proporção de alunos em cada programa acadêmico (Pie Chart).',
+        chartType: 'Pie Chart',
+        description: 'Proporção de alunos em cada programa acadêmico.',
         containerId: 'chart-pie',
         factory: createPieChart,
         type: 'pie',
@@ -4711,28 +4715,11 @@
       },
       {
         title: 'Taxa de Conclusão',
-        description: 'Taxa de conclusão por programa acadêmico (Donut Chart).',
+        chartType: 'Gauge Chart',
+        description: 'Taxa de conclusão por programa acadêmico.',
         containerId: 'chart-donut',
         factory: createDonutChart,
         type: 'gauge',
-        complexity: 'intermediate',
-        category: 'academic'
-      },
-      {
-        title: 'Inscrições Mensais',
-        description: 'Evolução de inscrições mês a mês em formato de barras verticais.',
-        containerId: 'chart-vbar',
-        factory: createVerticalBarChart,
-        type: 'bar',
-        complexity: 'basic',
-        category: 'students'
-      },
-      {
-        title: 'Distribuição por Modalidade',
-        description: 'Proporção de alunos em cada modalidade de estudo (Rings Chart).',
-        containerId: 'chart-rings',
-        factory: createRingsChart,
-        type: 'pie',
         complexity: 'intermediate',
         category: 'academic'
       }
@@ -4755,13 +4742,38 @@
         transition: all 0.3s ease;
       `;
 
+      const titleSection = document.createElement('div');
+      titleSection.style.cssText = `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      `;
+
       const title = document.createElement('h3');
       title.textContent = chartConfig.title;
       title.style.cssText = `
         font: 700 18px var(--font-sans);
         color: #E8E8E8;
-        margin: 0 0 8px 0;
+        margin: 0;
       `;
+
+      const chartTypeBadge = document.createElement('span');
+      chartTypeBadge.textContent = chartConfig.chartType || 'Chart';
+      chartTypeBadge.style.cssText = `
+        font: 500 11px var(--font-sans);
+        color: #CCA269;
+        background: rgba(204, 162, 105, 0.15);
+        border: 1px solid rgba(204, 162, 105, 0.3);
+        padding: 4px 10px;
+        border-radius: 12px;
+        white-space: nowrap;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      `;
+
+      titleSection.appendChild(title);
+      titleSection.appendChild(chartTypeBadge);
 
       const description = document.createElement('p');
       description.textContent = chartConfig.description;
@@ -4781,7 +4793,7 @@
         padding: 12px;
       `;
 
-      chartCard.appendChild(title);
+      chartCard.appendChild(titleSection);
       chartCard.appendChild(description);
       chartCard.appendChild(chartContainer);
 
@@ -4797,6 +4809,7 @@
     const kpiCharts = [
       {
         title: 'Approval Rate',
+        chartType: 'Gauge Chart',
         description: 'Approval rate showing 88%, up from 85% last year.',
         containerId: 'chart-gauge',
         factory: createGaugeChart,
@@ -4805,25 +4818,8 @@
         category: 'metrics'
       },
       {
-        title: 'Completion Progress',
-        description: 'Current semester completion progress at 91% with 8 weeks remaining.',
-        containerId: 'chart-progress',
-        factory: createProgressChart,
-        type: 'gauge',
-        complexity: 'basic',
-        category: 'academic'
-      },
-      {
-        title: 'Total Students',
-        description: 'Total active students enrollment with 2.3% growth.',
-        containerId: 'chart-stat',
-        factory: createStatCard,
-        type: 'gauge',
-        complexity: 'basic',
-        category: 'students'
-      },
-      {
         title: 'Student Growth',
+        chartType: 'Line Chart',
         description: 'Year-over-year student growth trend at 12.3%.',
         containerId: 'chart-trend',
         factory: createTrendCard,
@@ -4849,13 +4845,38 @@
         -webkit-backdrop-filter: blur(8px);
       `;
 
+      const titleSection = document.createElement('div');
+      titleSection.style.cssText = `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      `;
+
       const title = document.createElement('h3');
       title.textContent = chartConfig.title;
       title.style.cssText = `
         font: 700 18px var(--font-sans);
         color: #E8E8E8;
-        margin: 0 0 8px 0;
+        margin: 0;
       `;
+
+      const chartTypeBadge = document.createElement('span');
+      chartTypeBadge.textContent = chartConfig.chartType || 'Chart';
+      chartTypeBadge.style.cssText = `
+        font: 500 11px var(--font-sans);
+        color: #CCA269;
+        background: rgba(204, 162, 105, 0.15);
+        border: 1px solid rgba(204, 162, 105, 0.3);
+        padding: 4px 10px;
+        border-radius: 12px;
+        white-space: nowrap;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      `;
+
+      titleSection.appendChild(title);
+      titleSection.appendChild(chartTypeBadge);
 
       const description = document.createElement('p');
       description.textContent = chartConfig.description;
@@ -4875,7 +4896,7 @@
         padding: 12px;
       `;
 
-      chartCard.appendChild(title);
+      chartCard.appendChild(titleSection);
       chartCard.appendChild(description);
       chartCard.appendChild(chartContainer);
 
@@ -4891,6 +4912,7 @@
     const advancedCharts = [
       {
         title: 'Inscrições por Mês × Campus',
+        chartType: 'Heatmap',
         description: 'Heatmap showing enrollment volume across 12 months and 3 campuses with color intensity scale.',
         containerId: 'chart-heatmap',
         factory: createHeatmapChart,
@@ -4900,6 +4922,7 @@
       },
       {
         title: 'Custo vs. Taxa de Conclusão',
+        chartType: 'Scatter Chart',
         description: 'Scatter plot analyzing program cost versus completion rates with bubble size representing cohort size.',
         containerId: 'chart-scatter',
         factory: createScatterChart,
@@ -4909,6 +4932,7 @@
       },
       {
         title: 'Fluxo: Inquiries → Enrolled',
+        chartType: 'Sankey Diagram',
         description: 'Sankey diagram showing conversion funnel from inquiries through applications, approvals to enrollment.',
         containerId: 'chart-sankey',
         factory: createSankeyChart,
@@ -4918,6 +4942,7 @@
       },
       {
         title: 'Distribuição por Área de Estudo',
+        chartType: 'Radar Chart',
         description: 'Radial bar chart displaying student distribution across 8 academic fields of study.',
         containerId: 'chart-radial',
         factory: createRadialChart,
@@ -4927,6 +4952,7 @@
       },
       {
         title: 'Inscrições vs. Taxa de Aprovação',
+        chartType: 'Composed Chart',
         description: 'Composed chart combining bar chart for inscriptions and line chart for approval rate over years.',
         containerId: 'chart-composed',
         factory: createComposedChart,
@@ -4953,13 +4979,38 @@
         transition: all 0.3s ease;
       `;
 
+      const titleSection = document.createElement('div');
+      titleSection.style.cssText = `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      `;
+
       const title = document.createElement('h3');
       title.textContent = chartConfig.title;
       title.style.cssText = `
         font: 700 18px var(--font-sans);
         color: #E8E8E8;
-        margin: 0 0 8px 0;
+        margin: 0;
       `;
+
+      const chartTypeBadge = document.createElement('span');
+      chartTypeBadge.textContent = chartConfig.chartType || 'Chart';
+      chartTypeBadge.style.cssText = `
+        font: 500 11px var(--font-sans);
+        color: #CCA269;
+        background: rgba(204, 162, 105, 0.15);
+        border: 1px solid rgba(204, 162, 105, 0.3);
+        padding: 4px 10px;
+        border-radius: 12px;
+        white-space: nowrap;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      `;
+
+      titleSection.appendChild(title);
+      titleSection.appendChild(chartTypeBadge);
 
       const description = document.createElement('p');
       description.textContent = chartConfig.description;
@@ -4979,7 +5030,7 @@
         padding: 12px;
       `;
 
-      chartCard.appendChild(title);
+      chartCard.appendChild(titleSection);
       chartCard.appendChild(description);
       chartCard.appendChild(chartContainer);
 
