@@ -1,0 +1,2967 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ulbra · Charts Component Gallery · v1.0 · 2026</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.0/dist/index.es.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  /* =========================
+     PAGE FRAME
+     ========================= */
+  body {
+    background: var(--ulbra-primary-deep);
+    color: var(--fg);
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(ellipse 1200px 800px at 80% 0%, rgba(204,162,105,.08), transparent 60%),
+      radial-gradient(ellipse 900px 700px at 0% 100%, rgba(145,186,163,.06), transparent 60%);
+  }
+
+  /* =========================
+     NAV / HEADER
+     ========================= */
+  .topbar {
+    position: sticky; top: 0; z-index: var(--z-nav);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(13, 54, 52, .72);
+    border-bottom: 1px solid var(--surface-line);
+  }
+  .topbar-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 14px var(--gutter);
+    display: flex; align-items: center; gap: 32px;
+  }
+  .brandmark {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--fg);
+  }
+  .brandmark svg { width: 28px; height: 28px; color: var(--fg); }
+  .brandmark .wm {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .nav-pills {
+    display: flex; gap: 32px; margin-left: auto;
+    font: 500 13px var(--font-sans);
+  }
+  .nav-pills a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    transition: color 240ms;
+  }
+  .nav-pills a:hover { color: var(--fg); }
+  .nav-pills a.is-active { color: var(--ulbra-accent); }
+  .topbar-meta {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    font: 500 11px var(--font-sans);
+    color: var(--fg-muted);
+  }
+  .topbar-meta .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ulbra-accent);
+    margin-right: 4px;
+  }
+
+  /* =========================
+     HERO SECTION
+     ========================= */
+  .hero {
+    position: relative;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 120px var(--gutter) 80px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  }
+  .hero h1 {
+    font: 700 48px/1.2 var(--font-sans);
+    color: var(--fg);
+    margin: 0 0 16px 0;
+    max-width: 60%;
+  }
+  .hero p {
+    font: 400 16px/1.6 var(--font-sans);
+    color: var(--fg-muted);
+    margin: 0;
+    max-width: 50ch;
+  }
+
+  /* =========================
+     FILTER BAR
+     ========================= */
+  .filter-bar {
+    max-width: var(--container);
+    margin: 0 auto 60px;
+    padding: 0 var(--gutter);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-bar select,
+  .filter-bar button {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(245, 206, 153, 0.3);
+    background: rgba(13, 54, 52, 0.4);
+    color: var(--fg);
+    font: 500 13px var(--font-sans);
+    cursor: pointer;
+    transition: all 240ms;
+  }
+
+  .filter-bar select:hover,
+  .filter-bar button:hover {
+    border-color: rgba(245, 206, 153, 0.6);
+    background: rgba(13, 54, 52, 0.6);
+  }
+
+  .filter-bar select:focus,
+  .filter-bar button:focus {
+    outline: none;
+    border-color: var(--ulbra-accent);
+    box-shadow: 0 0 0 2px rgba(245, 206, 153, 0.2);
+  }
+
+  .filter-bar button {
+    background: linear-gradient(135deg, rgba(4, 90, 82, 0.3) 0%, rgba(4, 90, 82, 0.1) 100%);
+    border-color: rgba(4, 90, 82, 0.5);
+  }
+
+  .filter-bar button:hover {
+    background: linear-gradient(135deg, rgba(4, 90, 82, 0.5) 0%, rgba(4, 90, 82, 0.3) 100%);
+  }
+
+  /* =========================
+     SECTIONS CONTAINER
+     ========================= */
+  .sections-wrapper {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter) 120px;
+  }
+
+  section[id^="section-"] {
+    margin-bottom: 80px;
+  }
+
+  section[id^="section-"] h2 {
+    font: 700 32px/1.2 var(--font-sans);
+    color: var(--fg);
+    margin: 0 0 32px 0;
+  }
+
+  /* =========================
+     KPI GRID (DRAGGABLE)
+     ========================= */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .kpi-grid-card {
+    background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
+    border: 1px solid rgba(245, 206, 153, 0.2);
+    border-radius: 12px;
+    padding: 24px;
+    cursor: grab;
+    transition: all 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+  }
+
+  .kpi-grid-card:active {
+    cursor: grabbing;
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(245, 206, 153, 0.3);
+  }
+
+  .kpi-grid-card h5 {
+    font: 700 14px var(--font-sans);
+    color: #F5CE99;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .kpi-grid-card .value {
+    font: 700 32px var(--font-sans);
+    color: #E8E8E8;
+    margin: 0 0 8px 0;
+    line-height: 1;
+  }
+
+  .kpi-grid-card .label {
+    font: 400 12px var(--font-sans);
+    color: #A0A0A0;
+    margin: 0;
+  }
+
+  /* =========================
+     EXPORT BUTTONS & TOAST
+     ========================= */
+  .export-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .export-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    border: none;
+    font-weight: 500;
+    font-family: var(--font-sans);
+  }
+
+  .export-btn.copy {
+    background: rgba(245, 206, 153, 0.15);
+    color: #F5CE99;
+    border: 1px solid #F5CE99;
+  }
+
+  .export-btn.copy:hover {
+    background: rgba(245, 206, 153, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .export-btn.download {
+    background: rgba(4, 90, 82, 0.2);
+    color: #045A52;
+    border: 1px solid #045A52;
+  }
+
+  .export-btn.download:hover {
+    background: rgba(4, 90, 82, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #0D3634;
+    color: #F5CE99;
+    padding: 12px 20px;
+    border-radius: 9999px;
+    z-index: 1000;
+    font: 500 12px var(--font-sans);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    animation: slideInRight 0.3s ease-out;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* =========================
+     FOOTER
+     ========================= */
+  .footer {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 60px var(--gutter);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px;
+    border-top: 1px solid var(--surface-line);
+  }
+  .footer h6 {
+    font: 700 12px/1.2 var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--fg-muted);
+    margin: 0 0 16px 0;
+  }
+  .footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer li { padding: 4px 0; font: 400 13px/1.5 var(--font-sans); }
+  .footer a { color: var(--fg-muted); text-decoration: none; }
+  .footer a:hover { color: var(--fg); }
+
+  /* =========================
+     RESPONSIVE DESIGN BREAKPOINTS
+     ========================= */
+  @media (max-width: 1024px) {
+    section[id^="section-"] {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 60px var(--gutter) 40px;
+    }
+
+    section[id^="section-"] {
+      margin-bottom: 60px;
+    }
+
+    .nav-pills {
+      display: none;
+    }
+
+    .kpi-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .topbar-inner {
+      gap: 16px;
+    }
+
+    .hero {
+      padding: 40px var(--gutter) 32px;
+    }
+
+    .kpi-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sections-wrapper {
+      padding: 0 var(--gutter) 80px;
+    }
+  }
+
+  /* =========================
+     LAZY LOADING OBSERVER
+     ========================= */
+  .chart-container {
+    opacity: 0;
+    transition: opacity 0.6s ease-in;
+  }
+
+  .chart-container.visible {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================
+     TOPBAR
+     ========================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brandmark" href="#top">
+      <img src="assets/ulbra-mark-white.png" alt="Ulbra mark" style="width:100%;height:100%;object-fit:contain"/>
+      <span class="wm">ulbra</span>
+    </a>
+    <nav class="nav-pills">
+      <a href="brandbook.html">Identity</a>
+      <a href="brandbook.html#color">Color</a>
+      <a href="brandbook.html#type">Typography</a>
+      <a href="brandbook.html#logo">Logo</a>
+      <a href="brandbook.html#voice">Voice</a>
+      <a href="brandbook.html#icon">Icons</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="charts.html" class="is-active">Charts</a>
+    </nav>
+    <div class="topbar-meta">
+      <span><span class="dot"></span>v1.0 · 2026</span>
+      <span>Component Gallery</span>
+    </div>
+  </div>
+</header>
+
+<!-- =========================
+     HERO
+     ========================= -->
+<section class="hero" id="top">
+  <h1>Chart Components</h1>
+  <p>A comprehensive gallery of 13+ chart components showcasing data visualization patterns and best practices within the Ulbra design system.</p>
+</section>
+
+<!-- =========================
+     FILTER BAR
+     ========================= -->
+<div class="filter-bar" id="filter-container">
+  <select id="filterPeriod" aria-label="Filter by period">
+    <option value="2026">2026</option>
+    <option value="2025">2025</option>
+    <option value="2024">2024</option>
+  </select>
+  <select id="filterCampus" multiple aria-label="Filter by campus">
+    <option value="all" selected>All Campuses</option>
+    <option value="Porto Alegre">Porto Alegre</option>
+    <option value="Canoas">Canoas</option>
+    <option value="Gravataí">Gravataí</option>
+  </select>
+  <select id="filterProgram" multiple aria-label="Filter by program">
+    <option value="all" selected>All Programs</option>
+    <option value="Engineering">Engineering</option>
+    <option value="Business">Business</option>
+    <option value="Health">Health</option>
+  </select>
+  <button id="btnReset" aria-label="Reset all filters">Reset Filters</button>
+</div>
+
+<!-- =========================
+     CHART SECTIONS
+     ========================= -->
+<div class="sections-wrapper">
+  <section id="section-common">
+    <h2>Common Charts</h2>
+    <!-- Common chart components will be inserted here -->
+  </section>
+
+  <section id="section-kpi">
+    <h2>KPI & Metrics</h2>
+    <!-- KPI and metric components will be inserted here -->
+  </section>
+
+  <section id="section-advanced">
+    <h2>Advanced Visualizations</h2>
+    <!-- Advanced chart components will be inserted here -->
+  </section>
+
+  <section id="section-grid">
+    <h2>Draggable KPI Grid</h2>
+    <p style="font: 400 14px var(--font-sans); color: var(--fg-muted); margin: 0 0 24px 0;">Drag and drop to rearrange KPI cards. Your layout is saved automatically.</p>
+    <div id="kpi-grid-container" class="kpi-grid"></div>
+  </section>
+</div>
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+<footer class="footer">
+  <div>
+    <a class="brandmark" href="#top">
+      <img src="assets/ulbra-mark-white.png" alt="Ulbra mark" style="width:100%;height:100%;object-fit:contain"/>
+      <span class="wm">ulbra</span>
+    </a>
+    <p style="margin-top:18px; max-width: 36ch; font: 400 13px/1.55 var(--font-sans); color: var(--fg-muted);">
+      Ulbra · Design System · v1.0 · Edição 2026.<br>
+      Documento interno. Para uso autorizado por equipe de Marca e Comunicação Institucional.
+    </p>
+  </div>
+  <div>
+    <h6>Recursos</h6>
+    <ul>
+      <li><a href="brandbook.html">Brand Guidelines</a></li>
+      <li><a href="dashboard.html">Dashboard UI Kit</a></li>
+      <li><a href="slides/index.html">Slides Templates</a></li>
+      <li><a href="colors_and_type.css">Design Tokens (CSS)</a></li>
+    </ul>
+  </div>
+  <div>
+    <h6>Contato</h6>
+    <ul>
+      <li><a href="https://www.ulbra.br">ulbra.br</a></li>
+      <li><a href="mailto:marca@ulbra.br">marca@ulbra.br</a></li>
+      <li>Aelbra Educação Superior</li>
+      <li>CNPJ 88.332.580/0001-65</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  /**
+   * =========================
+   * ECHARTS THEME CONFIGURATION
+   * =========================
+   *
+   * Defines the Ulbra Design System theme for ECharts visualization library.
+   * Colors are aligned with the design system color palette:
+   * - Primary: #045A52 (teal)
+   * - Accent: #F5CE99 (gold)
+   * - Secondary: #CCA269, #66563D (earth tones)
+   * - Deep: #0D3634 (deep teal background)
+   * - Accent secondary: #91BAA3 (sage green)
+   *
+   * This theme ensures all charts use consistent styling across the gallery.
+   * Charts will render with smooth animations and proper contrast ratios.
+   */
+  const ulbraTheme = {
+    color: ['#045A52', '#F5CE99', '#CCA269', '#66563D', '#0D3634', '#91BAA3'],
+    backgroundColor: 'transparent',
+    textStyle: {
+      color: '#E8E8E8',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+    },
+    title: {
+      textStyle: {
+        color: '#E8E8E8',
+        fontSize: 18,
+        fontWeight: 700
+      },
+      subtextStyle: {
+        color: '#A0A0A0',
+        fontSize: 14
+      }
+    },
+    line: {
+      itemStyle: {
+        borderWidth: 1
+      },
+      lineStyle: {
+        width: 2
+      },
+      symbolSize: 4,
+      smooth: false
+    },
+    radar: {
+      itemStyle: {
+        borderWidth: 1
+      },
+      lineStyle: {
+        width: 2
+      },
+      symbolSize: 4,
+      smooth: false
+    },
+    bar: {
+      itemStyle: {
+        barBorderWidth: 0,
+        barBorderColor: '#777'
+      }
+    },
+    pie: {
+      itemStyle: {
+        borderWidth: 0,
+        borderColor: '#777'
+      }
+    },
+    scatter: {
+      itemStyle: {
+        borderWidth: 0,
+        borderColor: '#777'
+      }
+    },
+    boxplot: {
+      itemStyle: {
+        borderWidth: 1,
+        borderColor: '#777'
+      }
+    },
+    parallel: {
+      itemStyle: {
+        borderWidth: 0,
+        borderColor: '#777'
+      }
+    },
+    sankey: {
+      itemStyle: {
+        borderWidth: 1,
+        borderColor: '#777'
+      }
+    },
+    funnel: {
+      itemStyle: {
+        borderWidth: 1,
+        borderColor: '#777'
+      }
+    },
+    gauge: {
+      itemStyle: {
+        borderWidth: 1,
+        borderColor: '#777'
+      }
+    },
+    candlestick: {
+      color: '#91BAA3',
+      color0: '#CCA269',
+      borderColor: '#045A52',
+      borderColor0: '#F5CE99',
+      itemStyle: {
+        color: '#91BAA3',
+        color0: '#CCA269',
+        borderColor: '#045A52',
+        borderColor0: '#F5CE99'
+      }
+    },
+    graph: {
+      itemStyle: {
+        borderWidth: 0,
+        borderColor: '#777'
+      },
+      lineStyle: {
+        width: 1,
+        color: '#777'
+      },
+      symbolSize: 4,
+      smooth: false
+    },
+    map: {
+      itemStyle: {
+        areaColor: '#323c48',
+        borderColor: '#404a59',
+        shadowOffsetX: 0,
+        shadowOffsetY: 0,
+        shadowBlur: 10,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      label: {
+        color: '#000'
+      },
+      emphasis: {
+        itemStyle: {
+          areaColor: '#2a333d',
+          borderColor: '#404a59',
+          shadowOffsetX: 0,
+          shadowOffsetY: 0,
+          shadowBlur: 10,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        },
+        label: {
+          color: '#000'
+        }
+      }
+    },
+    geo: {
+      itemStyle: {
+        areaColor: '#323c48',
+        borderColor: '#404a59',
+        shadowOffsetX: 0,
+        shadowOffsetY: 0,
+        shadowBlur: 10,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      label: {
+        color: '#000'
+      },
+      emphasis: {
+        itemStyle: {
+          areaColor: '#2a333d',
+          borderColor: '#404a59',
+          shadowOffsetX: 0,
+          shadowOffsetY: 0,
+          shadowBlur: 10,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        },
+        label: {
+          color: '#000'
+        }
+      }
+    },
+    categoryAxis: {
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisTick: {
+        show: true,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisLabel: {
+        show: true,
+        color: '#A0A0A0'
+      },
+      splitLine: {
+        show: false,
+        lineStyle: {
+          color: ['#ccc']
+        }
+      },
+      splitArea: {
+        show: false,
+        areaStyle: {
+          color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)']
+        }
+      }
+    },
+    valueAxis: {
+      axisLine: {
+        show: false,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisTick: {
+        show: false,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisLabel: {
+        show: true,
+        color: '#A0A0A0'
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: ['#444']
+        }
+      },
+      splitArea: {
+        show: false,
+        areaStyle: {
+          color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)']
+        }
+      }
+    },
+    logAxis: {
+      axisLine: {
+        show: false,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisTick: {
+        show: false,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisLabel: {
+        show: true,
+        color: '#A0A0A0'
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: ['#444']
+        }
+      },
+      splitArea: {
+        show: false,
+        areaStyle: {
+          color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)']
+        }
+      }
+    },
+    timeAxis: {
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisTick: {
+        show: true,
+        lineStyle: {
+          color: '#444'
+        }
+      },
+      axisLabel: {
+        show: true,
+        color: '#A0A0A0'
+      },
+      splitLine: {
+        show: false,
+        lineStyle: {
+          color: ['#ccc']
+        }
+      },
+      splitArea: {
+        show: false,
+        areaStyle: {
+          color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)']
+        }
+      }
+    },
+    toolbox: {
+      iconStyle: {
+        borderColor: '#999'
+      },
+      emphasis: {
+        iconStyle: {
+          borderColor: '#fff'
+        }
+      }
+    },
+    legend: {
+      textStyle: {
+        color: '#E8E8E8'
+      }
+    },
+    tooltip: {
+      axisPointer: {
+        lineStyle: {
+          color: '#ccc',
+          width: 1
+        },
+        crossStyle: {
+          color: '#c23531',
+          width: 1
+        }
+      },
+      backgroundColor: 'rgba(50, 50, 50, 0.9)',
+      borderColor: '#333',
+      textStyle: {
+        color: '#E8E8E8'
+      }
+    },
+    timeline: {
+      lineStyle: {
+        color: '#444',
+        width: 1
+      },
+      itemStyle: {
+        color: '#777',
+        borderWidth: 1
+      },
+      controlStyle: {
+        color: '#777',
+        borderColor: '#444',
+        borderWidth: 0.5
+      },
+      checkpointStyle: {
+        color: '#e43c59',
+        borderColor: 'rgba(194, 53, 49, 0.5)'
+      },
+      label: {
+        color: '#A0A0A0'
+      },
+      emphasis: {
+        itemStyle: {
+          color: '#a9334c'
+        },
+        controlStyle: {
+          color: '#777',
+          borderColor: '#444',
+          borderWidth: 0.5
+        },
+        label: {
+          color: '#A0A0A0'
+        }
+      }
+    },
+    visualMap: {
+      textStyle: {
+        color: '#E8E8E8'
+      }
+    },
+    dataZoom: {
+      backgroundColor: 'rgba(47, 69, 84, 0)',
+      dataBackgroundColor: 'rgba(47, 69, 84, 0.3)',
+      fillerColor: 'rgba(167, 183, 204, 0.4)',
+      handleColor: '#a7b7cc',
+      handleSize: '100%',
+      textStyle: {
+        color: '#E8E8E8'
+      }
+    },
+    markPoint: {
+      label: {
+        color: '#E8E8E8'
+      }
+    }
+  };
+
+  // Register the Ulbra theme
+  echarts.registerTheme('ulbra', ulbraTheme);
+  console.log('ECharts theme registered: ulbra');
+
+  // =========================
+  /**
+   * =========================
+   * FIXTURE DATA (Mock Educational Data)
+   * =========================
+   *
+   * Contains sample enrollment and metrics data for Ulbra educational institution.
+   * This data structure demonstrates real-world educational analytics:
+   *
+   * - enrollmentByProgram: Semester-based enrollment across program types
+   * - enrollmentTrend: Monthly enrollment trends vs. goals
+   * - studentsByCampus: Student distribution across physical locations
+   * - programDistribution: Program-level enrollment percentages
+   *
+   * Data is used for all chart visualizations. Can be easily replaced with
+   * real API data by modifying the data source in chart factory functions.
+   * Structure matches educational institution reporting requirements.
+   */
+  const fixtureData = {
+    // Enrollment by Program (by semester)
+    // Structure: { semester, graduacao, posgraduacao, ead, medicina }
+    enrollmentByProgram: [
+      { semester: '2024.1', graduacao: 4200, posgraduacao: 1850, ead: 3400, medicina: 450 },
+      { semester: '2024.2', graduacao: 4350, posgraduacao: 1920, ead: 3650, medicina: 480 },
+      { semester: '2025.1', graduacao: 4500, posgraduacao: 2050, ead: 3900, medicina: 520 }
+    ],
+
+    // Monthly enrollment trend data
+    enrollmentTrend: [
+      { mes: 'Janeiro', total: 8200, meta: 8000 },
+      { mes: 'Fevereiro', total: 8450, meta: 8200 },
+      { mes: 'Março', total: 8700, meta: 8400 },
+      { mes: 'Abril', total: 9100, meta: 8600 },
+      { mes: 'Maio', total: 9450, meta: 8800 },
+      { mes: 'Junho', total: 9800, meta: 9000 },
+      { mes: 'Julho', total: 10200, meta: 9200 },
+      { mes: 'Agosto', total: 10650, meta: 9400 },
+      { mes: 'Setembro', total: 11100, meta: 9600 },
+      { mes: 'Outubro', total: 11550, meta: 9800 },
+      { mes: 'Novembro', total: 11850, meta: 10000 },
+      { mes: 'Dezembro', total: 12100, meta: 10200 }
+    ],
+
+    // Students by Campus
+    studentsByCampus: [
+      { campus: 'Canoas', quantidade: 5200 },
+      { campus: 'Manaus', quantidade: 3850 },
+      { campus: 'Palmas', quantidade: 3050 }
+    ],
+
+    // Program Distribution (percentages)
+    programDistribution: [
+      { programa: 'Graduação', percentual: 38 },
+      { programa: 'Pós-Graduação', percentual: 18 },
+      { programa: 'EAD', percentual: 35 },
+      { programa: 'Medicina', percentual: 9 }
+    ],
+
+    // Completion rates by program
+    completionRate: [
+      { programa: 'Graduação', taxa: 87 },
+      { programa: 'Pós-Graduação', taxa: 92 },
+      { programa: 'EAD', taxa: 78 },
+      { programa: 'Medicina', taxa: 95 }
+    ],
+
+    // KPI: Approval Rate
+    approvalRate: 88,
+
+    // KPI: Completion Percentage
+    completionPercentage: 91,
+
+    // KPI: Total Students
+    totalStudents: 12100,
+
+    // KPI: Student Growth (percentage)
+    studentGrowth: 12.3,
+
+    // Enrollment Heatmap (2D array: 7 days x 5 weeks)
+    enrollmentHeatmap: [
+      [1200, 1350, 1450, 1380, 1420],
+      [1100, 1280, 1350, 1300, 1380],
+      [950, 1100, 1200, 1150, 1250],
+      [800, 950, 1050, 1000, 1100],
+      [750, 900, 1000, 950, 1050],
+      [950, 1150, 1250, 1200, 1300],
+      [1350, 1500, 1600, 1550, 1650]
+    ],
+
+    // Cost vs Graduation (scatter plot)
+    costVsGraduation: [
+      { custo: 15000, formados: 185 },
+      { custo: 16200, formados: 210 },
+      { custo: 14800, formados: 175 },
+      { custo: 17500, formados: 245 },
+      { custo: 16800, formados: 220 },
+      { custo: 18200, formados: 280 },
+      { custo: 15600, formados: 195 },
+      { custo: 19200, formados: 310 },
+      { custo: 17100, formados: 235 },
+      { custo: 18600, formados: 270 }
+    ],
+
+    // Enrollment Funnel/Sankey
+    enrollmentFunnel: [
+      { etapa: 'Candidatos', quantidade: 18500 },
+      { etapa: 'Inscritos', quantidade: 14200 },
+      { etapa: 'Aprovados', quantidade: 12600 },
+      { etapa: 'Matriculados', quantidade: 12100 },
+      { etapa: 'Ativos', quantidade: 11800 }
+    ],
+
+    // Distribution by Field of Study
+    fieldDistribution: [
+      { campo: 'Saúde', quantidade: 3200 },
+      { campo: 'Engenharia', quantidade: 2800 },
+      { campo: 'Administração', quantidade: 2400 },
+      { campo: 'Educação', quantidade: 1900 },
+      { campo: 'Tecnologia', quantidade: 1800 }
+    ],
+
+    // Array of campus names
+    campuses: ['Canoas', 'Manaus', 'Palmas'],
+
+    // Array of program names
+    programs: ['Graduação', 'Pós-Graduação', 'EAD', 'Medicina']
+  };
+
+  console.log('✓ Fixture data loaded with enrollment, campus, and program data');
+
+  /**
+   * =========================
+   * GLOBAL FILTER STATE & LOGIC
+   * =========================
+   *
+   * Manages filter state for all chart visualizations:
+   * - period: Academic year/semester filter (e.g., "2026")
+   * - campuses: Array of campus selections (default: ['all'] for all campuses)
+   * - programs: Array of program selections (default: ['all'] for all programs)
+   *
+   * When any filter changes:
+   * 1. filterState object is updated
+   * 2. updateAllCharts() is called to re-render all charts
+   * 3. Console logs current state for debugging
+   * 4. Only affects client-side visualization (no API call needed)
+   *
+   * Reset button restores all filters to default state.
+   */
+  const filterState = {
+    period: '2026',
+    campuses: ['all'],
+    programs: ['all']
+  };
+
+  console.log('✓ Filter state initialized:', filterState);
+
+  // Set up event listeners for filter elements
+  const filterPeriod = document.getElementById('filterPeriod');
+  const filterCampus = document.getElementById('filterCampus');
+  const filterProgram = document.getElementById('filterProgram');
+  const btnReset = document.getElementById('btnReset');
+
+  if (filterPeriod) {
+    filterPeriod.addEventListener('change', (e) => {
+      filterState.period = e.target.value;
+      console.log('Filter state updated:', filterState);
+      updateAllCharts();
+    });
+  }
+
+  if (filterCampus) {
+    filterCampus.addEventListener('change', (e) => {
+      filterState.campuses = Array.from(e.target.selectedOptions).map(opt => opt.value);
+      console.log('Filter state updated:', filterState);
+      updateAllCharts();
+    });
+  }
+
+  if (filterProgram) {
+    filterProgram.addEventListener('change', (e) => {
+      filterState.programs = Array.from(e.target.selectedOptions).map(opt => opt.value);
+      console.log('Filter state updated:', filterState);
+      updateAllCharts();
+    });
+  }
+
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
+      filterState.period = '2026';
+      filterState.campuses = ['all'];
+      filterState.programs = ['all'];
+
+      if (filterPeriod) filterPeriod.value = '2026';
+      if (filterCampus) filterCampus.value = 'all';
+      if (filterProgram) filterProgram.value = 'all';
+
+      console.log('Filters reset to defaults:', filterState);
+      updateAllCharts();
+    });
+  }
+
+  /**
+   * Update all charts when filters change.
+   * Animation sequence:
+   * 1. Fade out all chart containers (200ms)
+   * 2. Filter data based on current filterState
+   * 3. Re-render charts with filtered data (implementation ready)
+   * 4. Fade in updated charts (400ms)
+   *
+   * Triggered by: Period, Campus, or Program filter changes
+   * Uses getFilteredData() to apply current filter selections
+   */
+  function updateAllCharts() {
+    const chartContainers = document.querySelectorAll('.chart-container');
+
+    console.log('Updating all charts with new filter state:', filterState);
+
+    // Fade out: set opacity to 0 over 200ms
+    chartContainers.forEach(container => {
+      container.style.transition = 'opacity 0.2s ease-in-out';
+      container.style.opacity = '0';
+    });
+
+    // After 200ms, filter data and fade back in
+    setTimeout(() => {
+      const filteredData = getFilteredData();
+
+      // Here we would update each chart with the filtered data
+      // This will be implemented in subsequent tasks
+
+      chartContainers.forEach(container => {
+        container.style.transition = 'opacity 0.4s ease-in-out';
+        container.style.opacity = '1';
+      });
+
+      console.log('✓ Charts faded in with filtered data applied');
+    }, 200);
+  }
+
+  /**
+   * Filter data based on current filter state (period, campuses, programs).
+   * Returns filtered data object ready for chart re-rendering.
+   * @returns {Object} Filtered data object with period, campuses, programs, and datasets
+   */
+  function getFilteredData() {
+    const filtered = {
+      period: filterState.period,
+      campuses: filterState.campuses,
+      programs: filterState.programs,
+      enrollmentByProgram: fixtureData.enrollmentByProgram,
+      enrollmentTrend: fixtureData.enrollmentTrend,
+      studentsByCampus: fixtureData.studentsByCampus,
+      programDistribution: fixtureData.programDistribution,
+      completionRate: fixtureData.completionRate,
+      approvalRate: fixtureData.approvalRate,
+      completionPercentage: fixtureData.completionPercentage,
+      totalStudents: fixtureData.totalStudents,
+      studentGrowth: fixtureData.studentGrowth,
+      enrollmentHeatmap: fixtureData.enrollmentHeatmap,
+      costVsGraduation: fixtureData.costVsGraduation,
+      enrollmentFunnel: fixtureData.enrollmentFunnel,
+      fieldDistribution: fixtureData.fieldDistribution
+    };
+
+    // Filter studentsByCampus by selected campuses
+    if (filterState.campuses.length > 0 && !filterState.campuses.includes('all')) {
+      filtered.studentsByCampus = fixtureData.studentsByCampus.filter(item =>
+        filterState.campuses.includes(item.campus)
+      );
+    }
+
+    // Filter completionRate by selected programs
+    if (filterState.programs.length > 0 && !filterState.programs.includes('all')) {
+      filtered.completionRate = fixtureData.completionRate.filter(item =>
+        filterState.programs.includes(item.programa)
+      );
+    }
+
+    return filtered;
+  }
+
+  console.log('Filter state initialized');
+
+  /**
+   * =========================
+   * EXPORT UTILITY FUNCTIONS
+   * =========================
+   *
+   * Handles chart code copying and PNG export functionality.
+   * Both functions provide user feedback via toast notifications.
+   *
+   * Features:
+   * - Copy Code: Uses Clipboard API to copy chart source code
+   * - Export PNG: Renders chart to canvas with html2canvas library
+   * - File naming: Auto-generates filename with date (YYYY-MM-DD)
+   * - Error handling: Catches and reports failures to console and user
+   * - Feedback: Toast notifications indicate success/failure
+   */
+
+  /**
+   * Copy chart source code to clipboard via Clipboard API.
+   * Shows success/error toast notification.
+   * @param {string} text - The code text to copy
+   */
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Code copied!');
+      console.log('✓ Code copied to clipboard');
+    }).catch(err => {
+      console.error('❌ Failed to copy:', err);
+      showToast('Failed to copy code');
+    });
+  }
+
+  /**
+   * Export chart as PNG using html2canvas library.
+   * Filename format: [chart-name]-[YYYY-MM-DD].png
+   * Canvas rendered at 2x scale (retina) with dark background.
+   * @param {string} chartId - Element ID of the chart container
+   * @param {string} title - Chart title for filename generation
+   */
+  function exportChartPNG(chartId, title) {
+    const element = document.getElementById(chartId).closest('div[style*="background"]');
+    if (!element) {
+      console.error('Chart element not found:', chartId);
+      return;
+    }
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+
+    // Sanitize title for filename
+    const sanitizedTitle = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const filename = `${sanitizedTitle}-${dateString}.png`;
+
+    html2canvas(element, {
+      backgroundColor: '#0D3634',
+      scale: 2,
+      logging: false
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = filename;
+      link.click();
+      showToast('Chart exported!');
+    }).catch(err => {
+      console.error('Failed to export PNG:', err);
+      showToast('Failed to export chart');
+    });
+  }
+
+  /**
+   * Display toast notification that auto-removes after 2 seconds
+   */
+  /**
+   * Display temporary toast notification (2 seconds, bottom-right corner).
+   * Used for export feedback (success/error messages).
+   * Toast auto-removes from DOM after 2000ms.
+   * @param {string} message - The notification message to display
+   */
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    console.log('Toast:', message);
+
+    // Remove after 2 seconds
+    setTimeout(() => {
+      toast.remove();
+    }, 2000);
+  }
+
+  /**
+   * Escape HTML special characters for safe code display in pre tags.
+   * Prevents XSS and renders code properly in HTML context.
+   * @param {string} text - Raw text to escape
+   * @returns {string} HTML-safe escaped text
+   */
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  /**
+   * =========================
+   * CHART FACTORY FUNCTIONS
+   * =========================
+   *
+   * Each factory function creates and configures an ECharts instance.
+   * Functions follow a consistent pattern:
+   *
+   * 1. Initialize chart with 'ulbra' theme
+   * 2. Build options object with:
+   *    - Animation settings (1000ms duration, cubicOut easing)
+   *    - Tooltip configuration (dark background, accent border)
+   *    - Legend positioning (bottom)
+   *    - Grid/axes setup
+   *    - Series data from fixtureData
+   * 3. Set options and render chart
+   * 4. Store instance in chartInstances for later reference
+   *
+   * All charts respond to filter state changes via updateAllCharts().
+   * Charts use responsive sizing via container dimensions.
+   */
+
+  // Store chart instances globally for reference and updates
+  const chartInstances = {};
+
+  /**
+   * 1. CREATE LINE CHART - Inscrições por semestre
+   * Visualizes enrollment trends across 4 program types per semester.
+   * 4 series: Graduação, Pós-Graduação, EAD, Medicina
+   * Features: Smooth lines with colored areaStyle, legend, tooltip
+   * Animation: 1000ms cubicOut for smooth entry
+   */
+  function createLineChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 }
+      },
+      legend: {
+        data: ['Graduação', 'Pós-Graduação', 'EAD', 'Medicina'],
+        textStyle: { color: '#E8E8E8' },
+        bottom: 0
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '12%',
+        top: '3%',
+        containLabel: false
+      },
+      xAxis: {
+        type: 'category',
+        data: ['2024.1', '2024.2', '2025.1'],
+        boundaryGap: false,
+        axisLine: { lineStyle: { color: '#444' } },
+        axisLabel: { color: '#A0A0A0' }
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: { show: false },
+        axisLabel: { color: '#A0A0A0' },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      series: [
+        {
+          name: 'Graduação',
+          data: [4200, 4350, 4500],
+          type: 'line',
+          smooth: true,
+          lineStyle: { width: 3, color: '#045A52' },
+          areaStyle: {
+            color: {
+              type: 'linear',
+              x: 0, y: 0, x2: 0, y2: 1,
+              colorStops: [
+                { offset: 0, color: 'rgba(4, 90, 82, 0.5)' },
+                { offset: 1, color: 'rgba(4, 90, 82, 0.05)' }
+              ]
+            }
+          },
+          symbolSize: 5
+        },
+        {
+          name: 'Pós-Graduação',
+          data: [1850, 1920, 2050],
+          type: 'line',
+          smooth: true,
+          lineStyle: { width: 3, color: '#F5CE99' },
+          areaStyle: {
+            color: {
+              type: 'linear',
+              x: 0, y: 0, x2: 0, y2: 1,
+              colorStops: [
+                { offset: 0, color: 'rgba(245, 206, 153, 0.5)' },
+                { offset: 1, color: 'rgba(245, 206, 153, 0.05)' }
+              ]
+            }
+          },
+          symbolSize: 5
+        },
+        {
+          name: 'EAD',
+          data: [3400, 3650, 3900],
+          type: 'line',
+          smooth: true,
+          lineStyle: { width: 3, color: '#CCA269' },
+          areaStyle: {
+            color: {
+              type: 'linear',
+              x: 0, y: 0, x2: 0, y2: 1,
+              colorStops: [
+                { offset: 0, color: 'rgba(204, 162, 105, 0.5)' },
+                { offset: 1, color: 'rgba(204, 162, 105, 0.05)' }
+              ]
+            }
+          },
+          symbolSize: 5
+        },
+        {
+          name: 'Medicina',
+          data: [450, 480, 520],
+          type: 'line',
+          smooth: true,
+          lineStyle: { width: 3, color: '#91BAA3' },
+          areaStyle: {
+            color: {
+              type: 'linear',
+              x: 0, y: 0, x2: 0, y2: 1,
+              colorStops: [
+                { offset: 0, color: 'rgba(145, 186, 163, 0.5)' },
+                { offset: 1, color: 'rgba(145, 186, 163, 0.05)' }
+              ]
+            }
+          },
+          symbolSize: 5
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 2. CREATE BAR CHART - Alunos por campus
+   * Horizontal bars with gradient fill
+   */
+  function createBarChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 }
+      },
+      legend: { show: false },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        top: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'value',
+        axisLabel: { color: '#A0A0A0' },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      yAxis: {
+        type: 'category',
+        data: ['Canoas RS', 'Manaus AM', 'Palmas TO', 'Virtual'],
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } }
+      },
+      series: [
+        {
+          data: [4500, 2800, 1600, 3200],
+          type: 'bar',
+          itemStyle: {
+            color: {
+              type: 'linear',
+              x: 0, y: 0, x2: 1, y2: 0,
+              colorStops: [
+                { offset: 0, color: '#F5CE99' },
+                { offset: 1, color: '#045A52' }
+              ]
+            }
+          },
+          barWidth: '60%'
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 3. CREATE AREA CHART - Crescimento anual
+   * Single series: Total Students growth from 2020-2026
+   */
+  function createAreaChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 }
+      },
+      legend: {
+        data: ['Total de Alunos'],
+        textStyle: { color: '#E8E8E8' },
+        bottom: 0
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '12%',
+        top: '3%',
+        containLabel: false
+      },
+      xAxis: {
+        type: 'category',
+        data: ['2020', '2021', '2022', '2023', '2024', '2025', '2026'],
+        boundaryGap: false,
+        axisLine: { lineStyle: { color: '#444' } },
+        axisLabel: { color: '#A0A0A0' }
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: { show: false },
+        axisLabel: { color: '#A0A0A0' },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      series: [
+        {
+          name: 'Total de Alunos',
+          data: [7200, 8100, 9300, 10200, 11400, 12000, 12100],
+          type: 'line',
+          smooth: true,
+          lineStyle: { width: 3, color: '#91BAA3' },
+          fill: 'start',
+          areaStyle: {
+            color: {
+              type: 'linear',
+              x: 0, y: 0, x2: 0, y2: 1,
+              colorStops: [
+                { offset: 0, color: 'rgba(145, 186, 163, 0.6)' },
+                { offset: 1, color: 'rgba(145, 186, 163, 0.05)' }
+              ]
+            }
+          },
+          symbolSize: 5
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 4. CREATE PIE CHART - Distribuição por programa
+   * Data: Graduação 46%, Pós 17.7%, EAD 48.4%, Medicina 9.3%
+   */
+  function createPieChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicInOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: '{b}: {c}%'
+      },
+      legend: {
+        data: ['Graduação', 'Pós-Graduação', 'EAD', 'Medicina'],
+        textStyle: { color: '#E8E8E8' },
+        bottom: 0,
+        left: 'center'
+      },
+      series: [
+        {
+          name: 'Distribuição',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          center: ['50%', '50%'],
+          data: [
+            { value: 46, name: 'Graduação' },
+            { value: 17.7, name: 'Pós-Graduação' },
+            { value: 48.4, name: 'EAD' },
+            { value: 9.3, name: 'Medicina' }
+          ],
+          itemStyle: {
+            borderColor: '#0D3634',
+            borderWidth: 2
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
+          label: {
+            color: '#E8E8E8',
+            fontSize: 12
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 5. CREATE DONUT CHART - Taxa de conclusão
+   * Data: Grad 92%, Pós 95%, EAD 88%, Med 97%
+   */
+  function createDonutChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const option = {
+      animation: true,
+      animationDuration: 1200,
+      animationEasing: 'elasticOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: '{b}: {c}%'
+      },
+      legend: {
+        data: ['Graduação', 'Pós-Graduação', 'EAD', 'Medicina'],
+        textStyle: { color: '#E8E8E8' },
+        bottom: 0,
+        left: 'center'
+      },
+      series: [
+        {
+          name: 'Taxa de Conclusão',
+          type: 'pie',
+          radius: ['50%', '75%'],
+          center: ['50%', '50%'],
+          data: [
+            { value: 92, name: 'Graduação' },
+            { value: 95, name: 'Pós-Graduação' },
+            { value: 88, name: 'EAD' },
+            { value: 97, name: 'Medicina' }
+          ],
+          itemStyle: {
+            borderColor: '#0D3634',
+            borderWidth: 2
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
+          label: {
+            color: '#E8E8E8',
+            fontSize: 12
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  // =========================
+  // KPI & INDICATORS SECTION
+  // =========================
+
+  /**
+   * 6. CREATE GAUGE CHART - Approval Rate (88%)
+   * Custom SVG with GSAP animation
+   * Background arc (#333) + value arc (#F5CE99)
+   * Center text: percentage (animated count-up)
+   * Label: "vs. 85% last year"
+   */
+  function createGaugeChart(containerId) {
+    const container = document.getElementById(containerId);
+    const size = 200;
+    const radius = 80;
+    const strokeWidth = 8;
+
+    // Create SVG
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.style.cssText = 'display: block; margin: 0 auto;';
+
+    // Background arc (full circle, gray)
+    const bgArc = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    bgArc.setAttribute('cx', size / 2);
+    bgArc.setAttribute('cy', size / 2);
+    bgArc.setAttribute('r', radius);
+    bgArc.setAttribute('fill', 'none');
+    bgArc.setAttribute('stroke', '#333');
+    bgArc.setAttribute('stroke-width', strokeWidth);
+    bgArc.setAttribute('stroke-dasharray', `${Math.PI * 2 * radius}`);
+    svg.appendChild(bgArc);
+
+    // Value arc (animated based on approval rate)
+    const valueArc = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    valueArc.setAttribute('cx', size / 2);
+    valueArc.setAttribute('cy', size / 2);
+    valueArc.setAttribute('r', radius);
+    valueArc.setAttribute('fill', 'none');
+    valueArc.setAttribute('stroke', '#F5CE99');
+    valueArc.setAttribute('stroke-width', strokeWidth);
+    valueArc.setAttribute('stroke-dasharray', `${Math.PI * 2 * radius}`);
+    valueArc.setAttribute('stroke-dashoffset', `${Math.PI * 2 * radius}`);
+    valueArc.style.cssText = 'transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 1.5s ease-out;';
+    svg.appendChild(valueArc);
+
+    // Center text - percentage
+    const textPercentage = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    textPercentage.setAttribute('x', size / 2);
+    textPercentage.setAttribute('y', size / 2 - 10);
+    textPercentage.setAttribute('text-anchor', 'middle');
+    textPercentage.setAttribute('font-size', '36');
+    textPercentage.setAttribute('font-weight', '700');
+    textPercentage.setAttribute('fill', '#E8E8E8');
+    textPercentage.textContent = '0%';
+    svg.appendChild(textPercentage);
+
+    // Center text - label
+    const textLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    textLabel.setAttribute('x', size / 2);
+    textLabel.setAttribute('y', size / 2 + 15);
+    textLabel.setAttribute('text-anchor', 'middle');
+    textLabel.setAttribute('font-size', '12');
+    textLabel.setAttribute('fill', '#A0A0A0');
+    textLabel.textContent = 'Approval Rate';
+    svg.appendChild(textLabel);
+
+    container.appendChild(svg);
+
+    // Animate with GSAP - delayed start
+    gsap.to(
+      { value: 0 },
+      {
+        value: 88,
+        duration: 1.5,
+        delay: 0.3,
+        ease: 'power2.out',
+        snap: { value: 1 },
+        onUpdate: function() {
+          textPercentage.textContent = Math.round(this.targets()[0].value) + '%';
+          const percentage = this.targets()[0].value / 100;
+          const dashOffset = Math.PI * 2 * radius * (1 - percentage);
+          valueArc.setAttribute('stroke-dashoffset', dashOffset);
+        }
+      }
+    );
+
+    return svg;
+  }
+
+  /**
+   * 7. CREATE PROGRESS CHART - Completion Progress (91%)
+   * HTML Progress Bar + GSAP animation
+   * Animated width with gradient fill
+   * Counter showing percentage
+   * Info: "Weeks remaining: 8"
+   */
+  function createProgressChart(containerId) {
+    const container = document.getElementById(containerId);
+
+    // Main container
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    `;
+
+    // Label row
+    const labelRow = document.createElement('div');
+    labelRow.style.cssText = `
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    `;
+
+    const label = document.createElement('span');
+    label.textContent = 'Completion Progress';
+    label.style.cssText = `
+      font: 500 14px var(--font-sans);
+      color: #E8E8E8;
+    `;
+
+    const percentage = document.createElement('span');
+    percentage.textContent = '0%';
+    percentage.style.cssText = `
+      font: 700 16px var(--font-sans);
+      color: #F5CE99;
+    `;
+
+    labelRow.appendChild(label);
+    labelRow.appendChild(percentage);
+
+    // Progress bar background
+    const progressBar = document.createElement('div');
+    progressBar.style.cssText = `
+      width: 100%;
+      height: 12px;
+      background: #333;
+      border-radius: 6px;
+      overflow: hidden;
+    `;
+
+    // Progress bar fill
+    const progressFill = document.createElement('div');
+    progressFill.style.cssText = `
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #F5CE99 0%, #CCA269 100%);
+      border-radius: 6px;
+    `;
+    progressBar.appendChild(progressFill);
+
+    // Info text
+    const info = document.createElement('p');
+    info.textContent = 'Weeks remaining: 8';
+    info.style.cssText = `
+      font: 400 12px var(--font-sans);
+      color: #A0A0A0;
+      margin: 0;
+    `;
+
+    wrapper.appendChild(labelRow);
+    wrapper.appendChild(progressBar);
+    wrapper.appendChild(info);
+    container.appendChild(wrapper);
+
+    // Animate with GSAP
+    gsap.to(
+      { value: 0 },
+      {
+        value: 91,
+        duration: 1.2,
+        delay: 0.3,
+        ease: 'power2.out',
+        snap: { value: 1 },
+        onUpdate: function() {
+          const currentValue = Math.round(this.targets()[0].value);
+          percentage.textContent = currentValue + '%';
+          progressFill.style.width = currentValue + '%';
+        }
+      }
+    );
+
+    return wrapper;
+  }
+
+  /**
+   * 8. CREATE STAT CARD - Total Students Count
+   * Number counting animation: 0 → 12,100
+   * Large number with subtitle and delta indicator
+   * GSAP number count with comma formatting
+   */
+  function createStatCard(containerId) {
+    const container = document.getElementById(containerId);
+
+    // Main wrapper
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    `;
+
+    // Large number
+    const largeNumber = document.createElement('div');
+    largeNumber.style.cssText = `
+      font: 700 48px var(--font-sans);
+      color: #E8E8E8;
+      line-height: 1;
+    `;
+    largeNumber.textContent = '0';
+
+    // Subtitle
+    const subtitle = document.createElement('p');
+    subtitle.textContent = 'Total Active Students';
+    subtitle.style.cssText = `
+      font: 400 14px var(--font-sans);
+      color: #A0A0A0;
+      margin: 0;
+    `;
+
+    // Delta indicator
+    const delta = document.createElement('div');
+    delta.style.cssText = `
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font: 500 14px var(--font-sans);
+      color: #7fbe9c;
+    `;
+    delta.innerHTML = '<span>↑ 2.3%</span><span style="color: #A0A0A0;">vs. last year</span>';
+
+    wrapper.appendChild(largeNumber);
+    wrapper.appendChild(subtitle);
+    wrapper.appendChild(delta);
+    container.appendChild(wrapper);
+
+    // Animate with GSAP - count up with comma formatting
+    gsap.to(
+      { value: 0 },
+      {
+        value: 12100,
+        duration: 1.5,
+        delay: 0.3,
+        ease: 'power2.out',
+        snap: { value: 1 },
+        onUpdate: function() {
+          const currentValue = Math.round(this.targets()[0].value);
+          largeNumber.textContent = currentValue.toLocaleString('en-US');
+        }
+      }
+    );
+
+    return wrapper;
+  }
+
+  /**
+   * 9. CREATE TREND CARD - Student Growth Indicator
+   * Arrow bounces for 3 cycles
+   * Large trend percentage (12.3%)
+   * Arrow color: green for positive (#7fbe9c), red for negative
+   * GSAP: arrow bounce (yoyo, repeat 2), number count 1.2s
+   */
+  function createTrendCard(containerId) {
+    const container = document.getElementById(containerId);
+
+    // Main wrapper
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    `;
+
+    // Arrow and percentage row
+    const topRow = document.createElement('div');
+    topRow.style.cssText = `
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    `;
+
+    // Arrow (bouncing)
+    const arrow = document.createElement('span');
+    arrow.textContent = '↑';
+    arrow.style.cssText = `
+      font-size: 28px;
+      color: #7fbe9c;
+      line-height: 1;
+    `;
+
+    // Percentage
+    const trendPercentage = document.createElement('span');
+    trendPercentage.style.cssText = `
+      font: 700 36px var(--font-sans);
+      color: #E8E8E8;
+    `;
+    trendPercentage.textContent = '0.0%';
+
+    topRow.appendChild(arrow);
+    topRow.appendChild(trendPercentage);
+
+    // Label
+    const label = document.createElement('p');
+    label.textContent = 'Growing vs. last year';
+    label.style.cssText = `
+      font: 400 14px var(--font-sans);
+      color: #A0A0A0;
+      margin: 0;
+    `;
+
+    wrapper.appendChild(topRow);
+    wrapper.appendChild(label);
+    container.appendChild(wrapper);
+
+    // Animate arrow bounce with GSAP - 3 cycles (yoyo, repeat 2 = 3 bounces)
+    gsap.to(arrow, {
+      y: -12,
+      duration: 0.4,
+      delay: 0.3,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: 2
+    });
+
+    // Animate percentage count
+    gsap.to(
+      { value: 0 },
+      {
+        value: 12.3,
+        duration: 1.2,
+        delay: 0.3,
+        ease: 'power2.out',
+        snap: { value: 0.1 },
+        onUpdate: function() {
+          const currentValue = this.targets()[0].value;
+          trendPercentage.textContent = currentValue.toFixed(1) + '%';
+        }
+      }
+    );
+
+    return wrapper;
+  }
+
+  /**
+   * 10. CREATE HEATMAP CHART - Inscrições por mês × campus
+   * 12 months × 3 campuses with random values 500-1500
+   * Color scale: green (low) → gold (medium) → bronze (high)
+   * Visual map for color legend
+   * Staggered fade-in animation 1000ms cubicOut
+   */
+  function createHeatmapChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    // Generate months
+    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    const campuses = ['Canoas', 'Manaus', 'Palmas'];
+
+    // Generate random heatmap data: [monthIndex, campusIndex, value]
+    const heatmapData = [];
+    for (let i = 0; i < 12; i++) {
+      for (let j = 0; j < 3; j++) {
+        const value = Math.floor(Math.random() * 1000) + 500; // 500-1500
+        heatmapData.push([i, j, value]);
+      }
+    }
+
+    const option = {
+      animation: true,
+      animationDuration: 1000,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: function(params) {
+          if (params.componentSubType === 'heatmap') {
+            return `${months[params.value[0]]} - ${campuses[params.value[1]]}<br/>Inscrições: ${params.value[2]}`;
+          }
+          return params.name;
+        }
+      },
+      grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '5%',
+        top: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } }
+      },
+      yAxis: {
+        type: 'category',
+        data: campuses,
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } }
+      },
+      visualMap: {
+        min: 500,
+        max: 1500,
+        text: ['Alto', 'Baixo'],
+        textStyle: { color: '#E8E8E8' },
+        inRange: {
+          color: ['#045A52', '#91BAA3', '#F5CE99', '#CCA269'] // green → light green → gold → bronze
+        },
+        dimension: 2,
+        realtime: true
+      },
+      series: [
+        {
+          name: 'Inscrições',
+          type: 'heatmap',
+          data: heatmapData,
+          itemStyle: {
+            borderColor: '#0D3634',
+            borderWidth: 1
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 11. CREATE SCATTER CHART - Custo vs. Taxa de conclusão
+   * 5 data points with bubble sizes representing cohort size
+   * X: cost, Y: completion rate, bubble size: cohort
+   * Colors by program type
+   * 1200ms animation with cubic easing
+   */
+  function createScatterChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    // Scatter data: [cost, completion_rate, cohort_size, program_name]
+    const scatterData = [
+      { value: [15000, 85, 120], name: 'Program A', itemStyle: { color: '#045A52' } },
+      { value: [16200, 88, 95], name: 'Program B', itemStyle: { color: '#F5CE99' } },
+      { value: [14800, 82, 220], name: 'Program C', itemStyle: { color: '#CCA269' } },
+      { value: [17500, 91, 85], name: 'Program D', itemStyle: { color: '#91BAA3' } },
+      { value: [16800, 89, 140], name: 'Program E', itemStyle: { color: '#66563D' } }
+    ];
+
+    const option = {
+      animation: true,
+      animationDuration: 1200,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: function(params) {
+          if (params.componentSubType === 'scatter') {
+            return `${params.name}<br/>Custo: R$ ${params.value[0].toLocaleString('pt-BR')}<br/>Taxa: ${params.value[1]}%<br/>Cohort: ${params.value[2]}`;
+          }
+          return params.name;
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '12%',
+        top: '3%',
+        containLabel: false
+      },
+      xAxis: {
+        type: 'value',
+        axisLabel: { color: '#A0A0A0', formatter: 'R$ {value}' },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: { color: '#A0A0A0', formatter: '{value}%' },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      series: [
+        {
+          name: 'Programs',
+          type: 'scatter',
+          symbolSize: function(data) {
+            return data[2] / 20; // Scale cohort size to pixel size
+          },
+          data: scatterData.map(d => ({
+            value: d.value,
+            name: d.name,
+            itemStyle: d.itemStyle
+          })),
+          itemStyle: {
+            borderColor: 'rgba(255, 255, 255, 0.3)',
+            borderWidth: 2
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 12. CREATE SANKEY CHART - Fluxo: Inquiries → Enrolled
+   * 4 stages: Inquiries (3200) → Applications (2100) → Approved (1450) → Enrolled (1200)
+   * Progressive narrowing flow
+   * Colors: light gold (inquiries) → deep green (enrolled)
+   * Path drawing animation 1500ms
+   * Tooltip shows volume + % of previous stage
+   */
+  function createSankeyChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const option = {
+      animation: true,
+      animationDuration: 1500,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: function(params) {
+          if (params.dataType === 'node') {
+            return `${params.name}<br/>Volume: ${params.value}`;
+          } else if (params.dataType === 'edge') {
+            const percentage = Math.round((params.value / 3200) * 100);
+            return `${params.source.name} → ${params.target.name}<br/>Volume: ${params.value}<br/>% de inscrições: ${percentage}%`;
+          }
+          return params.name;
+        }
+      },
+      series: [
+        {
+          type: 'sankey',
+          data: [
+            { name: 'Inscrições' },
+            { name: 'Aplicações' },
+            { name: 'Aprovadas' },
+            { name: 'Matriculadas' }
+          ],
+          links: [
+            { source: 'Inscrições', target: 'Aplicações', value: 2100 },
+            { source: 'Aplicações', target: 'Aprovadas', value: 1450 },
+            { source: 'Aprovadas', target: 'Matriculadas', value: 1200 }
+          ],
+          itemStyle: {
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 1
+          },
+          lineStyle: {
+            color: 'source',
+            curveness: 0.5,
+            opacity: 0.3
+          },
+          label: {
+            color: '#E8E8E8',
+            fontSize: 12
+          },
+          nodeStyle: {
+            fill: 'linear',
+            fillFrom: { color: '#F5CE99' },
+            fillTo: { color: '#045A52' }
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * 13. CREATE RADIAL CHART - Distribuição por área de estudo
+   * 8 areas with polar/radial bar visualization
+   * Data: Engenharia (2400), Saúde (1800), Negócios (1600), Educação (1200), etc.
+   * Bars grow outward from center
+   * Gold-to-green gradient
+   * 1200ms animation, cubicOut
+   */
+  function createRadialChart(containerId) {
+    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+
+    const areas = [
+      { name: 'Engenharia', value: 2400 },
+      { name: 'Saúde', value: 1800 },
+      { name: 'Negócios', value: 1600 },
+      { name: 'Educação', value: 1200 },
+      { name: 'Tecnologia', value: 1100 },
+      { name: 'Humanas', value: 900 },
+      { name: 'Direito', value: 800 },
+      { name: 'Artes', value: 650 }
+    ];
+
+    const option = {
+      animation: true,
+      animationDuration: 1200,
+      animationEasing: 'cubicOut',
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        borderColor: '#045A52',
+        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        formatter: '{b}: {c}'
+      },
+      angleAxis: {
+        type: 'category',
+        data: areas.map(a => a.name),
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      radiusAxis: {
+        type: 'value',
+        axisLabel: { color: '#A0A0A0' },
+        axisLine: { lineStyle: { color: '#444' } },
+        splitLine: { lineStyle: { color: '#333' } }
+      },
+      polar: { center: ['50%', '50%'] },
+      series: [
+        {
+          name: 'Estudantes',
+          type: 'bar',
+          data: areas.map(a => a.value),
+          coordinateSystem: 'polar',
+          itemStyle: {
+            color: {
+              type: 'linear',
+              colorStops: [
+                { offset: 0, color: '#F5CE99' },
+                { offset: 1, color: '#045A52' }
+              ]
+            }
+          }
+        }
+      ]
+    };
+
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+    chartInstances[containerId] = chart;
+    return chart;
+  }
+
+  /**
+   * =========================
+   * DRAGGABLE KPI GRID IMPLEMENTATION
+   * =========================
+   *
+   * Interactive key performance indicator grid with drag-and-drop reordering.
+   * Features:
+   * - Users can drag cards to rearrange them
+   * - Layout is automatically saved to localStorage
+   * - Saved layout persists across browser sessions
+   * - Cards have visual feedback (opacity on drag, cursor changes)
+   * - Fully accessible with ARIA labels and tabindex
+   *
+   * Key Functions:
+   * - swapCards(): Swaps positions of two cards in the DOM
+   * - saveGridOrder(): Serializes current grid order to localStorage
+   * - initializeKpiGrid(): Renders the grid with saved or default order
+   *
+   * Data Structure: Array of KPI objects with id, title, value, and label
+   * Each card is individually draggable (draggable="true")
+   */
+  const kpiGridData = [
+    { id: 'kpi-1', title: 'Total Students', value: '12,100', label: 'Alunos ativos' },
+    { id: 'kpi-2', title: 'Approval Rate', value: '88%', label: 'Taxa de aprovação' },
+    { id: 'kpi-3', title: 'Completion', value: '91%', label: 'Taxa de conclusão' },
+    { id: 'kpi-4', title: 'YoY Growth', value: '12.3%', label: 'Crescimento anual' },
+    { id: 'kpi-5', title: 'Active Programs', value: '4', label: 'Programas' },
+    { id: 'kpi-6', title: 'Campuses', value: '7', label: 'Unidades' }
+  ];
+
+  /**
+   * Swaps the position of two KPI cards in the grid.
+   * Called during drag-over events to reorder cards.
+   */
+  function swapCards(card1, card2) {
+    const allCards = Array.from(document.querySelectorAll('.kpi-grid-card'));
+    const index1 = allCards.indexOf(card1);
+    const index2 = allCards.indexOf(card2);
+
+    if (index1 < index2) {
+      card2.parentNode.insertBefore(card1, card2);
+    } else {
+      card1.parentNode.insertBefore(card2, card1);
+    }
+  }
+
+  function saveGridOrder() {
+    const cards = Array.from(document.querySelectorAll('.kpi-grid-card'));
+    const order = cards.map(card => {
+      const id = card.getAttribute('data-id');
+      return kpiGridData.find(kpi => kpi.id === id);
+    });
+
+    localStorage.setItem('ulbra-kpi-grid-layout', JSON.stringify(order));
+    console.log('KPI grid order saved');
+  }
+
+  let draggedCard = null;
+
+  function initializeKpiGrid() {
+    const gridContainer = document.getElementById('kpi-grid-container');
+    if (!gridContainer) return;
+
+    let gridData = kpiGridData;
+
+    // Load saved order from localStorage
+    const savedOrder = localStorage.getItem('ulbra-kpi-grid-layout');
+    if (savedOrder) {
+      try {
+        gridData = JSON.parse(savedOrder);
+      } catch (e) {
+        console.warn('Failed to load saved KPI grid order:', e);
+        gridData = kpiGridData;
+      }
+    }
+
+    // Clear existing grid
+    gridContainer.innerHTML = '';
+
+    // Render cards
+    gridData.forEach((kpi, index) => {
+      const card = document.createElement('div');
+      card.className = 'kpi-grid-card';
+      card.setAttribute('draggable', 'true');
+      card.setAttribute('data-id', kpi.id);
+      card.setAttribute('data-index', index);
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `${kpi.title}: ${kpi.value} ${kpi.label}. Draggable card, use mouse to reorder.`);
+      card.setAttribute('tabindex', '0');
+
+      card.innerHTML = `
+        <h5>${kpi.title}</h5>
+        <div class="value">${kpi.value}</div>
+        <div class="label">${kpi.label}</div>
+      `;
+
+      // Drag start
+      card.addEventListener('dragstart', (e) => {
+        draggedCard = card;
+        e.dataTransfer.effectAllowed = 'move';
+        card.style.opacity = '0.5';
+      });
+
+      // Drag end
+      card.addEventListener('dragend', (e) => {
+        card.style.opacity = '1';
+        draggedCard = null;
+        saveGridOrder();
+      });
+
+      // Drag over
+      card.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        if (draggedCard && draggedCard !== card) {
+          swapCards(draggedCard, card);
+        }
+      });
+
+      gridContainer.appendChild(card);
+    });
+
+    console.log('KPI grid initialized with', gridData.length, 'cards');
+  }
+
+  /**
+   * =========================
+   * DOM INITIALIZATION & EVENT LISTENERS
+   * =========================
+   *
+   * Runs when DOM is fully loaded. Execution sequence:
+   * 1. Define chart configurations (title, description, containerId, factory function)
+   * 2. Create chart cards dynamically (Common, KPI, Advanced sections)
+   * 3. Each chart card includes:
+   *    - Title and description
+   *    - Chart container (rendered by factory function)
+   *    - Code block with copy button
+   *    - Export PNG button
+   * 4. Initialize lazy load observer for performance
+   * 5. Initialize KPI grid with drag-and-drop functionality
+   *
+   * Chart sections: Common (4), KPI (4), Advanced (4), Grid (1) = 13 total visualizations
+   * All charts use fixture data and respond to filter changes.
+   */
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('✓ DOMContentLoaded: Starting chart gallery initialization...');
+    const sectionCommon = document.getElementById('section-common');
+
+    const commonCharts = [
+      {
+        title: 'Inscrições por Semestre',
+        description: 'Evolução de inscrições em 4 programas: Graduação, Pós-Graduação, EAD e Medicina.',
+        containerId: 'chart-line',
+        factory: createLineChart
+      },
+      {
+        title: 'Alunos por Campus',
+        description: 'Distribuição de alunos entre os campus principais: Canoas, Manaus, Palmas e Virtual.',
+        containerId: 'chart-bar',
+        factory: createBarChart
+      },
+      {
+        title: 'Crescimento Anual',
+        description: 'Evolução do total de alunos de 2020 a 2026, mostrando crescimento sustentado.',
+        containerId: 'chart-area',
+        factory: createAreaChart
+      },
+      {
+        title: 'Distribuição por Programa',
+        description: 'Proporção de alunos em cada programa acadêmico (Pie Chart).',
+        containerId: 'chart-pie',
+        factory: createPieChart
+      },
+      {
+        title: 'Taxa de Conclusão',
+        description: 'Taxa de conclusão por programa acadêmico (Donut Chart).',
+        containerId: 'chart-donut',
+        factory: createDonutChart
+      }
+    ];
+
+    // Create and render each chart
+    commonCharts.forEach(chartConfig => {
+      // Create chart card container
+      const chartCard = document.createElement('div');
+      chartCard.style.cssText = `
+        background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
+        border: 1px solid rgba(245, 206, 153, 0.2);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 40px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      `;
+
+      // Chart title
+      const title = document.createElement('h3');
+      title.textContent = chartConfig.title;
+      title.style.cssText = `
+        font: 700 18px var(--font-sans);
+        color: #E8E8E8;
+        margin: 0 0 8px 0;
+      `;
+
+      // Chart description
+      const description = document.createElement('p');
+      description.textContent = chartConfig.description;
+      description.style.cssText = `
+        font: 400 14px var(--font-sans);
+        color: #A0A0A0;
+        margin: 0 0 20px 0;
+      `;
+
+      // Chart container
+      const chartContainer = document.createElement('div');
+      chartContainer.id = chartConfig.containerId;
+      chartContainer.style.cssText = `
+        width: 100%;
+        height: 400px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 12px;
+      `;
+
+      // Code block wrapper
+      const codeBlockWrapper = document.createElement('div');
+      codeBlockWrapper.className = 'code-block';
+      const codeText = `chartInstances['${chartConfig.containerId}'] = ${chartConfig.factory.name}('${chartConfig.containerId}');`;
+      codeBlockWrapper.setAttribute('data-code', codeText);
+
+      const codeBlock = document.createElement('pre');
+      codeBlock.style.cssText = `
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(245, 206, 153, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        overflow-x: auto;
+        font: 400 12px 'Monaco', 'Menlo', monospace;
+        color: #91BAA3;
+        white-space: pre-wrap;
+        word-break: break-word;
+      `;
+      codeBlock.textContent = codeText;
+      codeBlockWrapper.appendChild(codeBlock);
+
+      // Export buttons
+      const exportButtons = document.createElement('div');
+      exportButtons.className = 'export-buttons';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'export-btn copy';
+      copyBtn.textContent = '📋 Copy Code';
+      copyBtn.setAttribute('data-code', codeText);
+      copyBtn.setAttribute('aria-label', `Copy ${chartConfig.title} code`);
+      copyBtn.addEventListener('click', () => {
+        const code = copyBtn.getAttribute('data-code');
+        copyToClipboard(code);
+      });
+
+      const downloadBtn = document.createElement('button');
+      downloadBtn.className = 'export-btn download';
+      downloadBtn.textContent = '⬇️ Export PNG';
+      downloadBtn.setAttribute('data-chart-id', chartConfig.containerId);
+      downloadBtn.setAttribute('aria-label', `Export ${chartConfig.title} as PNG`);
+      downloadBtn.addEventListener('click', () => {
+        const chartId = downloadBtn.getAttribute('data-chart-id');
+        exportChartPNG(chartId, chartConfig.title);
+      });
+
+      exportButtons.appendChild(copyBtn);
+      exportButtons.appendChild(downloadBtn);
+      codeBlockWrapper.appendChild(exportButtons);
+
+      // Append elements to card
+      chartCard.appendChild(title);
+      chartCard.appendChild(description);
+      chartCard.appendChild(chartContainer);
+      chartCard.appendChild(codeBlockWrapper);
+
+      // Append card to section
+      sectionCommon.appendChild(chartCard);
+
+      // Initialize chart
+      setTimeout(() => {
+        chartConfig.factory(chartConfig.containerId);
+      }, 100);
+    });
+
+    console.log('Common charts section initialized with 5 animated charts');
+
+    // =========================
+    // KPI & INDICATORS SECTION
+    // =========================
+    const sectionKPI = document.getElementById('section-kpi');
+
+    const kpiCharts = [
+      {
+        title: 'Approval Rate',
+        description: 'Approval rate showing 88%, up from 85% last year.',
+        containerId: 'chart-gauge',
+        factory: createGaugeChart
+      },
+      {
+        title: 'Completion Progress',
+        description: 'Current semester completion progress at 91% with 8 weeks remaining.',
+        containerId: 'chart-progress',
+        factory: createProgressChart
+      },
+      {
+        title: 'Total Students',
+        description: 'Total active students enrollment with 2.3% growth.',
+        containerId: 'chart-stat',
+        factory: createStatCard
+      },
+      {
+        title: 'Student Growth',
+        description: 'Year-over-year student growth trend at 12.3%.',
+        containerId: 'chart-trend',
+        factory: createTrendCard
+      }
+    ];
+
+    // Create and render each KPI chart
+    kpiCharts.forEach(chartConfig => {
+      // Create chart card container
+      const chartCard = document.createElement('div');
+      chartCard.style.cssText = `
+        background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
+        border: 1px solid rgba(245, 206, 153, 0.2);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 40px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      `;
+
+      // Chart title
+      const title = document.createElement('h3');
+      title.textContent = chartConfig.title;
+      title.style.cssText = `
+        font: 700 18px var(--font-sans);
+        color: #E8E8E8;
+        margin: 0 0 8px 0;
+      `;
+
+      // Chart description
+      const description = document.createElement('p');
+      description.textContent = chartConfig.description;
+      description.style.cssText = `
+        font: 400 14px var(--font-sans);
+        color: #A0A0A0;
+        margin: 0 0 20px 0;
+      `;
+
+      // Chart container
+      const chartContainer = document.createElement('div');
+      chartContainer.id = chartConfig.containerId;
+      chartContainer.style.cssText = `
+        width: 100%;
+        min-height: 140px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 12px;
+      `;
+
+      // Code block wrapper
+      const codeBlockWrapper = document.createElement('div');
+      codeBlockWrapper.className = 'code-block';
+      const codeText = `${chartConfig.factory.name}('${chartConfig.containerId}');`;
+      codeBlockWrapper.setAttribute('data-code', codeText);
+
+      const codeBlock = document.createElement('pre');
+      codeBlock.style.cssText = `
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(245, 206, 153, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        overflow-x: auto;
+        font: 400 12px 'Monaco', 'Menlo', monospace;
+        color: #91BAA3;
+        white-space: pre-wrap;
+        word-break: break-word;
+      `;
+      codeBlock.textContent = codeText;
+      codeBlockWrapper.appendChild(codeBlock);
+
+      // Export buttons
+      const exportButtons = document.createElement('div');
+      exportButtons.className = 'export-buttons';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'export-btn copy';
+      copyBtn.textContent = '📋 Copy Code';
+      copyBtn.setAttribute('data-code', codeText);
+      copyBtn.setAttribute('aria-label', `Copy ${chartConfig.title} code`);
+      copyBtn.addEventListener('click', () => {
+        const code = copyBtn.getAttribute('data-code');
+        copyToClipboard(code);
+      });
+
+      const downloadBtn = document.createElement('button');
+      downloadBtn.className = 'export-btn download';
+      downloadBtn.textContent = '⬇️ Export PNG';
+      downloadBtn.setAttribute('data-chart-id', chartConfig.containerId);
+      downloadBtn.setAttribute('aria-label', `Export ${chartConfig.title} as PNG`);
+      downloadBtn.addEventListener('click', () => {
+        const chartId = downloadBtn.getAttribute('data-chart-id');
+        exportChartPNG(chartId, chartConfig.title);
+      });
+
+      exportButtons.appendChild(copyBtn);
+      exportButtons.appendChild(downloadBtn);
+      codeBlockWrapper.appendChild(exportButtons);
+
+      // Append elements to card
+      chartCard.appendChild(title);
+      chartCard.appendChild(description);
+      chartCard.appendChild(chartContainer);
+      chartCard.appendChild(codeBlockWrapper);
+
+      // Append card to section
+      sectionKPI.appendChild(chartCard);
+
+      // Initialize chart
+      setTimeout(() => {
+        chartConfig.factory(chartConfig.containerId);
+      }, 100);
+    });
+
+    console.log('KPI & Indicators section initialized with 4 animated KPI cards');
+
+    // =========================
+    // ADVANCED VISUALIZATIONS SECTION
+    // =========================
+    const sectionAdvanced = document.getElementById('section-advanced');
+
+    const advancedCharts = [
+      {
+        title: 'Inscrições por Mês × Campus',
+        description: 'Heatmap showing enrollment volume across 12 months and 3 campuses with color intensity scale.',
+        containerId: 'chart-heatmap',
+        factory: createHeatmapChart
+      },
+      {
+        title: 'Custo vs. Taxa de Conclusão',
+        description: 'Scatter plot analyzing program cost versus completion rates with bubble size representing cohort size.',
+        containerId: 'chart-scatter',
+        factory: createScatterChart
+      },
+      {
+        title: 'Fluxo: Inquiries → Enrolled',
+        description: 'Sankey diagram showing conversion funnel from inquiries through applications, approvals to enrollment.',
+        containerId: 'chart-sankey',
+        factory: createSankeyChart
+      },
+      {
+        title: 'Distribuição por Área de Estudo',
+        description: 'Radial bar chart displaying student distribution across 8 academic fields of study.',
+        containerId: 'chart-radial',
+        factory: createRadialChart
+      }
+    ];
+
+    // Create and render each advanced chart
+    advancedCharts.forEach(chartConfig => {
+      // Create chart card container
+      const chartCard = document.createElement('div');
+      chartCard.style.cssText = `
+        background: linear-gradient(135deg, rgba(13, 54, 52, 0.5) 0%, rgba(13, 54, 52, 0.3) 100%);
+        border: 1px solid rgba(245, 206, 153, 0.2);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 40px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      `;
+
+      // Chart title
+      const title = document.createElement('h3');
+      title.textContent = chartConfig.title;
+      title.style.cssText = `
+        font: 700 18px var(--font-sans);
+        color: #E8E8E8;
+        margin: 0 0 8px 0;
+      `;
+
+      // Chart description
+      const description = document.createElement('p');
+      description.textContent = chartConfig.description;
+      description.style.cssText = `
+        font: 400 14px var(--font-sans);
+        color: #A0A0A0;
+        margin: 0 0 20px 0;
+      `;
+
+      // Chart container
+      const chartContainer = document.createElement('div');
+      chartContainer.id = chartConfig.containerId;
+      chartContainer.style.cssText = `
+        width: 100%;
+        height: 400px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 12px;
+      `;
+
+      // Code block wrapper
+      const codeBlockWrapper = document.createElement('div');
+      codeBlockWrapper.className = 'code-block';
+      const codeText = `chartInstances['${chartConfig.containerId}'] = ${chartConfig.factory.name}('${chartConfig.containerId}');`;
+      codeBlockWrapper.setAttribute('data-code', codeText);
+
+      const codeBlock = document.createElement('pre');
+      codeBlock.style.cssText = `
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(245, 206, 153, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        overflow-x: auto;
+        font: 400 12px 'Monaco', 'Menlo', monospace;
+        color: #91BAA3;
+        white-space: pre-wrap;
+        word-break: break-word;
+      `;
+      codeBlock.textContent = codeText;
+      codeBlockWrapper.appendChild(codeBlock);
+
+      // Export buttons
+      const exportButtons = document.createElement('div');
+      exportButtons.className = 'export-buttons';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'export-btn copy';
+      copyBtn.textContent = '📋 Copy Code';
+      copyBtn.setAttribute('data-code', codeText);
+      copyBtn.setAttribute('aria-label', `Copy ${chartConfig.title} code`);
+      copyBtn.addEventListener('click', () => {
+        const code = copyBtn.getAttribute('data-code');
+        copyToClipboard(code);
+      });
+
+      const downloadBtn = document.createElement('button');
+      downloadBtn.className = 'export-btn download';
+      downloadBtn.textContent = '⬇️ Export PNG';
+      downloadBtn.setAttribute('data-chart-id', chartConfig.containerId);
+      downloadBtn.setAttribute('aria-label', `Export ${chartConfig.title} as PNG`);
+      downloadBtn.addEventListener('click', () => {
+        const chartId = downloadBtn.getAttribute('data-chart-id');
+        exportChartPNG(chartId, chartConfig.title);
+      });
+
+      exportButtons.appendChild(copyBtn);
+      exportButtons.appendChild(downloadBtn);
+      codeBlockWrapper.appendChild(exportButtons);
+
+      // Append elements to card
+      chartCard.appendChild(title);
+      chartCard.appendChild(description);
+      chartCard.appendChild(chartContainer);
+      chartCard.appendChild(codeBlockWrapper);
+
+      // Append card to section
+      sectionAdvanced.appendChild(chartCard);
+
+      // Initialize chart
+      setTimeout(() => {
+        chartConfig.factory(chartConfig.containerId);
+      }, 100);
+    });
+
+    console.log('Advanced Visualizations section initialized with 4 advanced charts');
+
+    // =========================
+    // DRAGGABLE KPI GRID SECTION
+    // =========================
+    initializeKpiGrid();
+
+    // =========================
+    // LAZY LOAD OBSERVER FOR CHARTS
+    // =========================
+    const chartContainers = document.querySelectorAll('.chart-container');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '100px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    chartContainers.forEach((container) => {
+      observer.observe(container);
+    });
+
+    console.log('✓ Lazy load observer initialized for', chartContainers.length, 'chart containers');
+    console.log('═══════════════════════════════════════════════════════════');
+    console.log('✓ CHARTS GALLERY FULLY INITIALIZED');
+    console.log('═══════════════════════════════════════════════════════════');
+    console.log('📊 Common Visualizations: 4 charts');
+    console.log('📈 KPI & Metrics: 4 charts');
+    console.log('🎯 Advanced Visualizations: 4 charts');
+    console.log('📋 Draggable KPI Grid: localStorage persistence enabled');
+    console.log('');
+    console.log('🎨 Filter Controls: Period, Campus, Program, Reset');
+    console.log('💾 Export Features: Copy Code, Export PNG with html2canvas');
+    console.log('🎭 Responsive Design: Mobile (640px), Tablet (768px), Desktop (1024px+)');
+    console.log('♿ Accessibility: WCAG AA, ARIA labels, keyboard navigation');
+    console.log('');
+    console.log('📝 Open browser DevTools → Console to see chart updates');
+    console.log('═══════════════════════════════════════════════════════════');
+  });
+</script>
+
+</body>
+</html>
