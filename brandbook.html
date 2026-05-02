@@ -5483,12 +5483,22 @@
     document.body.classList.add('light-mode');
   }
 
+  // Restore scroll position after page load
+  window.addEventListener('load', () => {
+    const savedScrollY = sessionStorage.getItem('scrollY');
+    if (savedScrollY !== null) {
+      window.scrollTo(0, parseInt(savedScrollY, 10));
+      sessionStorage.removeItem('scrollY');
+    }
+  });
+
   themeToggle.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
     const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
     localStorage.setItem('theme', currentTheme);
 
-    // Reload page to refresh all charts with correct theme
+    // Save current scroll position and reload page
+    sessionStorage.setItem('scrollY', window.scrollY.toString());
     setTimeout(() => {
       location.reload();
     }, 100);
