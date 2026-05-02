@@ -5144,10 +5144,10 @@
         {
           type: 'sankey',
           data: [
-            { name: 'Inscrições' },
-            { name: 'Aplicações' },
-            { name: 'Aprovadas' },
-            { name: 'Matriculadas' }
+            { name: 'Inscrições', itemStyle: { color: '#91BAA3' } },
+            { name: 'Aplicações', itemStyle: { color: '#6B9A7F' } },
+            { name: 'Aprovadas', itemStyle: { color: '#CCA269' } },
+            { name: 'Matriculadas', itemStyle: { color: '#045A52' } }
           ],
           links: [
             { source: 'Inscrições', target: 'Aplicações', value: 2100 },
@@ -5155,17 +5155,18 @@
             { source: 'Aprovadas', target: 'Matriculadas', value: 1200 }
           ],
           itemStyle: {
-            borderColor: isLight ? 'rgba(13, 54, 52, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-            borderWidth: 1
+            borderColor: isLight ? 'rgba(13, 54, 52, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 2
           },
           lineStyle: {
             color: 'source',
             curveness: 0.5,
-            opacity: isLight ? 0.6 : 0.3
+            opacity: isLight ? 0.7 : 0.4
           },
           label: {
             color: labelColor,
-            fontSize: 12
+            fontSize: 12,
+            fontWeight: 'bold'
           }
         }
       ]
