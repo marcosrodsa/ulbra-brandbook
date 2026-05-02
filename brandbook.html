@@ -3999,6 +3999,28 @@
     return text.replace(/[&<>"']/g, m => map[m]);
   }
 
+  function fixChartTextColorForLightMode(containerId) {
+    if (!document.body.classList.contains('light-mode')) return;
+
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    setTimeout(() => {
+      const textElements = container.querySelectorAll('text, tspan');
+      textElements.forEach(el => {
+        const currentColor = el.getAttribute('fill') || el.style.fill;
+        // If text color is light or unset, make it dark
+        if (!currentColor || currentColor === 'white' || currentColor === '#fff' || currentColor === '#ffffff' ||
+            currentColor === '#E8E8E8' || currentColor === '#e8e8e8' || currentColor === '#A0A0A0' ||
+            currentColor === '#a0a0a0' || currentColor === 'rgb(232, 232, 232)') {
+          el.setAttribute('fill', '#0D3634');
+          el.style.fill = '#0D3634';
+          el.style.color = '#0D3634';
+        }
+      });
+    }, 100);
+  }
+
   /**
    * =========================
    * CHART FACTORY FUNCTIONS
@@ -4121,6 +4143,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4179,6 +4202,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4202,6 +4226,7 @@
       series: [{ name: 'Graduação', data: [4200, 4350, 4500], type: 'line', smooth: true, lineStyle: { width: 3, color: '#045A52' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(4, 90, 82, 0.5)' }, { offset: 1, color: 'rgba(4, 90, 82, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4225,6 +4250,7 @@
       series: [{ name: 'Pós-Graduação', data: [1850, 1920, 2050], type: 'line', smooth: true, lineStyle: { width: 3, color: '#F5CE99' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(245, 206, 153, 0.5)' }, { offset: 1, color: 'rgba(245, 206, 153, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4248,6 +4274,7 @@
       series: [{ name: 'EAD', data: [3400, 3650, 3900], type: 'line', smooth: true, lineStyle: { width: 3, color: '#CCA269' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(204, 162, 105, 0.5)' }, { offset: 1, color: 'rgba(204, 162, 105, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4271,6 +4298,7 @@
       series: [{ name: 'Medicina', data: [450, 480, 520], type: 'line', smooth: true, lineStyle: { width: 3, color: '#91BAA3' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(145, 186, 163, 0.5)' }, { offset: 1, color: 'rgba(145, 186, 163, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4338,6 +4366,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4388,6 +4417,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4438,6 +4468,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4809,6 +4840,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4879,6 +4911,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -4938,6 +4971,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -5002,6 +5036,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -5170,6 +5205,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -5220,6 +5256,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
@@ -5294,6 +5331,7 @@
     };
 
     chart.setOption(option);
+    fixChartTextColorForLightMode(containerId);
     window.addEventListener('resize', () => chart.resize());
     chartInstances[containerId] = chart;
     return chart;
