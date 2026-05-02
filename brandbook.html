@@ -2741,6 +2741,9 @@
   </div>
 
   <!-- Filter Bar -->
+  <div style="margin-bottom: 16px;">
+    <span style="font: 500 11px/1 var(--font-sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim);">Filtros</span>
+  </div>
   <div class="filter-bar" id="filter-container" style="margin-bottom: 60px;">
     <div class="custom-select" id="periodSelect">
       <button class="custom-select-btn" aria-label="Filter by period">
@@ -2754,23 +2757,29 @@
       </div>
     </div>
 
-    <div class="filter-group">
-      <span class="filter-label">Campus</span>
-      <div class="filter-pills" id="filterCampus">
-        <button class="filter-pill active" data-value="all">Todos</button>
-        <button class="filter-pill" data-value="Porto Alegre">Porto Alegre</button>
-        <button class="filter-pill" data-value="Canoas">Canoas</button>
-        <button class="filter-pill" data-value="Gravataí">Gravataí</button>
+    <div class="custom-select" id="campusSelect">
+      <button class="custom-select-btn" aria-label="Filter by campus">
+        <span class="custom-select-value">Todos</span>
+        <svg viewBox="0 0 24 24" class="custom-select-arrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="custom-select-dropdown">
+        <button class="custom-select-option" data-value="all">Todos</button>
+        <button class="custom-select-option" data-value="Porto Alegre">Porto Alegre</button>
+        <button class="custom-select-option" data-value="Canoas">Canoas</button>
+        <button class="custom-select-option" data-value="Gravataí">Gravataí</button>
       </div>
     </div>
 
-    <div class="filter-group">
-      <span class="filter-label">Programa</span>
-      <div class="filter-pills" id="filterProgram">
-        <button class="filter-pill active" data-value="all">Todos</button>
-        <button class="filter-pill" data-value="Engineering">Engenharia</button>
-        <button class="filter-pill" data-value="Business">Negócios</button>
-        <button class="filter-pill" data-value="Health">Saúde</button>
+    <div class="custom-select" id="programSelect">
+      <button class="custom-select-btn" aria-label="Filter by program">
+        <span class="custom-select-value">Todos</span>
+        <svg viewBox="0 0 24 24" class="custom-select-arrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="custom-select-dropdown">
+        <button class="custom-select-option" data-value="all">Todos</button>
+        <button class="custom-select-option" data-value="Engineering">Engenharia</button>
+        <button class="custom-select-option" data-value="Business">Negócios</button>
+        <button class="custom-select-option" data-value="Health">Saúde</button>
       </div>
     </div>
 
@@ -3056,50 +3065,62 @@
     });
   }
 
-  const filterCampusContainer = document.getElementById('filterCampus');
-  const filterProgramContainer = document.getElementById('filterProgram');
+  const campusSelect = document.getElementById('campusSelect');
+  const programSelect = document.getElementById('programSelect');
   const btnReset = document.getElementById('btnReset');
 
-  // Campus pills event
-  if (filterCampusContainer) {
-    filterCampusContainer.addEventListener('click', (e) => {
-      if (e.target.classList.contains('filter-pill')) {
-        const value = e.target.getAttribute('data-value');
-        if (value === 'all') {
-          filterState.campuses = ['all'];
-        } else {
-          if (filterState.campuses.includes('all')) filterState.campuses = [];
-          if (filterState.campuses.includes(value)) {
-            filterState.campuses = filterState.campuses.filter(v => v !== value);
-          } else {
-            filterState.campuses.push(value);
-          }
-          if (filterState.campuses.length === 0) filterState.campuses = ['all'];
-        }
-        updateFilterPillsUI('campus');
+  // Campus dropdown event
+  if (campusSelect) {
+    const campusBtn = campusSelect.querySelector('.custom-select-btn');
+    const campusOptions = campusSelect.querySelectorAll('.custom-select-option');
+
+    campusOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        filterState.campuses = [value];
+        campusBtn.querySelector('.custom-select-value').textContent = option.textContent;
+        campusSelect.classList.remove('open');
         updateAllCharts();
+      });
+    });
+
+    // Toggle dropdown
+    campusBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      campusSelect.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!campusSelect.contains(e.target)) {
+        campusSelect.classList.remove('open');
       }
     });
   }
 
-  // Program pills event
-  if (filterProgramContainer) {
-    filterProgramContainer.addEventListener('click', (e) => {
-      if (e.target.classList.contains('filter-pill')) {
-        const value = e.target.getAttribute('data-value');
-        if (value === 'all') {
-          filterState.programs = ['all'];
-        } else {
-          if (filterState.programs.includes('all')) filterState.programs = [];
-          if (filterState.programs.includes(value)) {
-            filterState.programs = filterState.programs.filter(v => v !== value);
-          } else {
-            filterState.programs.push(value);
-          }
-          if (filterState.programs.length === 0) filterState.programs = ['all'];
-        }
-        updateFilterPillsUI('program');
+  // Program dropdown event
+  if (programSelect) {
+    const programBtn = programSelect.querySelector('.custom-select-btn');
+    const programOptions = programSelect.querySelectorAll('.custom-select-option');
+
+    programOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        filterState.programs = [value];
+        programBtn.querySelector('.custom-select-value').textContent = option.textContent;
+        programSelect.classList.remove('open');
         updateAllCharts();
+      });
+    });
+
+    // Toggle dropdown
+    programBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      programSelect.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!programSelect.contains(e.target)) {
+        programSelect.classList.remove('open');
       }
     });
   }
@@ -3123,28 +3144,25 @@
         });
       }
 
-      updateFilterPillsUI('campus');
-      updateFilterPillsUI('program');
+      // Reset campus select
+      if (campusSelect) {
+        const campusBtn = campusSelect.querySelector('.custom-select-btn');
+        campusBtn.querySelector('.custom-select-value').textContent = 'Todos';
+        campusSelect.classList.remove('open');
+      }
+
+      // Reset program select
+      if (programSelect) {
+        const programBtn = programSelect.querySelector('.custom-select-btn');
+        programBtn.querySelector('.custom-select-value').textContent = 'Todos';
+        programSelect.classList.remove('open');
+      }
+
       updateAllCharts();
     });
   }
 
-  // Update pill UI based on state
-  function updateFilterPillsUI(type) {
-    const container = type === 'campus' ? filterCampusContainer : filterProgramContainer;
-    const state = type === 'campus' ? filterState.campuses : filterState.programs;
-    if (!container) return;
-    const pills = container.querySelectorAll('.filter-pill');
-    pills.forEach(pill => {
-      const value = pill.getAttribute('data-value');
-      if (state.includes(value)) {
-        pill.classList.add('active');
-      } else {
-        pill.classList.remove('active');
-      }
-    });
-  }
-
+  // Update pill UI based on state (legacy function - kept for compatibility)
   function updateAllCharts() {
     const chartContainers = document.querySelectorAll('.chart-container');
     chartContainers.forEach(container => {
