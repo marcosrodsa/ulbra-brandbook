@@ -1672,8 +1672,29 @@
   }
 
   body.light-mode .chart-card {
-    background: linear-gradient(135deg, rgba(4, 90, 82, 0.05) 0%, rgba(4, 90, 82, 0.02) 100%) !important;
+    background: linear-gradient(135deg, rgba(4, 90, 82, 0.08) 0%, rgba(204, 162, 105, 0.04) 100%) !important;
+    border: 1px solid rgba(4, 90, 82, 0.2) !important;
+  }
+
+  /* KPI Stats cards in light mode */
+  body.light-mode .stats-grid > div {
+    background: linear-gradient(135deg, rgba(4, 90, 82, 0.12) 0%, rgba(145, 186, 163, 0.08) 100%) !important;
     border: 1px solid rgba(4, 90, 82, 0.15) !important;
+    color: #0D3634;
+  }
+
+  body.light-mode .stats-grid > div strong {
+    color: #045A52;
+  }
+
+  body.light-mode .stats-grid > div .label {
+    color: #CCA269;
+  }
+
+  /* Chart containers background */
+  body.light-mode [id*="chart-"] {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(245, 206, 153, 0.05) 100%) !important;
+    border-radius: 8px;
   }
 
   body.light-mode .swatch {
@@ -3331,7 +3352,7 @@
   echarts.registerTheme('ulbra', ulbraTheme);
 
   const ulbraThemeLight = {
-    color: ['#045A52', '#CCA269', '#91BAA3', '#66563D', '#0D3634', '#F5CE99'],
+    color: ['#045A52', '#CCA269', '#91BAA3', '#66563D', '#F5CE99', '#0D3634'],
     backgroundColor: 'transparent',
     textStyle: {
       color: '#0D3634',
@@ -3339,7 +3360,7 @@
     },
     title: {
       textStyle: {
-        color: '#0D3634',
+        color: '#045A52',
         fontSize: 18,
         fontWeight: 700
       },
@@ -3353,47 +3374,48 @@
         borderWidth: 1
       },
       lineStyle: {
-        width: 2
+        width: 3
       },
-      symbolSize: 4,
+      symbolSize: 5,
       smooth: false
     },
     bar: {
       itemStyle: {
         barBorderWidth: 0,
-        barBorderColor: '#ccc'
+        barBorderColor: 'transparent'
       }
     },
     pie: {
       itemStyle: {
-        borderWidth: 1,
-        borderColor: '#fff'
+        borderWidth: 2,
+        borderColor: '#ffffff'
       }
     },
     scatter: {
       itemStyle: {
-        borderWidth: 0,
-        borderColor: '#999'
+        borderWidth: 1,
+        borderColor: 'rgba(4, 90, 82, 0.3)'
       }
     },
     legend: {
       textStyle: {
-        color: '#0D3634'
+        color: '#0D3634',
+        fontSize: 12
       }
     },
     tooltip: {
       axisPointer: {
         lineStyle: {
-          color: '#999',
-          width: 1
+          color: '#045A52',
+          width: 2
         },
         crossStyle: {
-          color: '#c23531',
+          color: '#CCA269',
           width: 1
         }
       },
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-      borderColor: '#ddd',
+      backgroundColor: 'rgba(245, 206, 153, 0.95)',
+      borderColor: '#CCA269',
       textStyle: {
         color: '#0D3634'
       }
@@ -3402,23 +3424,23 @@
       axisLine: {
         show: true,
         lineStyle: {
-          color: '#ddd'
+          color: '#ccc'
         }
       },
       axisTick: {
         show: true,
         lineStyle: {
-          color: '#ddd'
+          color: '#ccc'
         }
       },
       axisLabel: {
         show: true,
-        color: '#666'
+        color: '#5D5245'
       },
       splitLine: {
         show: false,
         lineStyle: {
-          color: ['#eee']
+          color: ['#f0f0f0']
         }
       }
     },
@@ -3426,23 +3448,23 @@
       axisLine: {
         show: false,
         lineStyle: {
-          color: '#ddd'
+          color: '#ccc'
         }
       },
       axisTick: {
         show: false,
         lineStyle: {
-          color: '#ddd'
+          color: '#ccc'
         }
       },
       axisLabel: {
         show: true,
-        color: '#666'
+        color: '#5D5245'
       },
       splitLine: {
         show: true,
         lineStyle: {
-          color: ['#f0f0f0']
+          color: ['#e8e8e8']
         }
       }
     }
