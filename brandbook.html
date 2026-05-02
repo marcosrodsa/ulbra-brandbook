@@ -1483,6 +1483,10 @@
     .stats-grid { grid-template-columns: 1fr; }
     .form-cols { grid-template-columns: 1fr; }
     .badge-demo { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr !important; }
+
+    /* Section grids responsive */
+    .section > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
 
     /* Table horizontal scroll */
     .demo-table {
@@ -1517,14 +1521,23 @@
   }
 
   @media (max-width: 480px) {
+    :root {
+      --fs-h1: clamp(24px, 5vw, 28px);
+      --fs-h2: clamp(18px, 4vw, 22px);
+    }
+
     .topbar-inner { flex-direction: column; gap: 8px; align-items: stretch; }
     .topbar-actions { width: 100%; }
     .theme-btn { width: 100%; }
     .nav-pills { width: 100%; flex-wrap: wrap; }
     .topbar-meta { width: 100%; justify-content: flex-start; }
     .brandmark { width: 100px; }
-    section { padding: 32px var(--gutter) !important; }
+    section { padding: 24px var(--gutter) !important; }
     .kpi-grid { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr !important; }
+    .section > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .color-grid { grid-template-columns: 1fr !important; }
+    .palette-block { margin-bottom: 24px; }
   }
 
   /* ============================================================
