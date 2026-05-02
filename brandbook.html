@@ -1675,6 +1675,37 @@
     background: linear-gradient(135deg, rgba(4, 90, 82, 0.05) 0%, rgba(4, 90, 82, 0.02) 100%) !important;
     border: 1px solid rgba(4, 90, 82, 0.15) !important;
   }
+
+  body.light-mode .swatch {
+    border: 1px solid #ddd;
+  }
+
+  body.light-mode .section-head {
+    border-bottom: 1px solid #ddd;
+  }
+
+  body.light-mode .scale-table {
+    border-bottom: 1px solid #ddd;
+  }
+
+  body.light-mode .scale-table th,
+  body.light-mode .scale-table td {
+    border-color: #e0e0e0;
+  }
+
+  body.light-mode .pillar {
+    border: 1px solid #ddd;
+    background: rgba(4, 90, 82, 0.04) !important;
+  }
+
+  body.light-mode .color-grid {
+    gap: 16px;
+  }
+
+  body.light-mode .alert {
+    background: rgba(4, 90, 82, 0.06) !important;
+    border-color: rgba(4, 90, 82, 0.2) !important;
+  }
 </style>
 </head>
 <body>
@@ -3191,6 +3222,130 @@
 
   echarts.registerTheme('ulbra', ulbraTheme);
 
+  const ulbraThemeLight = {
+    color: ['#045A52', '#CCA269', '#91BAA3', '#66563D', '#0D3634', '#F5CE99'],
+    backgroundColor: 'transparent',
+    textStyle: {
+      color: '#0D3634',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+    },
+    title: {
+      textStyle: {
+        color: '#0D3634',
+        fontSize: 18,
+        fontWeight: 700
+      },
+      subtextStyle: {
+        color: '#5D5245',
+        fontSize: 14
+      }
+    },
+    line: {
+      itemStyle: {
+        borderWidth: 1
+      },
+      lineStyle: {
+        width: 2
+      },
+      symbolSize: 4,
+      smooth: false
+    },
+    bar: {
+      itemStyle: {
+        barBorderWidth: 0,
+        barBorderColor: '#ccc'
+      }
+    },
+    pie: {
+      itemStyle: {
+        borderWidth: 1,
+        borderColor: '#fff'
+      }
+    },
+    scatter: {
+      itemStyle: {
+        borderWidth: 0,
+        borderColor: '#999'
+      }
+    },
+    legend: {
+      textStyle: {
+        color: '#0D3634'
+      }
+    },
+    tooltip: {
+      axisPointer: {
+        lineStyle: {
+          color: '#999',
+          width: 1
+        },
+        crossStyle: {
+          color: '#c23531',
+          width: 1
+        }
+      },
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      borderColor: '#ddd',
+      textStyle: {
+        color: '#0D3634'
+      }
+    },
+    categoryAxis: {
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#ddd'
+        }
+      },
+      axisTick: {
+        show: true,
+        lineStyle: {
+          color: '#ddd'
+        }
+      },
+      axisLabel: {
+        show: true,
+        color: '#666'
+      },
+      splitLine: {
+        show: false,
+        lineStyle: {
+          color: ['#eee']
+        }
+      }
+    },
+    valueAxis: {
+      axisLine: {
+        show: false,
+        lineStyle: {
+          color: '#ddd'
+        }
+      },
+      axisTick: {
+        show: false,
+        lineStyle: {
+          color: '#ddd'
+        }
+      },
+      axisLabel: {
+        show: true,
+        color: '#666'
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: ['#f0f0f0']
+        }
+      }
+    }
+  };
+
+  echarts.registerTheme('ulbra-light', ulbraThemeLight);
+
+  function getCurrentChartTheme() {
+    return document.body.classList.contains('light-mode') ? 'ulbra-light' : 'ulbra';
+  }
+
   /**
    * =========================
    * FIXTURE DATA
@@ -3638,7 +3793,7 @@
   const chartInstances = {};
 
   function createLineChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -3758,7 +3913,7 @@
   }
 
   function createBarChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -3816,7 +3971,7 @@
   }
 
   function createLineChartGraduacao(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
     const option = {
       animation: true,
       animationDuration: 1000,
@@ -3839,7 +3994,7 @@
   }
 
   function createLineChartPosgraduation(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
     const option = {
       animation: true,
       animationDuration: 1000,
@@ -3862,7 +4017,7 @@
   }
 
   function createLineChartEAD(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
     const option = {
       animation: true,
       animationDuration: 1000,
@@ -3885,7 +4040,7 @@
   }
 
   function createLineChartMedicina(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
     const option = {
       animation: true,
       animationDuration: 1000,
@@ -3908,7 +4063,7 @@
   }
 
   function createAreaChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -3975,7 +4130,7 @@
   }
 
   function createPieChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -4025,7 +4180,7 @@
   }
 
   function createDonutChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -4367,7 +4522,7 @@
   }
 
   function createHeatmapChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
     const campuses = ['Canoas', 'Manaus', 'Palmas'];
@@ -4446,7 +4601,7 @@
   }
 
   function createScatterChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const scatterData = [
       { value: [15000, 85, 120], name: 'Program A', itemStyle: { color: '#045A52' } },
@@ -4516,7 +4671,7 @@
   }
 
   function createSankeyChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -4575,7 +4730,7 @@
   }
 
   function createRadialChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const areas = [
       { name: 'Engenharia', value: 2400 },
@@ -4749,7 +4904,7 @@
   }
 
   function createVerticalBarChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -4807,7 +4962,7 @@
   }
 
   function createRingsChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -4857,7 +5012,7 @@
   }
 
   function createComposedChart(containerId) {
-    const chart = echarts.init(document.getElementById(containerId), 'ulbra');
+    const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
 
     const option = {
       animation: true,
@@ -4946,6 +5101,16 @@
     document.body.classList.toggle('light-mode');
     const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
     localStorage.setItem('theme', currentTheme);
+
+    // Update all chart themes
+    const chartTheme = currentTheme === 'light' ? 'ulbra-light' : 'ulbra';
+    Object.keys(chartInstances).forEach(containerId => {
+      if (chartInstances[containerId]) {
+        chartInstances[containerId].setOption({}, { replaceMerge: ['series'] });
+        chartInstances[containerId].dispose();
+        delete chartInstances[containerId];
+      }
+    });
   });
 
   /**
