@@ -4832,6 +4832,11 @@
 
   function createHeatmapChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
     const campuses = ['Canoas', 'Manaus', 'Palmas'];
@@ -4850,9 +4855,9 @@
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        textStyle: { color: textColor, fontSize: 12 },
         formatter: function(params) {
           if (params.componentSubType === 'heatmap') {
             return `${months[params.value[0]]} - ${campuses[params.value[1]]}<br/>Inscrições: ${params.value[2]}`;
@@ -4870,20 +4875,20 @@
       xAxis: {
         type: 'category',
         data: months,
-        axisLabel: { color: '#A0A0A0' },
-        axisLine: { lineStyle: { color: '#444' } }
+        axisLabel: { color: mutedColor },
+        axisLine: { lineStyle: { color: lineColor } }
       },
       yAxis: {
         type: 'category',
         data: campuses,
-        axisLabel: { color: '#A0A0A0' },
-        axisLine: { lineStyle: { color: '#444' } }
+        axisLabel: { color: mutedColor },
+        axisLine: { lineStyle: { color: lineColor } }
       },
       visualMap: {
         min: 500,
         max: 1500,
         text: ['Alto', 'Baixo'],
-        textStyle: { color: '#E8E8E8' },
+        textStyle: { color: textColor },
         inRange: {
           color: ['#045A52', '#91BAA3', '#F5CE99', '#CCA269']
         },
@@ -4912,6 +4917,11 @@
 
   function createScatterChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const scatterData = [
       { value: [15000, 85, 120], name: 'Program A', itemStyle: { color: '#045A52' } },
@@ -4927,9 +4937,9 @@
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        textStyle: { color: textColor, fontSize: 12 },
         formatter: function(params) {
           if (params.componentSubType === 'scatter') {
             return `${params.name}<br/>Custo: R$ ${params.value[0].toLocaleString('pt-BR')}<br/>Taxa: ${params.value[1]}%<br/>Cohort: ${params.value[2]}`;
@@ -4946,13 +4956,13 @@
       },
       xAxis: {
         type: 'value',
-        axisLabel: { color: '#A0A0A0', formatter: 'R$ {value}' },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor, formatter: 'R$ {value}' },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       yAxis: {
         type: 'value',
-        axisLabel: { color: '#A0A0A0', formatter: '{value}%' },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor, formatter: '{value}%' },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       series: [
         {
@@ -5043,6 +5053,12 @@
 
   function createRadialChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const areas = [
       { name: 'Engenharia', value: 2400 },
@@ -5061,23 +5077,23 @@
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        textStyle: { color: textColor, fontSize: 12 },
         formatter: '{b}: {c}'
       },
       angleAxis: {
         type: 'category',
         data: areas.map(a => a.name),
-        axisLabel: { color: '#A0A0A0' },
-        axisLine: { lineStyle: { color: '#444' } },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor },
+        axisLine: { lineStyle: { color: lineColor } },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       radiusAxis: {
         type: 'value',
-        axisLabel: { color: '#A0A0A0' },
-        axisLine: { lineStyle: { color: '#444' } },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor },
+        axisLine: { lineStyle: { color: lineColor } },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       polar: { center: ['50%', '50%'] },
       series: [
