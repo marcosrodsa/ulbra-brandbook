@@ -4215,6 +4215,12 @@
 
   function createBarChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -4223,9 +4229,9 @@
       tooltip: {
         trigger: 'axis',
         axisPointer: { type: 'shadow' },
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       legend: { show: false },
       grid: {
@@ -4237,14 +4243,14 @@
       },
       xAxis: {
         type: 'value',
-        axisLabel: { color: '#A0A0A0' },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       yAxis: {
         type: 'category',
         data: ['Canoas RS', 'Manaus AM', 'Palmas TO', 'Virtual'],
-        axisLabel: { color: '#A0A0A0' },
-        axisLine: { lineStyle: { color: '#444' } }
+        axisLabel: { color: mutedColor },
+        axisLine: { lineStyle: { color: lineColor } }
       },
       series: [
         {
