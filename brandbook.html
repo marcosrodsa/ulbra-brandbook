@@ -5029,6 +5029,9 @@
 
   function createSankeyChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -5036,9 +5039,9 @@
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        textStyle: { color: textColor, fontSize: 12 },
         formatter: function(params) {
           if (params.dataType === 'node') {
             return `${params.name}<br/>Volume: ${params.value}`;
@@ -5335,6 +5338,9 @@
 
   function createRingsChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -5342,14 +5348,14 @@
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 },
+        textStyle: { color: textColor, fontSize: 12 },
         formatter: '{b}: {c}%'
       },
       legend: {
         data: ['Graduação', 'Pós-Graduação', 'EAD', 'Especialização'],
-        textStyle: { color: '#E8E8E8' },
+        textStyle: { color: textColor },
         orient: 'vertical',
         right: 10,
         top: 'center'
@@ -5386,6 +5392,12 @@
 
   function createComposedChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -5394,13 +5406,13 @@
       tooltip: {
         trigger: 'axis',
         axisPointer: { type: 'cross' },
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       legend: {
         data: ['Inscrições', 'Taxa de Aprovação'],
-        textStyle: { color: '#E8E8E8' },
+        textStyle: { color: textColor },
         bottom: 0
       },
       grid: {
@@ -5413,20 +5425,20 @@
       xAxis: {
         type: 'category',
         data: ['2020', '2021', '2022', '2023', '2024', '2025', '2026'],
-        axisLabel: { color: '#A0A0A0' },
-        axisLine: { lineStyle: { color: '#444' } }
+        axisLabel: { color: mutedColor },
+        axisLine: { lineStyle: { color: lineColor } }
       },
       yAxis: [
         {
           type: 'value',
-          axisLabel: { color: '#A0A0A0' },
-          splitLine: { lineStyle: { color: '#333' } },
+          axisLabel: { color: mutedColor },
+          splitLine: { lineStyle: { color: gridColor } },
           name: 'Inscrições'
         },
         {
           type: 'value',
-          axisLabel: { color: '#A0A0A0' },
-          splitLine: { lineStyle: { color: '#333' } },
+          axisLabel: { color: mutedColor },
+          splitLine: { lineStyle: { color: gridColor } },
           name: 'Taxa %',
           position: 'right'
         }
