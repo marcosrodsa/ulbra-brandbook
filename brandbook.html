@@ -1192,7 +1192,7 @@
 
   .kpi-grid-card .value {
     font: 700 48px var(--font-sans);
-    color: #045A52;
+    color: var(--fg);
     margin: 0 0 12px 0;
     line-height: 1;
   }
@@ -1400,6 +1400,10 @@
     letter-spacing: 0;
     text-transform: none;
     transition: all var(--dur-fast) var(--ease-standard);
+  }
+  .field input::placeholder, .field select::placeholder {
+    color: var(--fg-muted);
+    opacity: 1;
   }
   .field input:focus, .field select:focus {
     outline: none;
