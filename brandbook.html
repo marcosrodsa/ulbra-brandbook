@@ -1737,6 +1737,18 @@
     color: #0D3634 !important;
   }
 
+  /* Force dark text in light mode for all chart SVG elements */
+  body.light-mode svg text,
+  body.light-mode svg tspan {
+    fill: #0D3634 !important;
+  }
+
+  body.light-mode [id*="chart-"] text,
+  body.light-mode [id*="chart-"] tspan {
+    fill: #0D3634 !important;
+    color: #0D3634 !important;
+  }
+
   body.light-mode .swatch {
     border: 1px solid #ddd;
   }
