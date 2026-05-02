@@ -1739,14 +1739,30 @@
 
   /* Force dark text in light mode for all chart SVG elements */
   body.light-mode svg text,
-  body.light-mode svg tspan {
+  body.light-mode svg tspan,
+  body.light-mode text,
+  body.light-mode tspan {
     fill: #0D3634 !important;
+    color: #0D3634 !important;
+    stroke: none !important;
+    font-size: inherit !important;
   }
 
   body.light-mode [id*="chart-"] text,
   body.light-mode [id*="chart-"] tspan {
     fill: #0D3634 !important;
     color: #0D3634 !important;
+    stroke: none !important;
+  }
+
+  body.light-mode .echarts-for-react text,
+  body.light-mode .echarts-for-react tspan {
+    fill: #0D3634 !important;
+  }
+
+  /* Fallback: override all text with filter if needed */
+  body.light-mode [id*="chart-"] {
+    filter: brightness(0.95) !important;
   }
 
   body.light-mode .swatch {
@@ -4005,20 +4021,21 @@
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    setTimeout(() => {
+    const forceTextColor = () => {
       const textElements = container.querySelectorAll('text, tspan');
       textElements.forEach(el => {
-        const currentColor = el.getAttribute('fill') || el.style.fill;
-        // If text color is light or unset, make it dark
-        if (!currentColor || currentColor === 'white' || currentColor === '#fff' || currentColor === '#ffffff' ||
-            currentColor === '#E8E8E8' || currentColor === '#e8e8e8' || currentColor === '#A0A0A0' ||
-            currentColor === '#a0a0a0' || currentColor === 'rgb(232, 232, 232)') {
-          el.setAttribute('fill', '#0D3634');
-          el.style.fill = '#0D3634';
-          el.style.color = '#0D3634';
-        }
+        // Force dark color on ALL text in light mode
+        el.setAttribute('fill', '#0D3634');
+        el.style.fill = '#0D3634 !important';
+        el.style.color = '#0D3634 !important';
       });
-    }, 100);
+    };
+
+    // Try multiple times with increasing delays
+    forceTextColor();
+    setTimeout(forceTextColor, 50);
+    setTimeout(forceTextColor, 150);
+    setTimeout(forceTextColor, 300);
   }
 
   /**
