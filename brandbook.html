@@ -1672,19 +1672,31 @@
   }
 
   body.light-mode .chart-card {
-    background: linear-gradient(135deg, rgba(4, 90, 82, 0.08) 0%, rgba(204, 162, 105, 0.04) 100%) !important;
-    border: 1px solid rgba(4, 90, 82, 0.2) !important;
+    background: linear-gradient(135deg, #fafaf8 0%, #f5f3f0 100%) !important;
+    border: 1px solid #e8dfd0 !important;
+    box-shadow: 0 2px 8px rgba(4, 90, 82, 0.08);
+  }
+
+  body.light-mode .chart-card h3 {
+    color: #045A52 !important;
+    font-weight: 700;
+  }
+
+  body.light-mode .chart-card p {
+    color: #5D5245 !important;
   }
 
   /* KPI Stats cards in light mode */
   body.light-mode .stats-grid > div {
-    background: linear-gradient(135deg, rgba(4, 90, 82, 0.12) 0%, rgba(145, 186, 163, 0.08) 100%) !important;
-    border: 1px solid rgba(4, 90, 82, 0.15) !important;
-    color: #0D3634;
+    background: linear-gradient(135deg, #E8DFD0 0%, #D4CCC1 100%) !important;
+    border: none !important;
+    color: #0D3634 !important;
+    box-shadow: 0 2px 12px rgba(4, 90, 82, 0.12);
   }
 
   body.light-mode .stats-grid > div strong {
-    color: #045A52;
+    color: #FFFFFF !important;
+    font-weight: 700;
   }
 
   body.light-mode .stats-grid > div .label {
@@ -1693,8 +1705,13 @@
 
   /* Chart containers background */
   body.light-mode [id*="chart-"] {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(245, 206, 153, 0.05) 100%) !important;
+    background: linear-gradient(135deg, #f5f3f0 0%, #fafaf8 100%) !important;
     border-radius: 8px;
+  }
+
+  body.light-mode .echarts-tooltip {
+    background: rgba(245, 206, 153, 0.98) !important;
+    color: #0D3634 !important;
   }
 
   body.light-mode .swatch {
@@ -3374,17 +3391,19 @@
     backgroundColor: 'transparent',
     textStyle: {
       color: '#0D3634',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      fontWeight: 500
     },
     title: {
       textStyle: {
         color: '#045A52',
         fontSize: 18,
-        fontWeight: 700
+        fontWeight: 800
       },
       subtextStyle: {
-        color: '#5D5245',
-        fontSize: 14
+        color: '#3D3A30',
+        fontSize: 14,
+        fontWeight: 500
       }
     },
     line: {
@@ -3418,7 +3437,8 @@
     legend: {
       textStyle: {
         color: '#0D3634',
-        fontSize: 12
+        fontSize: 12,
+        fontWeight: 600
       }
     },
     tooltip: {
