@@ -1737,35 +1737,48 @@
     color: #0D3634 !important;
   }
 
-  /* Force dark text in light mode for all chart SVG elements */
-  body.light-mode svg text,
-  body.light-mode svg tspan,
-  body.light-mode text,
+  /* AGGRESSIVE: Force dark text everywhere in light mode */
+  body.light-mode * {
+    --echarts-text-color: #0D3634 !important;
+  }
+
+  body.light-mode text {
+    fill: #0D3634 !important;
+    color: #0D3634 !important;
+    stroke: none !important;
+  }
+
   body.light-mode tspan {
     fill: #0D3634 !important;
     color: #0D3634 !important;
-    stroke: none !important;
-    font-size: inherit !important;
   }
 
-  body.light-mode [id*="chart-"] text,
+  body.light-mode g {
+    color: #0D3634 !important;
+  }
+
+  body.light-mode svg text {
+    fill: #0D3634 !important;
+  }
+
+  body.light-mode svg tspan {
+    fill: #0D3634 !important;
+  }
+
+  body.light-mode [id*="chart-"] text {
+    fill: #0D3634 !important;
+    color: #0D3634 !important;
+  }
+
   body.light-mode [id*="chart-"] tspan {
     fill: #0D3634 !important;
     color: #0D3634 !important;
-    stroke: none !important;
   }
 
-  body.light-mode .echarts-for-react text,
-  body.light-mode .echarts-for-react tspan {
-    fill: #0D3634 !important;
-  }
-
-  /* Fallback: override all text with filter if needed */
   body.light-mode [id*="chart-"] {
     filter: brightness(0.95) !important;
   }
 
-  /* Additional fallback for light mode text rendering */
   body.light-mode .echarts-tooltip-text {
     color: #0D3634 !important;
     fill: #0D3634 !important;
@@ -4032,29 +4045,38 @@
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    const forceTextColor = () => {
-      // Target all text elements including nested ones
-      const textElements = container.querySelectorAll('text, tspan, g, svg');
-      textElements.forEach(el => {
-        if (el.tagName === 'text' || el.tagName === 'tspan') {
-          el.setAttribute('fill', '#0D3634');
-          el.style.fill = '#0D3634 !important';
-          el.style.color = '#0D3634 !important';
-        }
-        // Also update style attribute to include color
-        const style = el.getAttribute('style') || '';
-        if (!style.includes('fill: #0D3634')) {
-          el.setAttribute('style', style + '; fill: #0D3634 !important; color: #0D3634 !important;');
+    const forceTextColor = (el = container) => {
+      // Aggressive color forcing for all text
+      const textElements = el.querySelectorAll('text, tspan, [fill], [color]');
+      textElements.forEach(node => {
+        if (node.tagName === 'text' || node.tagName === 'tspan' || node.tagName === 'g') {
+          node.setAttribute('fill', '#0D3634');
+          node.style.fill = '#0D3634 !important';
+          node.style.color = '#0D3634 !important';
+          node.setAttribute('style', (node.getAttribute('style') || '') + '; fill: #0D3634 !important; color: #0D3634 !important;');
         }
       });
     };
 
-    // Try multiple times to catch async-rendered elements
+    // Initial force
     forceTextColor();
-    setTimeout(forceTextColor, 50);
-    setTimeout(forceTextColor, 150);
-    setTimeout(forceTextColor, 300);
-    setTimeout(forceTextColor, 500);
+    setTimeout(() => forceTextColor(), 50);
+    setTimeout(() => forceTextColor(), 150);
+    setTimeout(() => forceTextColor(), 300);
+    setTimeout(() => forceTextColor(), 500);
+
+    // Use MutationObserver to catch dynamically added elements
+    const observer = new MutationObserver(() => {
+      forceTextColor();
+    });
+
+    observer.observe(container, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['fill', 'color', 'style'],
+      characterData: false
+    });
   }
 
   /**
