@@ -4722,6 +4722,26 @@
         type: 'gauge',
         complexity: 'intermediate',
         category: 'academic'
+      },
+      {
+        title: 'Inscrições Mensais',
+        chartType: 'Vertical Bar Chart',
+        description: 'Volume de inscrições por mês ao longo do ano, destacando períodos de alta demanda.',
+        containerId: 'chart-vertical-bar',
+        factory: createVerticalBarChart,
+        type: 'bar',
+        complexity: 'basic',
+        category: 'students'
+      },
+      {
+        title: 'Distribuição por Modalidade',
+        chartType: 'Pie Chart',
+        description: 'Proporção de alunos por modalidade: Presencial, Híbrida e EAD.',
+        containerId: 'chart-pie-modality',
+        factory: createPieChart,
+        type: 'pie',
+        complexity: 'basic',
+        category: 'academic'
       }
     ];
 
