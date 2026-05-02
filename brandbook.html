@@ -5270,6 +5270,12 @@
 
   function createVerticalBarChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -5278,9 +5284,9 @@
       tooltip: {
         trigger: 'axis',
         axisPointer: { type: 'shadow' },
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       legend: { show: false },
       grid: {
@@ -5293,13 +5299,13 @@
       xAxis: {
         type: 'category',
         data: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'],
-        axisLabel: { color: '#A0A0A0' },
-        axisLine: { lineStyle: { color: '#444' } }
+        axisLabel: { color: mutedColor },
+        axisLine: { lineStyle: { color: lineColor } }
       },
       yAxis: {
         type: 'value',
-        axisLabel: { color: '#A0A0A0' },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       series: [
         {
@@ -5615,6 +5621,63 @@
         margin: 0 0 20px 0;
       `;
 
+      chartCard.appendChild(titleSection);
+      chartCard.appendChild(description);
+
+      // Add stat card for Inscrições Mensais
+      if (chartConfig.title === 'Inscrições Mensais') {
+        const statCard = document.createElement('div');
+        statCard.style.cssText = `
+          background: rgba(4, 90, 82, 0.15);
+          border: 1px solid rgba(245, 206, 153, 0.2);
+          border-radius: 12px;
+          padding: 24px;
+          margin-bottom: 24px;
+          display: flex;
+          align-items: flex-start;
+          gap: 24px;
+        `;
+
+        const statContent = document.createElement('div');
+        statContent.style.cssText = `
+          flex: 1;
+        `;
+
+        const statLabel = document.createElement('p');
+        statLabel.textContent = 'Volume Total de Inscrições';
+        statLabel.style.cssText = `
+          font: 400 14px var(--font-sans);
+          color: #A0A0A0;
+          margin: 0 0 8px 0;
+        `;
+
+        const statNumber = document.createElement('div');
+        statNumber.style.cssText = `
+          font: 700 48px var(--font-sans);
+          color: #F5CE99;
+          margin: 0 0 12px 0;
+          line-height: 1;
+        `;
+        statNumber.textContent = '3,980';
+
+        const statContext = document.createElement('p');
+        statContext.textContent = '↑ 18.2% em relação ao período anterior';
+        statContext.style.cssText = `
+          font: 400 13px var(--font-sans);
+          color: #5fa583;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        `;
+
+        statContent.appendChild(statLabel);
+        statContent.appendChild(statNumber);
+        statContent.appendChild(statContext);
+        statCard.appendChild(statContent);
+        chartCard.appendChild(statCard);
+      }
+
       const chartContainer = document.createElement('div');
       chartContainer.id = chartConfig.containerId;
       chartContainer.style.cssText = `
@@ -5625,8 +5688,6 @@
         padding: 12px;
       `;
 
-      chartCard.appendChild(titleSection);
-      chartCard.appendChild(description);
       chartCard.appendChild(chartContainer);
 
       sectionCommon.appendChild(chartCard);
