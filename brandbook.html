@@ -4088,6 +4088,12 @@
 
   function createLineChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -4095,13 +4101,13 @@
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       legend: {
         data: ['Graduação', 'Pós-Graduação', 'EAD', 'Medicina'],
-        textStyle: { color: '#E8E8E8' },
+        textStyle: { color: textColor },
         bottom: 0
       },
       grid: {
@@ -4115,14 +4121,14 @@
         type: 'category',
         data: ['2024.1', '2024.2', '2025.1'],
         boundaryGap: false,
-        axisLine: { lineStyle: { color: '#444' } },
-        axisLabel: { color: '#A0A0A0' }
+        axisLine: { lineStyle: { color: lineColor } },
+        axisLabel: { color: mutedColor }
       },
       yAxis: {
         type: 'value',
         axisLine: { show: false },
-        axisLabel: { color: '#A0A0A0' },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       series: [
         {
@@ -4268,19 +4274,25 @@
 
   function createLineChartGraduacao(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
     const option = {
       animation: true,
       animationDuration: 1000,
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
-      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
-      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: lineColor } }, axisLabel: { color: mutedColor } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: mutedColor, formatter: '{value}' }, splitLine: { lineStyle: { color: gridColor } } },
       series: [{ name: 'Graduação', data: [4200, 4350, 4500], type: 'line', smooth: true, lineStyle: { width: 3, color: '#045A52' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(4, 90, 82, 0.5)' }, { offset: 1, color: 'rgba(4, 90, 82, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
@@ -4292,19 +4304,25 @@
 
   function createLineChartPosgraduation(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
     const option = {
       animation: true,
       animationDuration: 1000,
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
-      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
-      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: lineColor } }, axisLabel: { color: mutedColor } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: mutedColor, formatter: '{value}' }, splitLine: { lineStyle: { color: gridColor } } },
       series: [{ name: 'Pós-Graduação', data: [1850, 1920, 2050], type: 'line', smooth: true, lineStyle: { width: 3, color: '#F5CE99' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(245, 206, 153, 0.5)' }, { offset: 1, color: 'rgba(245, 206, 153, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
@@ -4316,19 +4334,25 @@
 
   function createLineChartEAD(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
     const option = {
       animation: true,
       animationDuration: 1000,
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
-      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
-      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: lineColor } }, axisLabel: { color: mutedColor } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: mutedColor, formatter: '{value}' }, splitLine: { lineStyle: { color: gridColor } } },
       series: [{ name: 'EAD', data: [3400, 3650, 3900], type: 'line', smooth: true, lineStyle: { width: 3, color: '#CCA269' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(204, 162, 105, 0.5)' }, { offset: 1, color: 'rgba(204, 162, 105, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
@@ -4340,19 +4364,25 @@
 
   function createLineChartMedicina(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
     const option = {
       animation: true,
       animationDuration: 1000,
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: false },
-      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: '#444' } }, axisLabel: { color: '#A0A0A0' } },
-      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: '#A0A0A0', formatter: '{value}' }, splitLine: { lineStyle: { color: '#333' } } },
+      xAxis: { type: 'category', data: ['2024.1', '2024.2', '2025.1'], boundaryGap: false, axisLine: { lineStyle: { color: lineColor } }, axisLabel: { color: mutedColor } },
+      yAxis: { type: 'value', axisLine: { show: false }, axisLabel: { color: mutedColor, formatter: '{value}' }, splitLine: { lineStyle: { color: gridColor } } },
       series: [{ name: 'Medicina', data: [450, 480, 520], type: 'line', smooth: true, lineStyle: { width: 3, color: '#91BAA3' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(145, 186, 163, 0.5)' }, { offset: 1, color: 'rgba(145, 186, 163, 0.05)' }] } }, symbolSize: 5 }]
     };
     chart.setOption(option);
@@ -4364,6 +4394,12 @@
 
   function createAreaChart(containerId) {
     const chart = echarts.init(document.getElementById(containerId), getCurrentChartTheme());
+    const isLight = document.body.classList.contains('light-mode');
+    const textColor = isLight ? '#045A52' : '#E8E8E8';
+    const mutedColor = isLight ? '#5D5245' : '#A0A0A0';
+    const lineColor = isLight ? '#d4cdbe' : '#444';
+    const gridColor = isLight ? '#e0e0e0' : '#333';
+    const bgColor = isLight ? 'rgba(245, 206, 153, 0.98)' : 'rgba(20, 20, 20, 0.95)';
 
     const option = {
       animation: true,
@@ -4371,13 +4407,13 @@
       animationEasing: 'cubicOut',
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(20, 20, 20, 0.95)',
+        backgroundColor: bgColor,
         borderColor: '#045A52',
-        textStyle: { color: '#E8E8E8', fontSize: 12 }
+        textStyle: { color: textColor, fontSize: 12 }
       },
       legend: {
         data: ['Total de Alunos'],
-        textStyle: { color: '#E8E8E8' },
+        textStyle: { color: textColor },
         bottom: 0
       },
       grid: {
@@ -4391,14 +4427,14 @@
         type: 'category',
         data: ['2020', '2021', '2022', '2023', '2024', '2025', '2026'],
         boundaryGap: false,
-        axisLine: { lineStyle: { color: '#444' } },
-        axisLabel: { color: '#A0A0A0' }
+        axisLine: { lineStyle: { color: lineColor } },
+        axisLabel: { color: mutedColor }
       },
       yAxis: {
         type: 'value',
         axisLine: { show: false },
-        axisLabel: { color: '#A0A0A0', formatter: '{value}' },
-        splitLine: { lineStyle: { color: '#333' } }
+        axisLabel: { color: mutedColor, formatter: '{value}' },
+        splitLine: { lineStyle: { color: gridColor } }
       },
       series: [
         {
